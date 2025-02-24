@@ -1,13 +1,4 @@
-import base64
-
-import logging
-
 import requests
-
-
-# 设置日志记录
-logging.basicConfig(filename='generate_md.log', level=logging.INFO, 
-                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def recognize_image(base64_image):
@@ -33,53 +24,3 @@ def recognize_image(base64_image):
 
     response = requests.post(url, headers=headers, json=data, proxies=proxies)
     return response.json()
-# generate_md("interview_questions.txt")
-
-def test(question,image_path):
-    logging.info("正在调用gpt")
-    # 将图片路径编码为base64字符串
-    with open(image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-        print(encoded_string)
-    # gpt_answer = generate_role_text(question, encoded_string)
-    gpt_answer = recognize_image(encoded_string)
-    print("gpt: %s", gpt_answer)
-    logging.info("gpt: %s", gpt_answer)
-
-
-def convert(images_path, images_name, images_num, output_file):
-    logging.info("正在调用gpt")
-    # 打开文本文件用于保存所有答案
-    with open(output_file, 'w', encoding='utf-8') as file:
-        # 将图片路径编码为base64字符串
-        for i in range(images_num):
-            image_path = f"{images_path}{images_name}_{i}.png"  # 拼接图片路径
-            try:
-                with open(image_path, "rb") as image_file:
-                    encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-
-                # 调用 recognize_image 函数获取 gpt_answer
-                gpt_answer = recognize_image(encoded_string)
-
-                # 将 GPT 的回答写入文本文件
-                file.write(f"{gpt_answer}\n")
-
-                # 记录日志
-                logging.info(f"Image {i + 1} GPT Answer: {gpt_answer}")
-            except Exception as e:
-                logging.error(f"Error processing image {i + 1}: {e}")
-                continue
-
-    logging.info("所有答案已保存到文本文件：%s", output_file)
-
-
-# 使用示例
-convert("./textbook/", "page", 390, "textbook.txt")
-
-
-
-
-# test("请大致描述一下图片内容","test.png")
-
-
-
