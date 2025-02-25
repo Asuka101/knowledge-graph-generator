@@ -1,7 +1,7 @@
 import base64
 import logging
 
-from ocr import recognize_image
+from ocr import recognize_image,cookies
 
 # 设置日志记录
 logging.basicConfig(filename='generate_md.log', level=logging.INFO, 
@@ -23,7 +23,7 @@ def convert(images_path, images_name, images_num, output_file):
                     encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
 
                 # 调用 recognize_image 函数获取 gpt_answer
-                gpt_answer = recognize_image(encoded_string)
+                gpt_answer = recognize_image(encoded_string,i%len(cookies))
 
                 # 将 GPT 的回答写入文本文件
                 file.write(f"{gpt_answer}\n")
@@ -38,7 +38,7 @@ def convert(images_path, images_name, images_num, output_file):
 
 
 # 使用示例
-convert("./textbook/", "page", 390, "textbook.txt")
+# convert("./textbook/", "page", 390, "textbook.txt")
 
 
 def test(question,image_path):
@@ -46,13 +46,13 @@ def test(question,image_path):
     # 将图片路径编码为base64字符串
     with open(image_path, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-        print(encoded_string)
+        # print(encoded_string)
     # gpt_answer = generate_role_text(question, encoded_string)
     gpt_answer = recognize_image(encoded_string)
     print("gpt: %s", gpt_answer)
     logging.info("gpt: %s", gpt_answer)
 
-# test("请大致描述一下图片内容","test.png")
+test("请大致描述一下图片内容","test_2.png")
 
 
 
