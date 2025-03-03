@@ -1,0 +1,43 @@
+void Dijkstra(adjmatrix GA, int dist[], 
+              edgenode* path[], int i, int n)
+    //利用狄克斯德拉算法求图GA中从顶点i到其余每个顶点间的
+    //最短距离和最短路径，它们分别被存于数组dist和path中
+{
+    int j,k,w,m;
+    //定义作为集合使用的动态数组s
+    bool*s=new bool[n];
+    //分别给s,dist和path数组赋初值
+    for(j=0; j<n; j++) {
+        if(j==i) s[j]=true; else s[j]=false;
+        dist[j]=GA[i][j];
+        if(dist[j]<MaxValue && j!=i) {
+            edgenode*p1=new edgenode;
+            edgenode*p2=new edgenode;
+            p1->adjvex=i; p2->adjvex=j; p2->next=NULL;
+            p1->next=p2; path[j]=p1;
+        }
+        else
+            path[j]=NULL;
+    }
+    //共进行n-2次循环，每次求出从源点i到终点m的最短路径及长度
+    for(k=1; k<=n-2; k++)
+    {
+        //求出第k个终点m
+        w=MaxValue; m=i;
+        for(j=0; j<n; j++)
+            if(s[j]==false && dist[j]<w) {
+                w=dist[j]; m=j;
+            }
+        //若条件成立，则把顶点m并入集合S中，否则退出循环，因为剩余
+        //的顶点，其最短路径长度均为MaxValue，无需再计算下去
+        if(m!=i) s[m]=true;
+        else break;
+        //对s元素为false的对应dist和path中的元素作必要修改
+        for(j=0; j<n; j++)
+            if(s[j]==false && dist[m]+GA[m][j]<dist[j]) {
+                dist[j]=dist[m]+GA[m][j];
+                PATH(path, m, j);  //调用此函数，由到顶点m的最
+                                    //短路径和顶点j构成到顶点j的目前最短路径
+            }
+    }
+}

@@ -1,0 +1,40 @@
+for(i=0; i<n; i++) {
+    cin>>x;
+    if(x%2) EnQueue(q1,x);
+    else EnQueue(q2,x);
+}
+
+*【习题 4-3】改写算法。
+
+根据顺序栈的运算和表达式转换与求值的算法，做如下变化。
+1. 给出下面顺序栈模板类定义中每个成员函数的类外定义。
+
+template<class ElemType>
+class Stack {
+ElemType *stack;                      //存栈元素
+int top;                              //存栈顶元素的下标位置
+int MaxSize;                          //存 stack 数组长度, 即所能存储栈的最大长度
+public:
+    Stack();                          //构造函数
+    Stack(Stack& s);                  //复制构造函数
+    Stack& operator=(Stack& s);       //赋值重载函数
+    void Push(ElemType item);         //元素进栈函数
+    ElemType Pop();                   //元素出栈函数
+    ElemType Peek();                  //读取栈顶元素函数
+    bool EmptyStack();                //判栈空函数
+    ~Stack();                         //析构函数
+};
+
+2. 给出后缀表达式求值的函数定义，其中使用的操作数栈由引用参数提供，该函数原型如下。
+double Compute(Stack<double>& S, char* str);
+
+3. 给出把中缀表达式转换为后缀表达式的函数定义，其中使用的运算符栈由引用参数提供，该函数原型如下。
+void Change(Stack<char>& R, char* s1, char* s2);
+
+4. 建立一个工程文件，其中包括 3 个文件。第 1 个为含有主函数的主程序文件，第 2 个为含有表达式转换与求值函数的次程序文件，第 3 个为含有模板栈类定义与实现的次程序文件。
+【习题 4-4】算法设计。
+1. 采用递归方法求$1 \sim n$之间的所有整数平方的和。
+2. 采用递归方法把任一十进制正整数转换为$S$进制$(2 \leqslant S \leqslant 9)$数输出。
+3. 采用辗转相除和递归的方法求出两个正整数的最大公约数。
+4. 采用递归方法求两个正整数的最小公倍数。
+5. 裴波那契（Fibonacci）数列的定义为：它的第 1 项和第 2 项分别为 0 和 1，以后各项为其前两项之和。若裴波那契数列中的第$n$项用$\operatorname{Fib}(n)$表示，则计算公式为：

@@ -1,0 +1,44 @@
+5. 检查链栈是否为空
+
+bool EmptyStack(SNode* HS)
+                    //HS为值参或引用形参均可
+{
+    return HS==NULL;
+}
+
+6. 清除链栈为空
+
+void ClearStack(SNode*& HS)
+{
+    SNode *cp, *np;
+    cp=HS;           //给cp指针赋初值,使之指向栈顶结点
+    while(cp!=NULL)
+    {
+        //从栈顶到栈底依次删除每个结点
+        np=cp->next;
+        delete cp;
+        cp=np;
+    }
+    HS=NULL;         //置链栈为空
+}
+
+4.4 栈的简单应用举例
+
+【例4-1】从键盘上输入一批整数，然后按照相反的次序打印出来。
+分析：根据题意可知，后输入的整数将先被打印出来，这正好符合栈的后进先出的特点。所以此题很容易用栈来解决。若采用链栈，其参考程序如下。
+
+#include<iostream.h>
+#include<stdlib.h>
+typedef int ElemType;   //定义元素类型为整型
+struct SNode {
+    ElemType data;
+    SNode* next;
+};
+#include"链栈运算.cpp"  //保存着6种链栈运算的算法
+void main()
+{
+    SNode* a;
+    InitStack(a);
+    int x;
+    cin>>x;
+    while(x!=-1) {      //假定用-1作为终止键盘输入的标志

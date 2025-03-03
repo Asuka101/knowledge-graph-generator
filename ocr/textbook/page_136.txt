@@ -1,0 +1,47 @@
+//若两个矩阵均为零矩阵，则无须计算返回M
+if((M1.t==0) && (M2.t==0)) return M;
+//进行两矩阵相加产生和矩阵
+int k=0; //用k统计结果矩阵中结点的个数
+for(int i=1; i<=M1.m; i++) //循环的次数等于矩阵的行数
+{
+    TripleNode *p1, *p2, *p;
+    p1=M1.vector[i]; //p1指向M1矩阵中第i行单链表的待相加的结点
+    p2=M2.vector[i]; //p2指向M2矩阵中第i行单链表的待相加的结点
+    p=M.vector[i]; //p指向M矩阵中第i行单链表的表尾结点
+    //当p1和p2均不为空时进行比较和加法运算，把结点复制到结果矩阵中
+    while((p1!=NULL)&&(p2!=NULL)) {
+        TripleNode* newptr=new TripleNode;
+        if(p1->col<p2->col) { //赋值新结点，p1指针后移
+            *newptr=*p1; p1=p1->next;
+        }
+        else if(p1->col>p2->col) { //赋值新结点，p2指针后移
+            *newptr=*p2; p2=p2->next;
+        }
+        else //对具有相同列号的结点进行处理
+            if(p1->val+p2->val==0) { //不建立新结点和链接
+                p1=p1->next; p2=p2->next; //p1和p2指针后移
+                continue;
+            }
+            else { //新结点值为两结点值之和，p1和p2指针后移
+                *newptr=*p1;
+                newptr->val+=p2->val;
+                p1=p1->next; p2=p2->next;
+            }
+        newptr->next=NULL; //将新结点的指针域置空
+        //把新结点链接到结果矩阵的第i行单链表的表尾
+        if(p==NULL) M.vector[i]=newptr;
+        else p->next=newptr;
+        p=newptr; //修改p指针，使之指向新的表尾
+        k++; //结果矩阵中的结点数加1
+    } //end of while
+    //若p1不为空，则把剩余结点复制链接到结果矩阵中
+    while(p1!=NULL) {
+        TripleNode* newptr=new TripleNode;
+        *newptr=*p1;
+        newptr->next=NULL;
+        if(p==NULL) M.vector[i]=newptr;
+        else p->next=newptr;
+        p=newptr;
+        p1=p1->next;
+    }
+}

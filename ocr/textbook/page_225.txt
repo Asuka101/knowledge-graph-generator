@@ -1,0 +1,51 @@
+data
+left
+right
+
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|----|----|----|----|
+|   | a | b | c | d | e | f | g | h | i | j  |    |    |
+| 1 | 2 | 0 | 4 | 0 | 6 | 0 | 8 | 0 | 0  | 0  | 12 | 0  |
+| 11| 5 | 3 | 0 | 0 | 7 | 0 | 9 | 10| 0  | 0  | 0  | 0  |
+
+【习题 5-2】算法分析题。
+
+1. 下面函数的功能是返回二叉树 BT 中值为 X 的结点所在的层数，请在划有横线的地方填写合适内容。
+
+int NodeLevel(BTreeNode*BT, ElemType X)
+{
+    if(BT==NULL) return 0; //空树的层数为 0
+    else if(BT->data==X) return 1; //根结点的层数为 1
+    else {
+        int c1=NodeLevel(BT->left,X);
+        if(c1>=1) ______(1)______;
+        int c2=______(2)______;
+        if ______(3)______;
+        //若树中不存在 X 结点则返回 0
+        return 0;
+    }
+}
+
+2. 指出下面函数的功能。
+
+BTreeNode* BTreeSwapX(BTreeNode* BT)
+{
+    if(BT==NULL) return NULL;
+    else {
+        BTreeNode* pt=new BTreeNode;
+        pt->data=BT->data;
+        pt->right=BTreeSwapX(BT->left);
+        pt->left=BTreeSwapX(BT->right);
+        return pt;
+    }
+}
+
+3. 已知二叉树中的结点类型 STreeNode 定义如下。
+
+struct STreeNode {datatype data; STreeNode*lchild,*rchild,*parent;};
+
+其中，data 为结点值域，lchild 和 rchild 分别为指向左、右孩子结点的指针域，parent 为指向父亲结点的指针域。根据下面函数的定义指出函数的功能。算法中参数 ST 指向一棵二叉树，X 保存一个结点的值。
+
+STreeNode*PN(STreeNode*ST, DataType& X)
+{
+    if(ST==NULL) return NULL;

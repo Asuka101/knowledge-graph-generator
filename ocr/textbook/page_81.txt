@@ -1,0 +1,46 @@
+(3) 按商品代号删除指定记录。
+
+(4) 按商品代号对库存表中的记录排序。
+
+在顺序存储方式下对线性表的各种操作函数假定包含在 list.cpp 程序文件中, 则实现库存表管理的完整程序如下。
+
+//程序 2-1.cpp
+#include<iostream.h>
+#include<stdlib.h>
+#include<iomanip.h>
+#include<string.h>
+#include<fstream.h>
+
+struct goods //商品记录类型
+{
+    char code[5];          //商品代号
+    char name[15];         //商品名称
+    int minq;              //最低库存量
+    int curq;              //当前库存量
+};
+
+typedef goods ElemType;
+
+struct List {
+    ElemType *list;        //存线性表元素的动态存储空间的指针
+    int size;              //存线性表长度
+    int MaxSize;           //规定 list 数组的长度
+};
+
+bool operator >=(const ElemType& e1, const ElemType& e2)
+{
+    return (strcmp(e1.code,e2.code)==0);
+}
+
+bool operator <(const ElemType& e1, const ElemType& e2)
+{
+    return (strcmp(e1.code,e2.code)==-1);
+}
+
+ostream& operator <<(ostream& ostr, const ElemType& x)
+{
+    ostr.setf(ios::left);  //设置每个区域内按左对齐显示
+    ostr<<setw(6)<<x.code<<setw(12)<<x.name;
+    ostr<<setw(4)<<x.minq<<setw(4)<<x.curq<<endl;
+    return ostr;
+}

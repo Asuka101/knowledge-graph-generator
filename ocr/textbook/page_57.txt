@@ -1,0 +1,39 @@
+void fun3(int* p1, int* p2)
+{
+    *p1+=*p2;
+    *p2-=1;
+    cout<<\"fun3: \"<<setw(10)<<\"*p1=\"<<setw(3)<<*p1
+         <<setw(10)<<\"*p2=\"<<setw(3)<<*p2<<endl;
+}
+
+该程序运行结果如下。
+
+按值传送情况:
+main:        x=5          y=10
+fun1:        a=15         b=60
+main:        x=5          y=10
+
+引用传送情况:
+main:        x=5          y=10
+fun2:        a=15         b=60
+main:        x=15         y=60
+
+按值传送指针的情况:
+main:        x=15         y=60
+fun3:        *p1=75       *p2=59
+main:        x=75         y=59
+
+在程序 1-16的 swap 函数中，使用了函数参数，该函数的函数名为 p，不返回值，并带有两个整型值参。当调用 swap 函数时，其实参表中与函数形参对应的应是一个实际的函数名，并且该函数的原型应当与形参函数说明完全相同。在该程序的主函数中调用了 swap 函数，其实参数名 print 的值（即为该函数代码区的首址）将被传送给对应的形参数名 p，这样在 swap 函数执行中对 p 函数的调用实际上就是对 print 函数的调用，因为执行的是 print 函数的代码。
+
+//程序 1-16
+#include<iostream.h>
+void swap(int& x, int& y, void p(int,int));
+void print(int a, int b);
+void main()
+{
+    int x=5,y=10;
+    swap(x,y,print);
+    print(x,y);
+}
+void swap(int& x, int& y, void p(int,int)){
+    int temp;

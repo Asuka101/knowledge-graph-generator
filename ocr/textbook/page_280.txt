@@ -1,0 +1,48 @@
+```cpp
+istringstream sin(s);
+char c1,c2,c3;
+int i,j,c=0;
+WeightType w;
+sin>>c1;
+if(k==0) {  //建立无权图
+    do {
+        //从输入流中读入一条边
+        sin>>c1>>i>>c2>>j>>c3;
+        //置边集数组中下标为 c 的元素值
+        GE[c].fromvex=i;
+        GE[c].endvex=j;
+        GE[c].weight=1;  //假定无权图的每条边的权为 1
+        c++;
+        //读入逗号或右花括号
+        sin>>c1;
+    } while(c1==',');
+}
+else {      //建立有权图
+    do {
+        //从输入流中读入一条边
+        sin>>c1>>i>>c2>>j>>c3>>w;
+        //置边集数组中下标为 c 的元素值
+        GE[c].fromvex=i;
+        GE[c].endvex=j;
+        GE[c].weight=w;
+        c++;
+        //读入逗号或右花括号
+        sin>>c1;
+    } while(c1==',');
+}
+
+4. 根据图的边集数组表示输出图的二元组表示的算法
+
+void PrintArray(edgeset GE, int n, int k1, int k2)
+{
+    //输出用边集数组表示一个图的顶点集和边集
+    int i;
+    cout<<"V={";
+    for(i=0; i<n-1; i++) cout<<i<<",";
+    cout<<n-1<<"}"<<endl;
+    cout<<"E={";
+    i=-1;
+    while(GE[++i].fromvex!=-1) {       //访问边集数组中的每条边
+        if(k2==0) {
+            if(k1==0)                  //对无向无权图的处理
+```

@@ -1,0 +1,47 @@
+```cpp
+#include <stdlib.h>
+
+const int m=4;                    //定义B_树的阶数
+const int MaxKey=9999;            //定义作标记的最大关键字
+
+typedef int KeyType;              //定义关键字类型
+
+struct MBNode {
+    int keynum;                   //关键字个数域
+    MBNode*parent;                //指向父结点的指针域
+    KeyType key[m+1];             //保存n个关键字的域,下标0位置未用
+    MBNode*ptr[m+1];              //保存n+1个指向子树的指针域
+    int recptr[m+1];              //保存每个关键字对应记录的存储位置
+};
+
+#include"B_树运算.cpp"           //含有对B_树的常用运算的C++算法描述
+
+void main()
+{
+    int a[16]={18,46,58,32,65,24,50,38,35,47,82,93,20,33,48,15};
+    MBNode*mt=NULL;
+    for(int i=0; i<16; i++)
+        InsertMBTree(mt,a[i],i);
+    cout<<"中序遍历B_树结果:";
+    PrintMBTree(mt); cout<<endl;
+    cout<<"B_树深度:"<<DepthMBTree(mt)<<endl;
+    cout<<"B_树结点数:"<<CountMBTree(mt)<<endl;
+    while(1) {
+        cout<<"输入待查的关键字,直到输入-1时结束查找!";
+        int x; cin>>x;
+        if(x==-1) break;
+        cout<<"记录位置:"<<SearchMBTree(mt,x)<<endl;
+    }
+    ClearMBTree(mt);
+}
+
+该程序运行结果如下。
+
+中序遍历b_树结果:15 18 20 24 32 33 35 38 46 47 48 50 58 65 82 93
+B_树深度:3
+B_树结点数:9
+输入待查的关键字,直到输入-1时结束查找!46
+记录位置:1
+输入待查的关键字,直到输入-1时结束查找!24
+记录位置:5
+```

@@ -1,0 +1,43 @@
+用空格分开, 最后以按下回车键结束, 该条记录被存入到字符数组 a 中, 然后被写入到文件中。
+
+根据商品库存表中商品记录的结构, 可定义记录类型如下。
+
+struct goods
+{
+    char code[5]; //商品代号
+    char name[15]; //商品名称
+    int minq; //最低库存量
+    int curq; //当前库存量
+};
+
+通过 typedef 语句将该类型定义为线性表的通用元素类型 ElemType。
+
+typedef goods ElemType;
+
+在商品库存表中, 以商品代号域作为查找字段域, 则对应的重载等于号运算符的函数定义为:
+
+bool operator ==(const ElemType& e1, const ElemType& e2)
+{
+    return (strcmp(e1.code,e2.code)==0);
+}
+
+同样, 在插入和排序算法中使用的小于号运算符需如下的重载函数支持:
+
+bool operator <(const ElemType& e1, const ElemType& e2)
+{
+    return (strcmp(e1.code,e2.code)==-1);
+}
+
+用于打印输出使用的插入操作符也需要进行重载, 定义如下:
+
+ostream& operator <<(ostream& ostr, const ElemType& x)
+{
+    ostr.setf(ios::left); //设置每个区域内按左对齐显示
+    ostr<<setw(6)<<x.code<<setw(12)<<x.name;
+    ostr<<setw(4)<<x.minq<<setw(4)<<x.curq<<endl;
+    return ostr;
+}
+
+对商品库存表的管理就是首先把它读入到内存线性表中, 接着对它进行必要的处理,然后把处理后的结果写回到文件中。对商品库存表的处理假定包括如下选项。
+(1) 打印（遍历）库存表。
+(2) 按商品代号修改记录的当前库存量, 若查找到对应的记录, 则从键盘上输入其修正量, 把它累加到当前库存量域后, 再把该记录写回原有位置, 若没有查找到对应的记录,则表明是一条新记录, 应接着从键盘上输入该记录的商品名称、最低库存量和当前库存量的值, 然后把该记录追加到库存表中。

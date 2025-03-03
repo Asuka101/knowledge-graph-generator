@@ -1,0 +1,40 @@
+值）要大于等于二叉树的深度减 1。该算法的时间复杂度为$O(n)$,$n$表示二叉树广义表中字符的个数，由于平均每$2 \sim 3$个字符具有一个元素字符，所以$n$也可以看作是二叉树中元素结点的个数。
+
+3. 检查二叉树是否为空
+
+bool EmptyBTree (BTreeNode*BT)
+    //判断一棵二叉树是否为空,若为空则返回 true,否则返回 false
+{
+    return BT==NULL;
+}
+
+4. 求二叉树深度
+
+若一棵二叉树为空，则它的深度为 0，否则它的深度等于左子树和右子树中的最大深度加 1。设 dep1 为左子树的深度，dep2 为右子树的深度，则二叉树的深度为:$\max(\text{dep1}, \text{dep2})+1$其中，$\max$函数表示取参数中的大者。
+求二叉树深度的递归算法如下。
+
+int DepthBTree (BTreeNode*BT)
+{
+    if(BT==NULL)
+        return 0;                      //对于空树,返回 0 并结束递归
+    else {
+        int dep1=DepthBTree(BT->left);   //计算左子树的深度
+        int dep2=DepthBTree(BT->right);  //计算右子树的深度
+        if(dep1>dep2)
+            return dep1+1;               //返回树的深度
+        else
+            return dep2+1;
+    }
+}
+
+利用此算法求图 5-13 所示二叉树的深度，则得到的返回结果为 4。
+
+5. 从二叉树中查找值为 x 的结点，若存在由 x 带回完整值并返回真，否则返回假
+
+该算法类似于前序遍历的算法。若树为空则返回 false 结束递归。若树根结点的值就等于 x 的值，则把结点值赋给 x 后返回 true 结束递归，否则先向左子树查找；若找到则返回 true 结束递归，否则再向右子树查找；若找到则返回 true 结束递归；若左、右子树均未找到则返回 false 结束递归。具体算法描述为:
+
+bool FindBTree(BTreeNode*BT, ElemType&x)
+
+{
+    if(BT==NULL) return false;          //树为空返回假
+    else {

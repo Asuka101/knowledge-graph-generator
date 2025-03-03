@@ -1,0 +1,43 @@
+}
+//从当前森林中求出最小权值树和次最小权值树
+for(j=k2; j<n; j++) {
+    if(b[j]!=NULL) {
+        if(b[j]->data<b[k1]->data) {k2=k1;k1=j;}
+        else if(b[j]->data<b[k2]->data) k2=j;
+    }
+}
+//由最小权值树和次最小权值树建立一棵新树，q指向树根结点
+q=new BTreeNode;
+q->data=b[k1]->data+b[k2]->data;
+q->left=b[k1]; q->right=b[k2];
+//将指向新树的指针赋给b指针数组中k1位置，k2位置为空
+b[k1]=q; b[k2]=NULL;
+}
+//删除动态建立的数组b
+delete []b;
+//返回整个哈夫曼树的树根指针
+return q;
+}
+
+在一颗哈夫曼树的生成过程中，每次都由两棵子树构成一棵树，对于$n$个叶子结点共需要构成$n-1$棵子树。所以，在一棵哈夫曼树中只存在双支结点和叶子结点，若叶子结点为$n$个，则双支结点必为$n-1$个。
+
+根据哈夫曼树求出带权路径长度的算法如下。
+
+ElemType WeightPathLength(BTreeNode*FBT, int len)
+{
+    //根据FBT指针所指向的哈夫曼树求出带权路径长度，len初值为0
+    if(FBT==NULL) return 0; //空树则返回0
+    else {
+        //访问到叶子结点时返回该结点的带权路径长度，其中值参len
+        //保存当前被访问结点的路径长度
+        if(FBT->left==NULL && FBT->right==NULL) {
+            return FBT->data*len;
+        }
+        //访问到非叶子结点时进行递归调用，返回左、右子树的带权
+        //路径长度之和，向下深入一层时len值增1
+        else {
+            return WeightPathLength(FBT->left,len+1)+
+                   WeightPathLength(FBT->right,len+1);
+        }
+    }
+}

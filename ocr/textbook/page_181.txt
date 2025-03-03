@@ -1,0 +1,50 @@
+//求出队尾的下一个位置
+Q.rear=(Q.rear+1)%Q.MaxSize;
+//把item的值赋给新的队尾位置
+Q.queue[Q.rear]=item;
+}
+
+3. 从队列中删除元素并返回
+
+ElemType OutQueue(Queue& Q)
+{
+    //若队列为空则终止运行
+    if(Q.front==Q.rear) {
+        cerr<<"队列已空,无法删除!"<<endl;
+        exit(1);
+    }
+    //使队首指针指向下一个位置
+    Q.front=(Q.front+1)%Q.MaxSize;
+    //返回队首元素
+    return Q.queue[Q.front];
+}
+
+4. 读取队首元素，不改变队列状态
+
+ElemType PeekQueue(Queue& Q)
+{
+    //若队列为空则退出程序运行
+    if(Q.front==Q.rear) {
+        cerr<<"队列已空,无法读取!"<<endl;
+        exit(1);
+    }
+    //队首元素是队首指针的下一个位置中的元素
+    return Q.queue[(Q.front+1)%Q.MaxSize];
+}
+
+5. 检查一个队列是否为空，若是则返回 true，否则返回 false
+
+bool EmptyQueue(Queue& Q)
+{
+    return Q.front==Q.rear;
+}
+
+6. 清除一个队列为空，并释放动态存储空间
+
+void ClearQueue(Queue& Q)
+{
+    if(Q.queue!=NULL) delete []Q.queue;
+    Q.front=Q.rear=0;
+    Q.queue=NULL;
+    Q.MaxSize=0;
+}

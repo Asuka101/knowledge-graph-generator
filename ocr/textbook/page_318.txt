@@ -1,0 +1,47 @@
+```cpp
+k=p->adjvex;
+if(vl[j]>vl[k]-p->weight) vl[j]=vl[k]-p->weight;
+p=p->next;
+}
+//输出AOE网中每一个活动的最早开始时间,最迟开始时间以及开始时间余量
+for(i=0; i<n; i++) {
+    p=GL[i];
+    while(p!=NULL) {
+        j=p->adjvex;
+        cout<<'<i<'<<i<<','<<j<<'>';
+        //输出有向边<i,j>,用它表示该边上的活动ak
+        cout<<"ve["<<i<<"]";
+        cout<<vl[j]-p->weight<<" ";
+        cout<<vl[j]-p->weight-ve[i]<<endl;//输出ak的开始时间余量
+        p=p->next;
+    }
+}
+
+求关键路径算法的时间复杂度同拓扑排序算法一样，也为$O(n+e)$，$n$和$e$分别表示图的顶点数和边数。
+
+利用下面程序调试图的拓扑排序算法和关键路径算法。
+
+#include<iostream.h>
+#include<stdlib.h>
+#include<strstrea.h>
+
+const int MaxVertexNum=20;
+typedef int WeightType;
+struct edgenode {
+    int adjvex;
+    WeightType weight;
+    edgenode* next;
+};
+typedef edgenode* adjlist[MaxVertexNum];
+
+#include"采用邻接表存储的图的常用运算.cpp"
+
+void Toposort(adjlist GL, int v[], int n)
+{
+    //对用邻接表GL表示的有向图进行拓扑排序
+}
+
+void Cripath(adjlist GL, int n)
+{   //求邻接表GL表示的AOE网的关键路径
+}
+```

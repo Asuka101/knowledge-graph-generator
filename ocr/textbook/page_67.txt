@@ -1,0 +1,33 @@
+bool EmptyList(ListType &L); //判断 L 是否为空
+ElemType GetList(ListType &L, int pos); //返回 L 中第 pos 个元素的值
+void TraverseList(ListType &L); //遍历输出 L 中的所有元素
+bool FindList(ListType &L, ElemType& item); //从 L 中查找并返回元素
+bool UpdateList(ListType &L, const ElemType& item); //修改 L 中元素
+bool InsertList(ListType &L, ElemType item, int pos); //向 L 插入元素
+bool DeleteList(ListType &L, ElemType& item, int pos); //从 L 删除元素
+void SortList(ListType &L); //对 L 中的所有元素重新按给定条件排序
+end LinearList
+
+在上面对面线性表 L 的运算中，第3~7种运算不需要改变线性表的状态，所以在其参数说明前可以使用 const 保留字，拒绝在函数体中对线性表的修改，以保证数据的安全性，其余运算需要在函数体中改变线性表，所以不能使用此保留字。在插入运算中，item 参数用来保存待插入的元素，pos 参数用来给定插入条件，人为约定当$pos \geq 1$同时$pos \leq n+1$时，则把 item 插入到线性表中第 pos 个位置上，其中 n 表示线性表长度；当$pos = -1$时，则把 item 插入到线性表的末尾位置，即最后一个元素的后面位置；当$pos = 0$时，则把线性表看作有序表，item 被插入后仍保持有序。在删除运算中，item 参数用来保存待删除元素的值或某个域的值，并保存和返回被删除元素的完整值，pos 参数用来给定删除条件，人为约定当$pos \geq 1$同时$pos \leq n$时，则删除线性表中第 pos 个位置上的元素并通过 item 参数返回值；当$pos = -1$时，则删除线性表中的表尾元素，即最后一个元素并通过 item 参数返回值；当$pos = 0$时，则删除线性表中第一个值或某个域的值等于 item 的元素并通过 item 参数返回值。
+
+\subsection*{2.1.3 操作举例}
+
+【例 2-1】设线性表 L1=(25,38,19,42,33)，i=2, x=60, y=42，则对 L1 的一组操作及结果如下。
+
+LengthList(L1); //返回 L1 的长度 5
+EmptyList(L1); //L1 非空，返回 false
+GetList(L1,i); //返回 L1 中第 i 个元素的值，因 i=2，所以返回值 38
+InsertList(L1,x,6); //向 L1 末尾插入 x，L1 变为 (25,38,19,42,33,60)
+InsertList(L1,54,1); //向 L1 表头插入元素 54，L1 变为 (54,25,38,19,42,33,60)
+DeleteList(L1,y,0); //删除 L1 中值为 y 的元素，L1 变为 (54,25,38,19,33,60)
+DeleteList(L1,y,3); //删除 L1 中第 3 个元素，L1 变为 (54,25,19,33,60)
+SortList(L1); //L1 被改变为 (19,25,33,54,60)
+InsertList(L1,35,0); //插入 35 后 L1 变为 (19,25,33,35,54,60)
+
+【例 2-2】课程（course）记录的结构为：
+
+struct course {
+char Cname[20]; //课程名称
+int Chour; //开课学时
+int Cterm; //开课学期
+}

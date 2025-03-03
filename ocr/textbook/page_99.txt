@@ -1,0 +1,79 @@
+况类似, 下面仅给出初始化单链表、按值插入元素和按值删除元素的算法, 其他算法不难由同学们写出。
+
+(1) 初始化单链表。
+
+void InitList(ALinkList AL) //参数说明等同于 ALNode AL[MaxSize]
+
+{
+
+//将循环单链表置空,下标 0 结点为表头附加结点
+
+AL[0].next=0;
+
+//结点依次链接构成空闲链接表
+
+for(int i=2; i<MaxSize-1; i++)
+
+AL[i].next=i+1;
+
+//将带表头附加结点的空闲链接表的最后结点的指针域置空
+
+AL[MaxSize-1].next=0;
+
+//下标为 1 结点的指针域指向空闲链接表的第 1 个结点
+
+AL[1].next=2;
+
+}
+
+(2) 向有序单链表按值插入一个元素。
+
+bool InsertList (ALinkList AL, const ElemType& item)
+
+{
+
+int newptr;
+
+newptr=AL[1].next; //从空闲表中取出表头结点
+
+if(newptr==0) {
+
+cerr<<"没有空闲结点可用!"<<endl;
+
+return false;
+
+}
+
+AL[1].next=AL[newptr].next; //空闲表的第 2 个结点成为新的表头结点
+
+AL[newptr].data=item; //item的值赋给被插结点的值域
+
+int ap, cp;
+
+ap=0; cp=AL[0].next; //分别给 ap 和 cp 赋初值
+
+while(cp!=0) //查找新结点的插入位置
+
+if(item<AL[cp].data) break;
+
+else {
+
+ap=cp; cp=AL[cp].next;
+
+}
+
+AL[newptr].next=cp; //插入时不用特殊处理表头情况
+
+AL[ap].next=newptr;
+
+return true;
+
+}
+
+(3) 从单链表中删除等于给定值的第 1 个元素。
+
+bool DeleteList(ALinkList AL, ElemType& item)
+
+{
+
+//单链表为空, 无法删除元素, 返回假

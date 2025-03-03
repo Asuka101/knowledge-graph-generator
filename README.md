@@ -58,7 +58,7 @@
 
 ### 1、LLM问答模块
 
-设计合理的Prompt提供给Azure部署的DeepSeek
+设计合理的Prompt提供给~~Azure部署~~~~的~~DeepSeek/Gemini或其他开源或免费的大模型
 
 ### 2、数据可视化与CRUD操作
 

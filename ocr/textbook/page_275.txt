@@ -1,0 +1,36 @@
+若表示的是无权图，则可省去此域。对于每个顶点$v_i$的邻接表，需要设置一个表头指针，若图$G$中有$n$个顶点，则就有$n$个表头指针。为了便于随机访问任一顶点的邻接表，需要把这$n$个表头指针用一个一维数组（数组）存储起来，其中第$i$个分量存储$v_i$邻接表的表头指针。这样，图$G$就可以由这个表头向量来表示和存取。
+
+图 7-1 中的 G1 和图 7-5 中的 G6 对应的邻接表如图 7-6 所示。
+
+(a) G1 所示的邻接表
+
+(b) G6 所示的邻接表
+
+图 7-6 G1 和 G6 的邻接表
+
+图的邻接表不是唯一的，因为在每个顶点的邻接表中，各边结点的链接次序可以任意安排，其具体链接次序与边的输入次序和生成算法有关。
+
+建立图的邻接表中边结点的类型定义和表头向量的类型定义如下。
+
+struct edgenode {
+    int adjvex; //邻接点域
+    WeightType weight; //权值域，对无权图可省去
+    edgenode* next; //指向下—个边结点的链域
+};
+typedef edgenode* adjlist [MaxVertexNum]; //定义 adjlist 为存储 n 个表头指针的
+//数组类型
+
+1. 初始化一个图邻接表的算法
+
+void InitAdjoin(adjlist GL)
+{
+    for(int i=0; i<MaxVertexNum; i++) GL[i]=NULL;
+}
+
+2. 根据一个图的边集生成其邻接表的算法
+
+void CreateAdjoin(adjlist GL, int n, char*s, int k1, int k2)
+{ //k1 为 0 则为无向图；否则为有向图，k2 为 0 则为无权图；否则为有权图
+    istringstream sin(s);
+    char c1,c2,c3;
+}

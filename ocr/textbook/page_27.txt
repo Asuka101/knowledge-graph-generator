@@ -1,0 +1,39 @@
+言环境下运行，而 C++语言对 C 语言做了许多改进和增强，如在输入、输出、参数定义、函数重载、运算符重载、模板、类等方面，所以用 C++语言编写的程序不能在 C 语言环境下运行。
+
+对于上面的程序，若要在 C 语言环境下运行，除了修改输入、输出等语句外，还要把引用参数修改为指针参数，把对应的实参修改为取地址的表达式，以及把结构类型加上 struct 保留字。改写后得到的 C 语言程序如下。
+
+#include<stdio.h>
+struct Rectangle {
+    float length, width;
+};
+
+void InitRectangle(struct Rectangle* r, float len, float wid);
+float Circumference(struct Rectangle* r);
+float Area(struct Rectangle* r);
+
+void main() {
+    float x, y;
+    float p, s;
+    struct Rectangle a;
+    printf("请输入一个矩形的长和宽!");
+    scanf("%f%f",&x,&y);
+    InitRectangle(&a,x,y);
+    p=Circumference(&a);
+    s=Area(&a);
+    printf("\n");
+    printf("矩形的周长为:%f\n",p);
+    printf("矩形的面积为:%f\n",s);
+}
+
+void InitRectangle(struct Rectangle* r, float len, float wid) {
+    r->length=len;
+    r->width=wid;
+}
+
+float Circumference(struct Rectangle* r) {
+    return 2*(r->length+r->width);
+}
+
+float Area(struct Rectangle* r) {
+    return r->length*r->width;
+}

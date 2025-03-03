@@ -1,0 +1,48 @@
+```c
+while(row!=0) {
+    k++;
+    M.sm[k].row=row;
+    M.sm[k].col=col;
+    M.sm[k].val=val;
+    cin>>row>>col>>val;
+}
+M.t=k;
+}
+
+若稀疏矩阵采用十字链表存储，则相应的输入算法如下。
+
+void InputMatrix(CLMatrix& M, int m, int n)
+{
+    M.m=m; M.n=n;
+    int row, col, val;
+    int k=0;
+    cin>>row>>col>>val;
+    while(row!=0) {
+        k++;
+        CrossNode *cp, *newptr;
+        //建立一个新结点
+        newptr=new CrossNode;
+        newptr->row=row;
+        newptr->col=col;
+        newptr->val=val;
+        newptr->down=newptr->right=NULL;
+        //把新结点链接到所在行单链表的末尾
+        cp=M.rv[row];
+        if(cp==NULL) M.rv[row]=newptr;
+        else {
+            while(cp->right!=NULL) cp=cp->right;
+            cp->right=newptr;
+        }
+        //把新结点链接到所在列单链表的末尾
+        cp=M.cv[col];
+        if(cp==NULL) M.cv[col]=newptr;
+        else {
+            while(cp->down!=NULL) cp=cp->down;
+            cp->down=newptr;
+        }
+        //输入一个新三元组
+        cin>>row>>col>>val;
+    }
+    M.t=k;
+}
+```

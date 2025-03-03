@@ -1,0 +1,40 @@
+```cpp
+//后序遍历以bt为树根指针的二叉树
+cout<<"后序: "; PostOrder(bt); cout<<endl;
+//按层遍历以bt为树根指针的二叉树
+cout<<"按层: "; LevelOrder(bt); cout<<endl;
+//查找以bt为树根指针的二叉树中的一个结点
+ElemType x;
+cout<<"输入一个待查字符:";
+cin >>x;
+if(FindBTree(bt,x)) cout<<"查找字符"<x<>"成功!"<<endl;
+else cout<<"查找字符"<x<>"失败!"<<endl;
+//求出以bt为树根指针的二叉树的深度
+cout<<"深度: "; cout<<DepthBTree(bt)<<endl;
+//清除以bt为树根指针的二叉树
+ClearBTree(bt);
+}
+
+屏幕显示结果如下。
+
+输入二叉树用广义表表示的字符串:
+a(b(c),d(e(f,g),h(,i)))
+前序: a b c d e f g h i
+中序: c b a f e g d h i
+后序: c b f g e i h d a
+按层: a b d c e h f g i
+输入一个待查字符:f
+查找字符f成功!
+深度: 4
+
+\section*{5.5 树的存储结构和运算}
+
+\subsection*{5.5.1 树的抽象数据类型}
+
+这里所说的树是指度大于等于3的树，通常称为多元树或多叉树。
+树的抽象数据类型的数据部分为一棵普通的k叉树GT，它可以采用顺序、链接等任一种存储结构，设存储类型用GTREE标识符表示，操作部分包括初始化树、建立树、遍历树、查找树、输出树、清除树、判空树等一些常用运算。下面给出普通树的抽象数据类型的具体定义。
+
+DAT GeneralTree is
+Data:
+一棵普通树GT,存储类型用标识符GTREE表示
+```

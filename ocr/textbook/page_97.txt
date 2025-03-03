@@ -1,0 +1,44 @@
+```cpp
+while(cp!=NULL) {
+    if(item==cp->data) break;  //找到被删除结点 cp,退出循环
+    else {
+        ap=cp;
+        cp=cp->next;
+    }
+}
+if(cp==NULL) {
+    cout<<"单链表中没有相应的结点可删除!"<<endl;
+    return false;
+}
+
+else if(pos==-1)
+    while(cp->next!=NULL) {ap=cp; cp=cp->next;}
+else {
+    int i=0;
+    while(cp!=NULL) {
+        i++;
+        if(i==pos) break;  //找到被删除结点 cp,退出循环
+        else {
+            ap=cp;
+            cp=cp->next;
+        }
+    }
+    if(cp==NULL) {
+        cout<<"pos 值无效!"<<endl; return false;
+    }
+}
+//删除 cp 所指向的结点
+if(ap==NULL) HL=HL->next;  //删除表头结点
+else ap->next=cp->next;  //删除非表头结点,也可以是表尾结点
+//回收被删除结点的存储空间
+delete cp;
+//删除成功返回真
+return true;
+
+11. 对单链表进行数据排序
+
+假定待排序的单链表由表头指针 HL 所指向，对结点值按照从小到大次序进行排序链接时，首先建立一个空的单链表，然后把 HL 中的每个结点取出并按值依次插入到新建立的单链表中，最后由引用参数 HL 带回新建单链表的表头指针。下面就是对单链表进行的插入排序算法。
+
+void SortList(LNode* &HL)
+{
+```

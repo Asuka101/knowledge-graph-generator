@@ -1,0 +1,43 @@
+(1) 流类对象.tellg()。
+(2) 流类对象.tellp()。
+
+程序 1-12 是把从键盘上输入的文本原封不动地写入到 A 盘上 wr1.dat 文件中。当按 Ctrl+Z 键时表示输入的是文件结束符 EOF, 文本输入到此结束。
+
+//程序 1-12.cpp
+#include<iostream.h>
+#include<stdlib.h>
+#include<fstream.h>
+void main()
+{
+    char ch;
+    ofstream of1("a:wr1.dat");
+    ch=cin.get();
+    while (ch!=EOF){
+        of1.put(ch);
+        ch=cin.get();
+    }
+    of1.close();
+}
+
+将上面程序中的第9条赋值语句和第10条 while循环语句改写为下面一条语句也是正确的。
+
+while (cin.get(ch)) of1.put(ch);
+
+程序 1-13 以输入方式打开刚在 A 盘上建立的 wr1.dat 文件，把文件中的全部内容输出到屏幕，统计出文件中所含文本的行数，最后显示出文件长度（即所含字符数，向文件写入一个换行符时，实际上是同时写入回车和换行两个控制字符）和行数。
+
+//程序 1-13.cpp
+#include<iostream.h>
+#include<stdlib.h>
+#include<fstream.h>
+void main()
+{
+    ifstream if1("a:wr1.dat",ios::nocreate);
+    if (!if1){
+        cout<<"file not open!";
+        exit(1);
+    }
+    char ch;
+    int i=0;
+    if1.get(ch);
+    while(ch!=EOF){
+        cout<<ch;
