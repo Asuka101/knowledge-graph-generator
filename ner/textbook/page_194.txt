@@ -1,0 +1,21 @@
+Operations:
+//初始化栈。当k=1或2时对应置栈1或2为空,k=3时置两个栈均空
+void InitStack(BothStack& BS, int k);
+//清除栈。当k=1或2时对应栈1或2被清除,k=3时两个栈均被清除
+void ClearStack(BothStack& BS, int k);
+//判断栈是否为空。当k=1或2时判断对应的栈1或栈2是否为空,
+//k=3时判断两个栈是否同时为空
+bool StackEmpty(BothStack& BS, int k);
+//取栈顶元素。当k=1或2时对应返回栈1或栈2的栈顶元素
+ElemType Peek(BothStack& BS, int k);
+//进栈。当k=1或2时对应向栈1或栈2的顶端压入元素item
+void Push(BothStack& BS, int k, const ElemType& item);
+//退栈。当k=1或2时,对应使栈1或栈2退栈并返回栈顶元素
+ElemType Pop(BothStack& BS, int k);
+
+End BSTACK
+
+试写出上述抽象数据类型中每一种操作的算法。
+9. 利用堆栈编写出求解迷宫问题的非递归算法。
+10. 编写出解决汉诺塔问题的非递归算法。
+11. 判断任意$n$个字符串能否首尾相接成为一个字符串。若一个字符串的尾字符等于另外一个字符串的首字符，则认为这两个字符串能够首尾相接形成一个字符串。

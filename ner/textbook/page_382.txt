@@ -1,0 +1,45 @@
+}
+}
+//对任一归并段为空的情况应读取另一个归并段的记录
+if(ca==0) B.read((char*) &a2, b); //实际上 ca 不可能为 0
+if(cb==0) A.read((char*) &a1, b); //cb 可能为 0
+//对文件 A 的当前归并段中未归并元素进行处理
+if(i<sa+ca) {R.write((char*) &a1, b); i++;}
+while(i<sa+ca) {
+    A.read((char*) &a1, b);
+    R.write((char*) &a1, b);
+    i++;
+}
+//对文件 B 的当前归并段中未归并元素进行处理
+if(j<sb+cb) {R.write((char*) &a2, b); j++;}
+while(j<sb+cb) {
+    B.read((char*) &a2, b);
+    R.write((char*) &a2, b);
+    j++;
+}
+
+对文件 A1 和 A2 进行一趟二路归并，并将两有序表归并结果交替存入 R1 和 R2 中。若 A1 和 A2 中每个有序表的长度为$len$，则进行一趟归并后，在 R1 和 R2 中得到的有序表的长度为$2 \times len$。此一趟归并算法描述如下。
+
+void FMergePass(fstream &A1, fstream &A2, fstream &R1, fstream &R2, int len)
+{
+    //把归并段长度为 len 的文件 A1 和 A2，进行对应归并段归并到文件 R1 和
+    //R2 中，使它们的归并段长度均为$2 \times len$，当然末尾段长度可能短些
+    A1.seekg(0,ios::end); //移动文件指针到 A1 的末尾
+    int n1=A1.tellg()/b; //求出文件 A1 中的记录个数并赋给 n1
+    A2.seekg(0,ios::end); //移动文件指针到 A2 的末尾
+    int n2=A2.tellg()/b; //求出文件 A2 中的记录个数并赋给 n2
+    ElemType x;
+    int p=0; //p 用于指向对应两个归并段的首记录位置，初值为 0
+    //两归并长度（即记录个数）均为 len 的有序表
+    while(p+len<=n1 && p+len<=n2)
+    {
+        //对应为偶数序号的归并段被归并到 R1 中，否则被归并到 R2 中
+        if(p%(2*len)==0) FTwoMerge(A1,A2,R1,p,len,p,len);
+        else FTwoMerge(A1,A2,R2,p,len,p,len);
+        p+=len;
+    }
+    //归并各自最后两个对应长度不等的有序表
+    if(p<n1 && p<n2)
+        if(p%(2*len)==0) FTwoMerge(A1,A2,R1,p,n1-p,p,n2-p);
+        else FTwoMerge(A1,A2,R2,p,n1-p,p,n2-p);
+}

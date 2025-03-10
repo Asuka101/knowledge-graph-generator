@@ -1,0 +1,35 @@
+部分通常定义为类的公共 (public) 的成员函数, 它既可以提供给该类或派生类使用也可以提供给其他的类或函数使用, 操作部分只给出操作说明 (即函数声明), 操作的具体实现通常在一个单独文件中给出, 使它与类的定义 (即声明) 相分离, 当然在编译时将被连接在一起, 类的声明通常被存放在一个专门的头文件 (其扩展名为.h) 中, 这样能够较好地实现信息的隐藏和封装, 符合面向对象程序设计 (Object-Oriented Programming, OOP) 的思想。
+
+在本书中, 为了更好地理解数据结构和相应运算的实现 (即函数编程代码), 采用传统的记录结构类型来定义抽象数据类型中的数据 (或称数据结构) 部分, 采用普通函数格式来定义抽象数据类型中的每个操作的实现。虽然本书通常没有直接采用 “类” 类型来实现抽象数据类型, 但读者通过学习后很容易做到, 并且在相配套的实验教材《数据结构课程实验》中, 给出了用类类型实现的程序, 有兴趣的读者可以参考。
+
+在本书中, 描述每一种抽象数据类型将采用如下格式。
+
+ADT$<$抽象数据类型名$>$is
+
+Data:$<$数据描述$>$Operations:$<$操作声明$>$end$<$抽象数据类型名$>$【例1-6】把矩形定义及其运算设计成一种抽象数据类型, 其数据部分包括矩形的长度和宽度, 操作部分包括初始化矩形的尺寸、求矩形的周长和面积。
+
+假定该抽象数据类型名用 RECTangle(矩形)表示, 定义矩形长度和宽度的数据用 length 和 width 表示, 并假定其类型为单精度浮点型 (float), 初始化矩形数据的函数名用 InitRectangle 表示, 求矩形周长的函数名用 Circumference (周长) 表示, 求矩形面积的函数名用 Area (面积) 表示, 则矩形的 ADT 描述如下。
+
+ADT RECTangle is
+
+Data:
+
+float length, width;
+
+Operations:
+
+void InitRectangle(struct Rectangle& r, float len, float wid);
+
+float Circumference(struct Rectangle& r);
+
+float Area(struct Rectangle& r);
+
+end RECTangle
+
+其中参数$\mathrm{r}$的类型名 struct Rectangle 表示一个用户定义的记录 (结构) 类型, 其保留字 struct 在 C 语言中必须使用, 而在 C++语言中则可被省略不写。该类型包括矩形的长度和宽度两个域, 用来统一描述此抽象数据类型所含的数据部分, 用 C/C++语言定义如下。
+
+struct Rectangle{
+
+float length, width;
+
+};

@@ -1,0 +1,52 @@
+按照 A[0]元素的排序码 45 进行一次划分的过程, 如图 10-6 所示。
+
+\begin{tabular}{c c c c c c c c c}
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+\[45 & 53 & 18 & 36 & 72 & 30 & 48 & 93 & 15\]
+\end{tabular}$36]$移动比较$\uparrow i$[45 \quad 36 \quad 18 \quad 36 \quad 72 \quad 30 \quad 48 \quad 93 \quad 15 \quad 53]$交换位置$\uparrow j$[45 \quad 36 \quad 18 \quad 36 \quad 72 \quad 30 \quad 48 \quad 93 \quad 15 \quad 53]$移动比较$\uparrow i$[45 \quad 36 \quad 18 \quad 36 \quad 15 \quad 30 \quad 48 \quad 93 \quad 72 \quad 53]$交换位置$\uparrow i$[45 \quad 36 \quad 18 \quad 36 \quad 15 \quad 30 \quad 48 \quad 93 \quad 72 \quad 53]$移动比较$\uparrow j \uparrow i$[30 \quad 36 \quad 18 \quad 36 \quad 15 \quad 45 \quad 48 \quad 93 \quad 72 \quad 53]$交换$A[i]$与$A[j]$\uparrow j \uparrow i$[30 \quad 36 \quad 18 \quad 36 \quad 15] \quad 45[48 \quad 93 \quad 72 \quad 53]$完成一次划分
+
+图 10-6 在快速排序中进行一次划分的过程示例
+
+根据以上分析, 编写出快速排序的递归算法如下。
+
+void QuickSort (ElemType A[], int s, int t)
+
+//采用快速排序方法对数组 A 中 A[s]~A[t]区间进行排序
+
+//开始进行非递归调用时 s 和 t 的初值应分别为 0 和 n-1
+
+//对当前排序区间进行一次划分
+
+int$i=s+1$,$j=t$;
+
+//给$i$和$j$赋初值
+
+ElemType$x=A[s]$;
+
+//把基准元素的值暂存$x$中
+
+while$(i<=j)\{$while$(A[i]$. stn <= x.stn$\& \& i<=j)$i++;
+
+//从前往后顺序比较
+
+while$(A[j]$. stn >= x.stn$\& \& j>=i)$j--;
+
+//从后向前顺序比较
+
+if$(i<j)\{$//当条件成立时交换$A[i]$和$A[j]$的值
+
+ElemType temp = A[i]; A[i]=A[j]; A[j]=temp;$i++$;$j--$;
+
+\}
+
+//交换$A[s]$和$A[j]$的值, 得到前后两个子区间$A[s] \sim A[j-1]$和$A[j+1] \sim A[t]$if$(s==j)\{A[s]=A[j] ; A[j]=x ;\}$//在当前左区间内超过一个元素的情况下递归处理左区间
+
+if$(s<j-1)$QuickSort(A, s, j-1);
+
+//在当前右区间内超过一个元素的情况下递归处理右区间
+
+if$(j+1<t)$QuickSort(A, j+1, t);
+
+\}
+
+以图 10-6 所示第 1 行元素的排序码为例, 如图 10-7 所示为在调用快速排序算法的过程中, 对每个区间划分后排序码(代表各自元素)的排列情况, 其中加重括号区间为当前待

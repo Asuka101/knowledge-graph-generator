@@ -1,0 +1,45 @@
+除清除队列操作外，其余对链队操作的时间复杂度均为$O(1)$, 清除队列操作的时间复杂度为$O(n)$,$n$表示队列的长度。
+
+可以用下面程序调试对链接队列进行各种运算的算法。
+
+#include<iostream.h>
+#include<stdlib.h>
+
+typedef int ElemType;
+struct LNode {
+    ElemType data;          //值域
+    LNode* next;            //链接指针域
+};
+struct LinkQueue {
+    LNode* front;           //队首指针
+    LNode* rear;            //队尾指针
+};
+
+#include"链接队列运算.cpp"
+
+void main()
+{
+    LinkQueue q;
+    InitQueue(q);
+    int a[9]={3,8,5,17,9,30,15,22,20};
+    int i;
+    for(i=0; i<9; i++) EnQueue(q,a[i]);
+    cout<<OutQueue(q)<<" ";
+    cout<<OutQueue(q)<<" ";
+    cout<<OutQueue(q)<<endl;
+    EnQueue(q,68);
+    for(i=0; i<9; i+=2) EnQueue(q,a[i]);
+    cout<<PeekQueue(q)<<" ";
+    cout<<OutQueue(q)<<endl;
+    while(!EmptyQueue(q)) cout<<OutQueue(q)<<" ";
+    cout<<endl;
+    ClearQueue(q);
+}
+
+运行结果如下:
+
+3 8 5
+17 17
+9 30 15 22 20 68 3 5 9 15 20
+
+除了上面介绍的一般队列外，还有一种特殊的队列叫做优先级队列。这种队列中的每个元素都带有一个优先级号，用以表示其优先级别。在优先级队列中，优先级最高的元素

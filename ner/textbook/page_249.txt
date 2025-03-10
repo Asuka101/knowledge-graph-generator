@@ -1,0 +1,35 @@
+此，求传送电文的最短长度问题就转化为求由字符集中的所有字符作为叶子结点，由字符的出现频率作为其权值所产生的哈夫曼树的问题。
+
+由上例生成的编码哈夫曼树如图 6-11 所示。由编码哈夫曼树得到的字符编码称作哈夫曼编码。其中，A、B、C、D、E、F 这 6 个字符的哈夫曼编码依次为：00,1010,01,11,100,1011。电文的最短传送长度为：$L = WPL = \sum_{i=1}^{6} w_i l_i \\
+= 4 \times 2 + 2 \times 4 + 6 \times 2 + 8 \times 2 + 3 \times 3 + 2 \times 4 \\
+= 61$显然，计算结果比等长编码所得到的传送电文总长度 75 要小得多。
+
+对求哈夫曼树带权路径长度的算法略加修改，就可以得到求哈夫曼编码的算法。具体如下。
+
+void HuffManCoding(BTreeNode* FBT, int len)
+    //根据 FBT 指针所指向的哈夫曼树输出每个叶子的编码，len 初值为 0
+{
+    static int a[10]; //数组的长度要至少等于哈夫曼树的深度减 1
+    if (FBT != NULL) {
+        //访问到叶子结点时输出其保存在数组 a 中的 0 和 1 序列编码
+        if (FBT->left == NULL && FBT->right == NULL) {
+            cout << "结点权值为" << FBT->data << "的编码:";
+            for (int i = 0; i < len; i++) cout << a[i] << ' ';
+            cout << endl;
+        }
+        //访问到非叶子结点时分别向左、右子树递归调用，并分别把分支上的 0、1 编码保存到数组 a 的对应元素中，向下深入一层时 len 值增 1
+        else {
+            a[len] = 0; HuffManCoding(FBT->left, len + 1);
+            a[len] = 1; HuffManCoding(FBT->right, len + 1);
+        }
+    }
+}
+
+采用如下程序调试对哈夫曼树的算法。
+
+#include<iostream.h>
+#include<stdlib.h>
+
+typedef int ElemType;
+struct BTreeNode {
+    ElemType data;

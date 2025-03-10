@@ -1,0 +1,45 @@
+}
+else if(ch==34) {
+    while(ifstr->ch)
+        if(ch==34) break; //34为双引号的ASCII值
+    if(!ifstr) return 0; //读到文件结束返回0
+}
+switch (ch) {
+    case '{':
+    case '[':
+    case '(':
+        Push(a,ch); //出现以上3种左括号则进栈
+        break;
+    case '}':
+        if(Peek(a)=='(')
+            Pop(a); //栈顶的大括号出栈
+        else return 0;
+        break;
+    case ']':
+        if(Peek(a)=='[')
+            Pop(a); //栈顶的左中括号出栈
+        else return 0;
+        break;
+    case ')':
+        if(Peek(a)=='(')
+            Pop(a); //栈顶的左圆括号出栈
+        else return 0;
+}
+if(EmptyStack(a)) return 1;
+else return 0;
+}
+
+下面程序调试上述算法。
+
+#include<iostream.h>
+#include<stdlib.h>
+#include<fstream.h>
+
+typedef int ElemType;
+struct Stack {
+    ElemType *stack;
+    int top;
+    int MaxSize;
+};
+
+#include"顺序栈运算.cpp" //该程序文件保存着6种顺序栈运算的算法

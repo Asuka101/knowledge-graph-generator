@@ -1,0 +1,51 @@
+(a) 删除前的状态
+
+(b) 删除过程
+
+(c) 删除后的状态
+
+图 2-12 在双向链表中删除结点的示意图
+
+6. 带表头附加结点的线性链表
+
+在线性表的链接存储中, 为了方便在表头插入和删除结点, 使得与在其他地方所做的操作相同, 需要在表头结点 (即保存第一个元素的结点) 的前面增加一个结点, 把它称之为表头附加结点, 此时表头附加结点的指针域指向表头结点, 而表头指针由原来指向第一个元素的结点改为指向表头附加结点。仍以存储以前给出的线性表 A 为例, 如图 2-13 所示。此时单链表中指向第一个结点的指针为 H->next, 双向链表中指向第一个结点的指针为 B->right。
+
+H$\rightarrow$\fbox{$\square$}$\rightarrow$\fbox{$a_{1}$}$\rightarrow$\fbox{$a_{2}$}$\rightarrow$\cdots$\rightarrow$\fbox{$a_{n}$}
+
+(a) 带表头附加结点的单链表
+
+B$\rightarrow$\fbox{$\triangle$}$\rightarrow$\fbox{$a_{1}$}$\rightarrow$\fbox{$a_{2}$}$\rightarrow$\cdots$\rightarrow$\fbox{$a_{n}$}
+
+(c) 带表头附加结点的双向链表
+
+H$\rightarrow$\fbox{$\square$}
+
+(b) 带表头附加结点的空单链表
+
+B$\rightarrow$\fbox{$\triangle$}
+
+(d) 带表头附加结点的空双向链表
+
+图 2-13 带表头附加结点的单链表和双向链表
+
+7. 循环链表
+
+在单链表中, 让表尾结点 (即最后一个结点) 的指针域指向表头结点或表头附加结点 (若采用的话); 在双向链表中, 若让表尾结点的右指针域指向表头结点或表头附加结点,而让表头结点或表头附加结点的左指针域指向表尾结点, 则就构成了循环链表。带有表头附加结点的循环单链表和循环双向链表, 如图 2-14 所示。
+
+H$\rightarrow$\fbox{$\square$}$\rightarrow$\fbox{$a_{1}$}$\rightarrow$\fbox{$a_{2}$}$\rightarrow$\cdots$\rightarrow$\fbox{$a_{n}$}
+
+(a) 循环单链表
+
+B$\rightarrow$\fbox{$\square$}$\rightarrow$\fbox{$a_{1}$}$\rightarrow$\fbox{$a_{2}$}$\rightarrow$\cdots$\rightarrow$\fbox{$a_{n}$}
+
+(c) 循环双向链表
+
+H$\rightarrow$\fbox{$\square$}
+
+(b) 循环单链空表
+
+B$\rightarrow$\fbox{$\square$}
+
+(d) 循环双向空表
+
+图 2-14 带表头附加结点的循环单链表和循环双向链表

@@ -1,0 +1,40 @@
+初始化矩形数据的函数定义如下。
+
+void InitRectangle(struct Rectangle& r, float len, float wid) {
+    r.length=len;  /*把$len$值赋给$r$的$length$域*/
+    r.width=wid;   /*把$wid$值赋给$r$的$width$域*/
+}
+
+该函数把两个值参数$len$和$wid$的值分别赋给引用参数$r$的$length$域和$width$域，实现对一个矩形$r$的初始化。求矩形周长和求矩形面积的函数分别定义如下。
+
+float Circumference(struct Rectangle& r) {
+    return$2*(r.length+r.width)$;
+}
+
+float Area(struct Rectangle& r) {
+    return$r.length*r.width$;
+}
+
+这两个函数分别具有一个矩形引用参数（也可采用值参），调用执行后分别计算并返回被引用矩形的周长和面积。
+
+在函数参数中，有引用参数和值参数之分，若在参数类型和参数名之间使用&符号，则就定义该参数为引用参数，否则为值参数。对于引用参数，函数被调用时，它被看成对应的调用参数（即实参）的别名，函数中访问它就是访问对应的实参；对于值参数，当函数被调用时，将为它分配存储空间，并用对应实参的值初始化，在函数体中对值参数的访问与对应的实参无关，当函数调用结束后将自动释放掉为值参数所分配的存储空间。在C语言中不能使用引用参数，它是在C++语言中增加的。通过在C语言中使用指针参数可以实现引用的功能。如可将上面求矩形面积的函数修改如下。
+
+float Area(struct Rectangle* r) {
+    return$r->length*r->width$;
+}
+
+若采用C++类来描述抽象数据类型RECTangle，则如下所示。
+
+class RECTangle {
+private:
+    float length, width;
+public:
+    RECTangle(float len, float wid) {
+        length=len; width=wid;
+    }
+    float Circumference(void) {
+        return$2*(length+width)$;
+    }
+    float Area(void) {
+        return$length*width$;
+}

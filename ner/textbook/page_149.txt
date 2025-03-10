@@ -1,0 +1,39 @@
+void InitStack(StackType& S); //初始化栈s,即把它置为空
+void Push(StackType& S, ElemType item) //元素进栈,即插入到栈顶
+ElemType Pop(StackType& S) //删除栈顶元素并返回之
+ElemType Peek(StackType& S) //返回栈顶元素的值,但不改变栈
+bool EmptyStack (StackType& S); //判断s是否为空
+void ClearStack(StackType& S); //清除栈中所有元素,使之成为空栈
+end STACK
+
+对于判断栈是否为空和返回栈顶元素这两种操作，由于它们不改变栈的状态，所以可在参数类型说明前使用常量定义符 const，也可以取消引用定义，改为值参定义。
+假定栈 a 的元素类型为 int，下面给出调用上述栈操作的一些例子。
+
+InitStack(a); //把栈 a 置空
+Push(a,18); //元素 18 进栈
+int x=46; Push(a,x); //x 的值 46 进栈
+Push(a,x/3); //x 除以 3 的整数值 15 进栈
+x=Pop(a); //栈顶元素 15 退栈并赋给 x
+cout<<Peek(a); //读取栈顶元素 46 并输出
+Pop(a); //栈顶元素 46 出栈,返回值 46 自动丢失
+EmptyStack(a); //因栈非空,应返回 false
+cout<<(Pop(a))<<endl; //栈顶元素 18 退栈并输出
+x=EmptyStack(a); //因栈为空,返回 true(对应整数 1)赋给 x
+
+\section*{4.2 栈的顺序存储结构和操作实现}
+
+栈的顺序存储结构同样需要使用一个数组和一个整型变量来实现，利用数组来顺序存储栈中的所有元素，利用整型变量来存储栈顶元素的下标位置。栈数组用 stack[MaxSize]表示，指示栈顶位置的整型变量用 top 表示，则元素类型为 ElemType 的栈的顺序存储结构可定义如下。
+
+ElemType stack [MaxSize];
+int top;
+
+其中，MaxSize 为一个整型全局常量，需先通过 const 语句定义，由它确定顺序栈（即顺序存储的栈）的最大长度，又称为深度，即栈空间最多能够存储的元素个数；由于 top 用来指示栈顶元素的位置，所以把它称为栈顶指针。
+
+栈的顺序存储结构所使用的栈数组和栈顶指针同样可以定义在一个记录类型中，该记录类型用 Stack 表示，则定义如下。
+
+struct Stack {
+    ElemType stack[MaxSize];
+    int top;
+};
+
+若要对存储栈的数组空间采用动态分配，则 Stack 结构类型可定义如下。

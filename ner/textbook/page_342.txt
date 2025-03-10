@@ -1,0 +1,65 @@
+其中，LNode*为指向 LNode 结点类型的指针类型, LNode 结点类型在第二章已经定义过,如下所示:
+
+struct LNode {ElemType data; LNode*next;};
+
+对散列表的运算主要有: 散列表的初始化、清除散列表、向散列表插入元素、查找散列表、从散列表中删除元素等, 下面分两种散列表类型进行讨论。
+
+1. 在类型为 ArrayHashList 的顺序存储的散列表上进行的运算
+
+(1) 初始化散列表。
+
+void InitHashList (ArrayHashList HT)
+
+{ //把散列表 HT 中每一单元的关键字 key 域都置为空标志
+
+for(int i=0; i<HashMaxSize; i++)
+
+HT[i].key=NullTag;
+
+}
+
+其中, NullTag 常量表示空记录标志, 当关键字类型为字符串时它为特定字符串, 如空串"0",当为数值型时它为一个非关键字的特定数值, 如-1。另外, 对于字符串类型应采用字符串函数进行比较或赋值。
+
+(2) 清空一个散列表。
+
+void ClearHashList (ArrayHashList HT)
+
+{ //把散列表 HT 中每一单元的关键字 key 域都置为空标志
+
+for(int i=0; i<HashMaxSize; i++)
+
+HT[i].key=NullTag;
+
+}
+
+若散列表存储空间采用动态分配, 则在初始化散列表的函数中包含着动态存储空间分配的操作, 在清空散列表的函数中包含着释放动态存储空间分配的操作。
+
+(3) 向散列表插入一个元素。
+
+bool Insert(ArrayHashList HT, int m, ElemType item)
+
+{ //向长度为 m 的散列表 HT 中插入一个元素 item
+
+int d=H(item.key,m); //可选用任一种散列函数计算散列地址
+
+int temp=d; //用 temp 变量暂存散列地址 d
+
+while (HT[d].key!=NullTag && HT[d].key!=DeleteTag)
+
+{ //继续向后查找空元素位置或被删除元素的位置
+
+d=(d+1)%m; //假定采用线性探查法处理冲突
+
+if(d==temp) return false; //查找所有位置后返回假表示无法插入
+
+}
+
+HT[d]=item; //将新元素插入到下标为 d 的位置
+
+return true; //返回真表示插入成功
+
+}
+
+(4) 从散列表中查找一个元素。
+
+int Search(ArrayHashList HT, int m, ElemType item)

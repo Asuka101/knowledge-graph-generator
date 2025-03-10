@@ -1,0 +1,37 @@
+else {
+    double a=t1->data.coef+t2->data.coef;
+    if(a!=0) {
+        Term item={a,t1->data.exp};
+        InsertList(p3,item,-1);
+    }
+    t1=t1->next;
+    t2=t2->next;
+}
+//将p1单链表中的剩余结点复制到p3单链表中
+while(t1!=NULL) {
+    InsertList(p3,t1->data,-1);
+    t1=t1->next;
+}
+//将p2单链表中的剩余结点复制到p3单链表中
+while(t2!=NULL) {
+    InsertList(p3,t2->data,-1);
+    t2=t2->next;
+}
+//返回结果单链表的表头指针p3
+return p3;
+}
+
+在这个算法中，$t1 \rightarrow data.exp < t2 \rightarrow data.exp$和$t2 \rightarrow data.exp < t1 \rightarrow data.exp$表达式也可以分别改写为$t1 \rightarrow data < t2 \rightarrow data$和$t2 \rightarrow data < t1 \rightarrow data$，因为进行两个Term结构对象小于号重载运算符函数比较的是其相应的指数域。
+
+此算法依次扫描两个单链表中的每个结点，每次把一个结点的值或两个对应结点的合并值按指数有序插入到结果单链表中，因为每次插入的指数值都大于结果单链表中已有结点的值，所以只要依次插入到表尾即可。设两个加数多项式的单链表长度分别为$m$和$n$，则扫描过程的时间复杂度为$O(m+n)$，每次插入过程的时间复杂度也为$O(m+n)$，因为每次都插入到结果单链表的表尾，所以整个算法的时间复杂度为$O((m+n)^2)$。
+
+\section*{2. 实现相加运算的第2种算法}
+
+每次向结果单链表插入时不是调用插入算法InsertList，而是设法记住结果单链表的表尾结点的位置，直接把新结点链接到表尾，这样插入每个结点的时间复杂度为$O(1)$，整个算法的时间复杂度就变为$O(m+n)$，从而大大提高了算法的时间效率，算法如下。
+
+LNode* PolyAdd2(LNode* p1, LNode* p2)
+{
+    //定义结果单链表p3，并让它指向附加表头结点，这会使处理方便
+    LNode* p3;
+    p3=new LNode;
+    //分别定义t1,t2和t3指针，初始分别指向p1,p2和p3单链表

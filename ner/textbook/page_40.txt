@@ -1,0 +1,34 @@
+void main(void)
+{
+    int* p;
+    //p=(int*)malloc(8*sizeof(int));
+    //p=(int*)calloc(8,sizeof(int));
+    p=new int[8];
+    for(int i=0; i<8; i++)
+        p[i]=i*i;
+    p=(int*)realloc(p,12*sizeof(int));
+    for(i=8; i<12; i++)
+        p[i]=2*i;
+    for(i=0; i<12; i++)
+        cout<<p[i]<<" ";
+    cout<<endl;
+    free(p);
+}
+
+该程序的运行结果为:
+0 1 4 9 16 25 36 49 16 18 20 22
+
+3. #include<fstream.h>
+
+fstream.h 为使用文件流类的头文件，其中定义有输入文件流类 ifstream、输出文件流类 ofstream 和输入/输出文件流类 fstream，利用它们可以为编程者定义相应的文件流对象，从而对外存上的文件进行输入/输出操作。例如:
+
+ifstream input("xxk1.dat",ios::in|ios::nocreate);
+ofstream output1("d:\\xxk\\xxk21.dat",ios::out),
+ofstream output2("xxk22.dat",ios::app);
+fstream inout("a:\\xxk3.dat",ios::in|ios::out);
+
+在以上每一条语句中都定义了一个相应的文件流对象，其中的第 1 个参数给出要打开的实际文件，它为一个字符指针类型，第 2 个参数给出文件的打开方式。执行上述任一条语句后，若相应的文件被打开，则由文件流对象返回一个非 0 值，否则返回一个 0 值。当打开一个文件后，将在内存中开辟出一个相应的文件缓冲区，通过文件流对象访问缓冲区，实现对文件的读写操作。
+
+上述第 1 条语句定义了输入文件流对象为 input，要打开的文件为当前目录下的 xxk1.dat，并由 ios::in 参数规定按输入（即由文件到内存）方式打开，此参数可以省，由 ios::nocreate 参数规定若指定文件不存在则不应去建立它，否则将建立它。打开一个用于输入的文件后，文件指针被自动指向文件内容的开始位置。
+
+第 2 条语句定义了输出文件流对象为 output1，要打开的文件为 d 盘 xxk 子目录下的 xxk21.dat，并由 ios::out 参数规定按输出（即由内存到文件）方式打开，此参数可以缺省，若指定文件不存在，则自动在指定目录下建立文件名为 xxk21.dat 的空文件。打开一个用于输出的文件后，文件中的原有内容自动被清除掉。

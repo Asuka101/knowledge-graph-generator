@@ -1,0 +1,46 @@
+```cpp
+for(int i=0; i<=MT->keynum; i++)
+    ClearMBTree(MT->ptr[i]); //删除每个子树
+delete MT; //回收根结点
+MT=NULL; //置根指针为空
+}
+
+2. 求一棵 B_树的深度
+
+int DepthMBTree(MBNode*MT)
+{
+    if(MT==NULL)
+        return 0; //对于空树,返回 0 并结束递归
+    else
+        return 1+DepthMBTree(MT->ptr[0]); //顺着任何子树向下递归即可
+}
+
+3. 求 B_树中的所有结点数
+
+int CountMBTree(MBNode*MT)
+{
+    if(MT==NULL) return 0;
+    else {
+        int c=0;
+        for(int i=0; i<=MT->keynum; i++)
+            c+=CountMBTree(MT->ptr[i]);
+        return c+1;
+    }
+}
+
+4. 按从小到大次序遍历输出 B_树中的所有关键字
+
+void PrintMBTree(MBNode*MT)
+{
+    if(MT!=NULL) {
+        PrintMBTree(MT->ptr[0]); //中序遍历输出 B_树中的所有关键字
+        for(int i=1; i<=MT->keynum; i++) {
+            cout<<MT->key[i]<<' ';
+            PrintMBTree(MT->ptr[i]);
+        }
+    }
+}
+
+利用下面程序调试 B_树的各种运算的算法。
+#include<iostream.h>
+```

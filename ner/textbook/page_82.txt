@@ -1,0 +1,50 @@
+```cpp
+#include"list.cpp"
+
+void SetupGoodsList(List& L, char* fname)
+{
+    //把文件中所存商品表顺序读入内存线性表中以便处理
+    ifstream ifstr(fname,ios::in|ios::nocreate);
+    if(!ifstr) {
+        cerr<<"File 'goods'not found!"<<endl;
+        exit(1);
+    }
+    goods g;
+    int i=1;
+    while(ifstr>>g.code) {
+        ifstr>>g.name>>g.minq>>g.curq;
+        InsertList(L,g,i++);
+    }
+    ifstr.close();
+}
+
+void WriteGoodsFile(char* fname, List& L)
+{
+    //把线性表中所存的商品表重新写回到文件中
+    ofstream ofstr(fname);
+    if(!ofstr) {
+        cerr<<"File 'goods' no create!"<<endl;
+        exit(1);
+    }
+    goods g;
+    int n=LenthList(L);
+    for(int i=1; i<=n; i++){
+        g=GetList(L,i);
+        ofstr<<g.code<<" "<<g.name<<" "
+             <<g.minq<<" "<<g.curq<<endl;
+    }
+    ofstr.close();
+}
+
+void main()
+{
+    List L2;                              //说明一个线性表 L2
+    InitList(L2);                         //初始化L2
+    SetupGoodsList(L2,"a:goods.dat");     //读文件到线性表
+    int i,flag=1;
+    while(flag)                           //当flag为真时执行循环
+    {
+        cout<<"1 打印整个库存表"<<endl;
+        cout<<"2 修改库存表中的记录"<<endl;
+}
+```

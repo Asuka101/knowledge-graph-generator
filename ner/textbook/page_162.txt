@@ -1,0 +1,40 @@
+x=Pop(S)*Pop(S);
+i++; break;
+case '/':
+x=Pop(S); //做栈顶两个元素的除法, 商赋给 x
+if(x!=0.0) x=Pop(S)/x; //弹出被除数并计算
+else {
+cerr<<"Divide by 0!"<<endl;
+exit(1);
+}
+i++; break;
+default: //扫描到的是浮点数字符串, 生成对应的浮点数
+x=0; //利用 x 保存扫描到的整数部分的值
+while(str[i]>=48 & str[i]<=57) {
+x=x*10+str[i]-48; i++;
+}
+if(str[i]=='.') {
+i++;
+y=0; //利用 y 保存扫描到的小数部分的值
+double j=10.0; //用 j 作为相应小数位的权值
+while(str[i]>=48 & str[i]<=57) {
+y=y+(str[i]-48)/j;
+i++; j*=10;
+}
+x+=y; //把小数部分合并到整数部分 x 中
+}
+//把扫描转换后或进行相应运算后得到的一个浮点数压入栈 S 中
+Push(S,x);
+} //while end
+//若计算结束后栈为空则中止运行
+if(EmptyStack(S)) {cerr<<"Stack is empty!"<<endl; exit(1);}
+//若栈中仅有一个元素, 则它就是后缀表达式的值, 否则为出错
+x=Pop(S);
+if(EmptyStack(S)) return x;
+else {cerr<<"expression error!"<<endl; exit(1);}
+//释放 S 栈中动态存储空间
+ClearStack(S);
+
+此算法的运行时间主要消耗在 while(str[i])循环上, 它从头到尾扫描后缀表达式中的每一个字符, 若后缀表达式的字符串长度为$n$, 则此算法的时间复杂度为$O(n)$。此算法在运行时所占用的临时空间主要取决于栈 S 的大小, 显然, 它的最大深度不会超过表达式中所含操作数的个数, 因为操作数的个数比运算符的个数多1, 所以此算法的空间复杂度也同样为$O(n)$。
+
+若一个字符串 a 为:

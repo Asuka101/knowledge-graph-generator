@@ -1,0 +1,45 @@
+```cpp
+//把只可能在 A1 中剩下的最后一个有序表复制到 R1 或 R2 中
+else {
+    for(int i=p; i<nl; i++) {
+        A1.read((char*) &x, b);
+        if(p%(2*len)==0) R1.write((char*) &x, b);
+        else R2.write((char*) &x, b);
+    }
+}
+
+若初始归并段的长度为 BlockSize，文件 A1 和 A2 中保存着个数相等，或者 A1 至多比 A2 多 1 的初始归并段。若 A1 和 A2 中的归并段数量相等，则 A2 的最后一个归并段可能不是整归并段，即它的长度可能小于 BlockSize；若 A1 比 A2 中的归并段数量大 1，则 A1 的最后一个归并段可能不是整归并段。对文件 A1 和 A2 进行二路归并排序，最后使得 A1 和 A2 中只含有一个归并段，并且 A2 可能为空，其算法描述如下。
+
+void FMergeSort(fstream &A1,fstream &A2, int BlockSize)
+{
+    //采用归并排序的方法对文件 A1 和 A2 中的、每个初始归并段
+    //(有序子表) 长度为 BlockSize 的记录进行二路归并排序
+    //定义能够按块随机存取的辅助文件 R1 和 R2
+    fstream R1(f4,ios::in|ios::out|ios::binary);      //f4为字符指针
+    fstream R2(f5,ios::in|ios::out|ios::binary);      //f5为字符指针
+    if(!R1 || !R2) {
+        cerr<<"辅助数据文件没有建立,退出运行!"<<endl;
+        exit(1);
+    }
+    //从归并段长度为给定值 BlockSize 开始归并
+    int len=BlockSize;
+    //求出文件 A1 中的记录个数并赋给 nl
+    A1.seekg(0,ios::end);
+    int n1=A1.tellg()/b;
+    //当归并段长度小于 A1 中记录总数时，说明 A1 中至少仍存在着两个归并段
+    //应继续归并，直到 A1 中只存在一个归并段为止，此时 A2 中至多有一个
+    while(len<n1) {
+        //重新关闭和打开 R1 和 R2 文件，并置为空文件
+        R1.close(); R2.close();
+        R1.open(f4,ios::in|ios::out|ios::trunc|ios::binary);
+        R2.open(f5,ios::in|ios::out|ios::trunc|ios::binary);
+        //从 A1 和 A2 归并到 R1 和 R2 中，使 R1 和 R2 中每个有序表的长度为 2*len
+        FMergePass(A1,A2,R1,R2,len);
+        len*=2;
+        //重新关闭和打开 A1 和 A2 文件，并置为空文件
+        A1.close(); A2.close();
+        A1.open(f2,ios::in|ios::out|ios::trunc|ios::binary);
+        A2.open(f3,ios::in|ios::out|ios::trunc|ios::binary);
+    }
+}
+```

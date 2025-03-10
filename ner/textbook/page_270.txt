@@ -1,0 +1,24 @@
+量；对于一个反映工程进度的图，边上的权可表示从前一子工程到后一子工程所需要的天数。边上带有权的图称作带权图，也常称做网 (network)。如图 7-5 所示的$G5$和$G6$就分别是一个无向带权图和有向带权图。
+
+(a) G5
+(b) G6
+
+图 7-5 无向带权图和有向带权图
+
+对于带权图，若用图的顶点集和边集表示，则边集中每条边的后面应附加该边上的权值。图$G5$和$G6$的边集分别为：$E(G5)=\{(0,1)5,(0,2)7,(1,2)12,(1,3)3,(1,4)8,(2,3)6,(2,4)20,(3,4)15\}$E(G6)=\{<0,1>2,<0,2>3,<0,3>8,<1,3>12,<2,0>6,<2,3>6,<2,4>1,<3,4>4\}$\subsection*{7.1.3 图的抽象数据类型}
+
+图的抽象数据类型的数部分为一个图$G$，它可以采用顺序、链接等任一种存储结构，存储类型用 GraphType 标识符表示，操作部分包括初始化图、建立图、遍历图、查找图、输出图、清除图等常用运算，以及求图的最小生成树、最短路径、拓扑排序、关键路径等特定运算。图的抽象数据类型的具体定义如下。
+
+DAT GRAPH is
+Data:
+一个图 G，存储类型用标识符 GraphType 表示
+Operations
+void InitGraph(GraphType&G); //初始化图的存储空间
+void CreateGraph(GraphType&G, char*E, int n); //根据图的边集 E 建立图的存储结构
+void TraverseGraph(GraphType&G, int i, int n); //按照一定次序从顶点 i 开始遍历图
+bool FindGraph(GraphType&G, VertexType& item, int n); //从图中查找给定值顶点
+void PrintGraph(GraphType&G, int n); //按照图的一种表示方法输出一个图
+void ClearGraph(GraphType&GT); //清除图中动态分配的存储空间
+void MinSpanGraph(GraphType&G, int n); //求图中的最小生成树
+void MinPathGraph(GraphType&G, int n); //求图中顶点之间的最短路径
+void TopolGraph(GraphType&G, int n); //求有向图中顶点之间的拓扑序列

@@ -1,0 +1,35 @@
+(2) 将指向 b 结点的指针（即指针变量 s 的值）赋给 a 结点的指针域。$\cdots \rightarrow$p$\rightarrow$[a]$\rightarrow$q$\rightarrow$[c]$\rightarrow \cdots \quad \cdots \rightarrow$p$\rightarrow$[a]$\rightarrow$s$\rightarrow$[b]$\rightarrow$q$\rightarrow$[c]$\rightarrow \cdots$(a) 插入结点前
+
+(b) 插入结点后
+
+图 2-6 在单链表中插入结点的示意图
+
+注意: 在单链表的表头插入一个新结点，则首先要吧原表头指针赋给新结点的指针域，然后再把新结点的存储位置赋给表头指针变量。
+
+思考：在单链表的表尾插入一个新结点，情况又如何呢？它同在中间或表头插入的情况有何异同？
+
+从单链表中删除 x 结点后面的 y 结点的前后状态，如图 2-7 所示，其删除操作的过程如下。$\cdots \rightarrow$p$\rightarrow$[x]$\rightarrow$q$\rightarrow$[y]$\rightarrow$r$\rightarrow$[z]$\rightarrow \cdots \quad \cdots \rightarrow$p$\rightarrow$[x]$\rightarrow$r$\rightarrow$[z]$\rightarrow \cdots$s$\rightarrow$[y]
+
+(a) 删除结点前
+
+(b) 删除结点后
+
+图 2-7 从单链表中删除结点的示意图
+
+(1) 将 x 结点指针域的值 q（即指向后继 y 结点的指针）赋给一个临时指针变量 s，以便处理和回收该结点。
+
+(2) 将 y 结点的指针域的值 r（即指向后继 z 结点的指针）赋给 x 结点的指针域。
+
+注意：从单链表中删除表头结点，则首先要把表头指针赋给一个临时指针变量，以便处理和回收该结点，然后再把原表头结点指针域的值（即指向原表头后继结点的指针）赋给表头指针变量，使其下一个结点成为新的表头结点。
+
+思考：若从单链表中删除表尾结点，情况又如何呢？它同删除中间或表头结点的情况有何异同？
+
+4. 单链表中的结点类型
+
+In 单链表中，每个结点的类型用 LNode 表示，它包括存储元素的数值域，用 data 表示，其类型用通用类型标识符 ElemType 表示，还包括存储后继元素位置的指针域，用 next 表示，其类型为指向本身结点的指针类型 LNode*，则 LNode 类型的定义如下。
+
+struct LNode
+{
+    ElemType data;
+    LNode* next;
+};

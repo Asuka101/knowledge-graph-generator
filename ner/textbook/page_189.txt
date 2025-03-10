@@ -1,0 +1,45 @@
+break;  //结束 switch 语句
+}
+if(mark!=1) {
+    cout<<"渡轮未到,请汽车稍后上渡轮!"<<endl;
+    break;  //结束 switch 语句
+}
+do {
+    i=0;
+    //首先上4辆客车
+    while(!EmptyQueue(q1) && n<10 && i<4) {
+        a[n++]=OutQueue(q1);
+        i++;
+    }
+    //满10辆开船,打印车辆号,重新对mark和n清0,转功能号表
+    if(n==10) {Print(a,n); mark=0; n=0; goto L1;}
+    //进4辆客车则接着进一辆货车,不满4辆则由货车补
+    if(i==4) {
+        if(!EmptyQueue(q2)) a[n++]=OutQueue(q2);
+    }
+    else {
+        while(!EmptyQueue(q2) && n<10 && i<5) {
+            a[n++]=OutQueue(q2);
+            i++;
+        }
+    }
+    //满10辆则开船
+    if(n==10) {Print(a,n); mark=0; n=0; goto L1;}
+} while(!EmptyQueue(q1) || !EmptyQueue(q2));
+    //只要客车或货车队列不全为空,则继续执行do循环
+t2=time(0)-t1;  //登记渡轮已经等待时间的秒数
+cout<<"轮渡上有车"<<n<<"辆,已等待"<<t2/60<<"分"<<t2%60;
+cout<<"秒,等候其他汽车上渡轮!"<<endl;
+break;  //结束 switch 语句
+case 4:
+    if(n==0 || mark==0)
+        cout<<"轮渡上无车过江或根本无渡轮!不需要起航!"<<endl;
+    else {
+        Print(a,n); mark=0; n=0;
+    }
+    break;  //结束 switch 语句
+case 5:
+    OutputQueue(q1,q2);
+    break;  //结束 switch 语句
+case 6:
+    if(!EmptyQueue(q1) || !EmptyQueue(q2)) {

@@ -1,0 +1,43 @@
+void ClearList(List &L)
+{
+    if(L.list!=NULL) {
+        delete []L.list;
+        L.list=NULL;
+    }
+    L.MaxSize=0;
+    L.size=0;
+}
+
+3. 得到线性表的长度
+
+int LengthList(List &L)
+{
+    return L.size;
+}
+
+4. 检查线性表是否为空
+
+bool EmptyList(List &L)
+{
+    return L.size==0;
+}
+
+若线性表L为空，则返回真，否则返回假。
+
+5. 得到线性表中指定序号为$pos$的元素
+
+ElemType GetList(List &L, int pos)
+{
+    if(pos<1 || pos>L.size)          //若pos越界则退出程序
+    {
+        cerr<<"pos is out range!"<<endl;
+        exit(1);
+    }
+    return L.list[pos-1];            //返回线性表中第$pos$个元素的值
+}
+
+若所给的$pos$值不存在越界问题，则可直接使用表达式$L$.list[$pos$-1]从线性表$L$中取出第$pos$个元素。如要取出线性表$L$中第5个元素，则表示为$L$.list[4]。
+
+6. 遍历一个线性表
+
+遍历一个线性表就是从线性表的第1个元素起，按照元素之间的逻辑顺序，依次访问每一个元素，并且每个元素只被访问一次，直到访问完所有元素为止。在顺序存储方式下，线性表中元素之间的存储顺序与其逻辑顺序相同，因为一个元素的后继元素被紧接着存储在该元素所在位置的下一个存储位置上。若一个元素在数组存储空间中的存储位置为下标

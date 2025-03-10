@@ -1,0 +1,42 @@
+```c
+#include<iostream.h>
+#include<stdlib.h>
+typedef char ElemType;
+struct GLNode
+{
+    bool tag;
+    union {
+        ElemType data;
+        GLNode* sublist;
+    };
+    GLNode* next;
+};
+#include"广义表运算.cpp"
+void main()
+{
+    GLNode* g=NULL;
+    Create(g);
+    Print(g);
+    cout<<endl;
+    cout<<"广义表的长度："$<$Length(g->sublist)$>$<<endl;
+    cout<<"广义表的深度："$<$Depth(g->sublist)$>$<<endl;
+}
+
+该程序运行后，从键盘上输入如下一行字符：$(a,(b,(c)),( (#),( (d,e))),f,(g))$;
+
+则得到的输出结果如下:$(a,(b,(c)),( (#),( (d,e))),f,(g))$广义表的长度：5
+
+广义表的深度：4
+
+习 题 3
+
+【习题 3-1】按要求进行稀疏矩阵运算。
+已知一个稀疏矩阵，如图 3-13 所示。$\begin{bmatrix}
+0 & 4 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & -3 & 0 & 0 & 1 \\
+8 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 5 & 0 & 0 & 0 \\
+0 & -7 & 0 & 0 & 0 & 2 & 0 \\
+0 & 0 & 0 & 6 & 0 & 0 & 0
+\end{bmatrix}$图 3-13 具有6行×7列的一个稀疏矩阵
+```

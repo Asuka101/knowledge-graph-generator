@@ -1,0 +1,42 @@
+void CreateBTree(BTreeNode*& BT, char*a)
+{
+    //根据字符串 a 所给出的用广义表表示的二叉树建立对应的存储结构
+    const int MaxSize=10;  //栈数组长度要大于等于二叉树的深度减$1$BTreeNode*s[MaxSize];  //s 数组作为存储根结点指针的栈使用
+    int top=-1;            //top 作为栈顶指针,初值为$-1$,表示空栈
+    BT=NULL;               //把树根指针置为空,即从空树开始
+    BTreeNode*p;           //定义 p 为指向二叉树结点的指针
+    int k;                 //用 k 作为处理结点的左子树和右子树的标记
+                            //k=1 处理左子树,k=2 处理右子树
+    int i=0;               //用 i 扫描数组 a 中存储的二叉树广义表字符串
+    while (a[i])           //每循环一次处理一个字符,直到扫描到字符串结束符'\0'为止
+    {
+        switch(a[i]) {
+            case ' ':      //对空格不作任何处理
+                break;
+            case '(':
+                if(top==MaxSize-1) {
+                    cout<<"栈空间太小,请增加 MaxSize 的值!"<<endl;
+                    exit(1);
+                }
+                top++; s[top]=p; k=1;
+                break;
+            case ')':
+                if(top==-1) {
+                    cout<<"二叉树广义表字符串错!"<<endl; exit(1);
+                }
+                top--; break;
+            case ',':
+                k=2; break;
+            default:
+                p=new BTreeNode;
+                p->data=a[i]; p->left=p->right=NULL;
+                if(BT==NULL) BT=p;   //作为根结点插入
+                else {
+                    if(k==1) s[top]->left=p;  //作为左孩子插入
+                    else s[top]->right=p;     //作为右孩子插入
+                }
+        }                               //switch end
+        i++;                            //为扫描下一个字符修改 i 值
+    }
+
+在这个算法中，s 栈的最大深度等于二叉树的深度减$1$，而二叉树的深度则等于广义表表示中圆括号嵌套的最大层数加$1$。所以当定义 s 栈的数组空间时，其长度（即下标上限

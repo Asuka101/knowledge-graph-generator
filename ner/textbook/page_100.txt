@@ -1,0 +1,33 @@
+if(AL[0].next==0) {
+    cerr<<"Linkedlist is an empty!"<<endl;
+    return false;
+}
+//查找被删除的结点及前驱结点
+int ap, cp;
+ap=0; cp=AL[0].next;
+while(cp!=0)
+    if(AL[cp].data==item) break;
+    else {ap=cp; cp=AL[cp].next;}
+//若不存在被删除的元素则返回假
+if(cp==0){
+    cerr<<"Deleted element is not exist!"<<endl;
+    return false;
+}
+//从单链表中删除查找到的下标为 cp 的结点，不用特殊考虑表头情况
+AL[ap].next=AL[cp].next;
+//把删除的结点插入到空闲表的表头
+AL[cp].next=AL[1].next;
+AL[1].next=cp;
+//删除成功返回数值假
+return false;
+
+*2.6 多项式计算
+
+\subsection{2.6.1 多项式表示与求值}
+
+多项式表示与求值是线性表应用的一个典型实例。
+由数学知识可知，一个多项式$P(x)$的一般表示为：$P(x)=a_0+a_1x^1+a_2x^2+\cdots+a_nx^n$其中，$n$为整数，$n \geqslant 0$，$a_n \neq 0$，$a_0 \sim a_{n-1}$中的每个系数可以为 0，也可以不为 0。
+
+\section{1. 多项式的第 1 种线性表表示与运算}
+
+为了处理$P(x)$，可把所有项的系数用一个线性表来表示：$(a_0, a_1, a_2, \cdots, a_n)$把这个线性表用顺序存储结构或链接存储结构保存起来，就可以进行多项式的有关运算。若采用顺序存储结构，对应的 List 类型的对象为 P，其中 P.list[] 按 x 指数的升序存储相应的系数，即存储上面线性表，P.size 存储多项式中的项数，它等于 x 的最高次幂加 1，则求此多项式值的算法描述如下。

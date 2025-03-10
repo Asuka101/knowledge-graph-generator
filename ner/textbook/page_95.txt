@@ -1,0 +1,47 @@
+9. 向单链表中按给定条件插入一个元素
+
+其插入过程如下。
+
+(1) 判定 pos 的值, 若小于-1则表明 pos 值无效, 返回假。
+
+(2) 为新插入元素动态分配结点并赋值。
+
+(3) 根据 pos 的值所表示的不同条件, 寻找新结点的插入位置, 为此需要从表头开始顺序查找新元素的插入位置, 在查找过程中必须保留当前待比较结点的地址及其前驱结点的地址, 以便插入时使用。
+
+(4) 在插入位置上完成插入新结点操作, 即把新结点链接到当前结点和前驱结点之间。若插入的位置为表头, 则需要做特殊处理。
+
+bool InsertList (LNode* &HL, ElemType item, int pos)
+{
+    //pos 值小于-1返回假
+    if(pos<-1) {
+        cout<<"pos 值无效!"<<endl; return false;
+    }
+    //为 item 元素建立新结点
+    LNode* newptr;
+    newptr=new LNode;
+    newptr->data=item;
+    //寻找新结点的插入位置
+    LNode* cp=HL;                   //用 cp 指向当前结点(即待查结点), 初始指向表头
+    LNode* ap=NULL;                 //用 ap(ahead pointer)指向 cp 的前驱结点, 初始为空
+    if(pos==0) {                    //按值寻找插入位置
+        while(cp!=NULL) {
+            if(item<cp->data) break;        //找到新元素插入位置,退出循环
+            else {
+                ap=cp;                      //ap 和 cp 指针均后移,实现顺序向后比较
+                cp=cp->next;
+            }
+        }
+    }
+    else if(pos==-1)                  //查找表尾位置
+        while(cp!=NULL) {ap=cp; cp=cp->next;}
+    else {                            //按序号 pos 的值寻找插入位置
+        int i=0;
+        while(cp!=NULL) {
+            i++;
+            if(i==pos) break;         //找到新元素插入位置,退出循环
+            else {
+                ap=cp; cp=cp->next;
+            }
+        }
+    }
+}

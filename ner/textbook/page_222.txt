@@ -1,0 +1,44 @@
+```c
+int i;
+for(i=0; i<k; i++)
+    if(GT->t[i] !=NULL) break;
+if(i<k) {
+    cout<<'(';
+    PrintGTree(GT->t[0]);
+    for(i=1; i<k; i++) {
+        cout<<',';
+        PrintGTree(GT->t[i]);
+    }
+    cout<<')';
+}
+
+5. 求树的深度
+
+树为空则深度为$0$，否则它等于所有子树的最大深度加$1$。为此设置一个整型变量，用来保存已求过的子树中的最大深度，当所有子树都求过后，返回该变量值加$1$。具体算法描述如下。
+
+int GTreeDepth(GTreeNode* GT)
+{
+    if(GT==NULL) return 0;
+    else {
+        int max=0;
+        for(int i=0; i<k; i++) {
+            int d=GTreeDepth(GT->t[i]);
+            if(d>max) max=d;
+        }
+        return max+1;
+    }
+}
+
+6. 清除树中的所有结点，使之变为一棵空树
+
+此算法类似于树的后根遍历，首先依次删除树根结点的所有子树，然后删除根结点并把指向根结点的指针置为空。该算法中的指向树根结点的参数 GT 必须是引用，这样才能作用于具体的实参。具体算法描述如下。
+
+void ClearGTree(GTreeNode*&GT)
+{
+    if(GT!=NULL) {
+        for(int i=0; i<k; i++) ClearGTree(GT->t[i]);
+        delete GT;
+        GT=NULL;
+    }
+}
+```

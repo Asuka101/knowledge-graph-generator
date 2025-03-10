@@ -1,0 +1,39 @@
+$i$, 则它的后继元素的存储位置必为下标$i+1$。所以遍历一个线性表就是依次访问 list[0]~ list[n-1]中的每一个元素，并且每个元素仅被访问一次。当访问一个元素时，可根据需要作任意处理，在我们的算法中且以打印该元素的值代之。若线性表中的元素类型为记录类型，则打印元素的值需要有对该类型重载插入操作符（$<$）函数的支持。
+
+void TraverseList(List &L)
+{
+    for(int i=0; i<L.size; i++)
+        cout<<L.list[i]<<' ';
+    cout<<endl;
+}
+
+当然，对于记录类型，若在此函数的 cout 输出语句中是依次输出元素的每一个域的值，而不是把元素作为整体输出，则不需要重载插入操作符。
+
+7. 从线性表中查找具有给定值的第 1 个元素
+
+bool FindList(List &L,ElemType& item)
+{
+    for(int i=0; i<L.size; i++)
+        if(L.list[i]==item){
+            item=L.list[i];
+            return true;
+        }
+    return false;
+}
+
+当从线性表 L 中查找到与 item 的值或某个域的值相等的元素时，则由 item 返回该元素的整体值，并由该函数返回真，表明查找成功，否则由函数返回假，表明查找失败。
+
+当元素类型 ElemType 为记录类型时，调用此函数必须要有对该类型进行等于号 ($==$) 重载的支持，若没有，则应该修改 if 条件表达式，使比较在相应的域上进行，并且此域必须为简单数据类型。另外，若用于比较的元素类型或某个域的类型为字符串，则需要使用字符串比较函数 strcmp，因为使用等于号直接比较的是指针的值，而不是比较所指的字符串。如当 ElemType 为字符串类型 (char*) 时，if 条件表达式应修改为：
+
+(strcmp(L.list[i],item)==0)
+
+8. 更新线性表中具有给定值的第 1 个元素
+
+bool UpdateList(List &L, const ElemType& item)
+{
+    for(int i=0; i<L.size; i++)
+        if(L.list[i]==item){
+            L.list[i]=item; //进行修改（更新）赋值操作
+            return true;
+        }
+}

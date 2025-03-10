@@ -1,0 +1,49 @@
+//若栈空则退出运行
+if (S.top==-1) {
+    cerr<<"Stack is empty!"<<endl;
+    exit(1);
+}
+//返回栈顶元素的值
+return S.stack[S.top];
+}
+
+此算法只访问栈顶元素，而不改变栈的状态，并不修改栈顶指针的值。
+
+5. 判断$S$是否为空，若是则返回 true，否则返回 false
+
+bool EmptyStack(Stack& S)
+{
+    return S.top==-1;
+}
+
+6. 清除栈$S$中的所有元素, 释放动态存储空间
+
+void ClearStack(Stack& S)
+{
+    if(S.stack) {
+        delete []S.stack;
+        S.stack=0;
+    }
+    S.top=-1;
+    S.MaxSize=0;
+}
+
+可采用下面程序调试上面介绍的栈的各种操作算法。
+
+#include<iostream.h>
+#include<stdlib.h>
+
+typedef int ElemType;
+struct Stack {
+    ElemType *stack;          //存栈元素
+    int top;                  //存栈顶元素的下标位置
+    int MaxSize;              //存 stack 数组长度, 即所能存储栈的最大长度
+};
+
+#include"顺序栈运算.cpp"     //保存有上述 6 种对栈运算的算法
+
+void main()
+{
+    Stack s;
+    InitStack(s);
+    int a[8]={3,8,5,17,9,30,15,22};

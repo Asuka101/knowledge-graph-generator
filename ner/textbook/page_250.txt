@@ -1,0 +1,55 @@
+```cpp
+BTreeNode* left;
+BTreeNode* right;
+};
+
+#include "二叉树运算.cpp"
+
+//根据数组 a 中 n 个权值建立一棵哈夫曼树，返回树根指针
+BTreeNode* CreateHuffman(ElemType a[], int n); //补充函数定义
+
+//根据 FBT 指针所指向的哈夫曼树求出带权路径长度，len 初值为 0
+ElemType WeightPathLength(BTreeNode* FBT, int len); //补充函数定义
+
+//根据 FBT 指针所指向的哈夫曼树输出每个叶子的编码，len 初值为 0
+void HuffManCoding(BTreeNode* FBT, int len); //补充函数定义
+
+void main()
+{
+    int n,i;
+    BTreeNode* fbt=NULL;
+
+    //输入哈夫曼树中叶子结点数
+    cout<<"输入待构造的哈夫曼树中带权叶子结点数 n:";
+    cin>>n;
+
+    //用数组 a 保存从键盘输入的 n 个叶子结点的权值
+    ElemType*a=new ElemType[n];
+    cout<<"输入"<<n<<"个整数作为权值:";
+    for(i=0; i<n; i++) cin>>a[i];
+
+    //根据数组 a 建立哈夫曼树
+    fbt=CreateHuffman(a,n);
+
+    //以广义表形式输出哈夫曼树
+    cout<<"广义表形式的哈夫曼树:";
+    PrintBTree(fbt);
+    cout<<endl;
+
+    //输出哈夫曼树的权值，即带权路径长度
+    cout<<"哈夫曼树的权:";
+    cout<<WeightPathLength(fbt,0)<<endl;
+
+    //输出哈夫曼编码，即每个叶子结点所对应的 0,1 序列
+    cout<<"树中每个叶子的哈夫曼编码:"<<endl;
+    HuffManCoding(fbt,0);
+    ClearBTree(fbt);
+}
+
+程序的一次运行结果如下。
+
+输入待构造的哈夫曼树中带权叶子结点数 n:6
+输入 6 个整数作为权值:3 9 5 12 6 15
+广义表形式的哈夫曼树:50(21(9,12),29(14(6,8(3,5)),15))
+哈夫曼树的权:122
+```

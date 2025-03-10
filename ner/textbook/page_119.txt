@@ -1,0 +1,35 @@
+x=S2.set[i];
+if(FindSet(S1,x)) {
+    S.set[S.len]=x; S.len++;              //把x插入S集合末尾
+    if(S.len==S.MaxSize) {
+        int k=sizeof(ElemType);
+        S.set=(ElemType*)realloc(S.set, 2*S.MaxSize*k);
+        S.MaxSize=2*S.MaxSize;
+    }
+}
+
+13. 求两个集合的差集
+
+此算法同求交集的算法类似，首先把存放结果的集合S变为一个空集，然后依次从S1\n集合中取出每一个元素，利用它去查找S2集合，看是否存在，若不存在则把它写入差集S\n中，这样写入S中的元素仅属于S1而不属于S2。此算法的时间复杂度同样为$O(n\times m)$。
+
+void DifferenceSet(Set& S1, Set& S2, Set& S)
+{
+    int i;
+    ElemType x;
+    S.len=0;                              //置集合S为一个空集
+    for(i=0; i<S1.len; i++) {
+        x=S1.set[i];                      //用S1中的每个元素去查找S2集合
+        if(!FindSet(S2,x)) {
+            S.set[S.len]=x; S.len++;      //把x插入S集合末尾
+            if(S.len==S.MaxSize) {
+                int k=sizeof(ElemType);
+                S.set=(ElemType*)realloc(S.set, 2*S.MaxSize*k);
+                S.MaxSize=2*S.MaxSize;
+            }
+        }
+    }
+}
+
+3.3 集合的链接存储结构和操作实现
+
+集合的顺序存储结构是通过数组实现的，而集合的链接存储结构是通过存储结点之间的\n链接实现的，链接形成的结果称为链接表，通常采用单链表。\n当一个集合利用单链表存储时，集合中的每个元素对应单链表中的一个结点，把这个\n元素存储到相应结点的值域中。由于集合中的元素是无序的，所以在单链表中可以按任何

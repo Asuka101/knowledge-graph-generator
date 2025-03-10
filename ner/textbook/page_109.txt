@@ -1,0 +1,44 @@
+int a[]={48,26,57,34,62,79};
+for(i=0; i<6; i++)
+    InsertList(La,a[i],1);
+TraverseList(La);
+
+2. ClearList(La);
+InitList(La);
+for(i=0; i<6; i++)
+    InsertList(La,a[i],0);
+TraverseList(La);
+
+3. int x;
+InsertList(La,56,0);
+DeleteList(La,x,1);
+DeleteList(La,x,1);
+InsertList(La,x,-1);
+TraverseList(La);
+
+4. for(i=1; i<=3; i++) {
+    int x=GetList(La,i);
+    if(x%2==0) DeleteList(La,x,0);
+}
+TraverseList(La);
+
+5. ClearList(La);
+InitList(La);
+for(i=0; i<6; i++)
+    InsertList(La,a[i],-1);
+x=a[5];
+DeleteList(La,x,0);
+SortList(La);
+InsertList(La,a[5]/2,0);
+TraverseList(La);
+ClearList(La);
+
+*【习题 2-2】画出由执行算法生成的单链表的示意图。
+对于习题2-1的前4个语段，假定La的类型为构造单链表的数组类型ALinkList，元素类型ElemType仍为int，并假定每个程序段是连续执行的，试画出每个程序段执行后所得到的单链表的示意图，要求在示意图的每个指针上注明具体数值。
+
+【习题 2-3】编写对具有 List 类型的线性表进行处理的算法。
+1. 从线性表中删除具有最小值的元素并由函数返回，空出的位置由最后一个元素填补，若线性表为空则显示出错信息并退出运行。
+2. 从线性表中删除其值在给定值$s$和$t$之间（要求$s$小于$t$）的所有元素。
+3. 从有序表中删除其值在给定值$s$和$t$（要求$s$小于$t$）之间的所有元素。
+4. 将两个有序表合并成一个新的有序表并由变量返回。
+5. 从线性表中删除所有其值重复的元素，使所有元素的值均不同。如对于线性表$(2,8,9,2,5,6,8,7,2)$，则执行此算法后变为$(2,8,9,5,6,7)$。

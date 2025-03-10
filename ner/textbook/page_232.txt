@@ -1,0 +1,37 @@
+作单独处理）根结点，则将新结点插入到根的右子树上。显然插入过程是递归的，对应的递归算法描述如下。
+
+void Insert(BTreeNode*& BST, const ElemType&item)
+{
+    if (BST==NULL)
+    {
+        //把按照 item 元素生成的新结点链接到已找到的插入位置
+        BTreeNode* p=new BTreeNode;
+        p->data=item;
+        p->left=p->right=NULL;
+        BST=p;
+    }
+    else if (item<BST->data)                      //向左子树中插入元素
+        Insert(BST->left, item);
+    else
+        Insert(BST->right, item);                 //向右子树中插入元素
+}
+
+此算法中的树根指针参数 BST 必须说明为引用，因为当它为空时需要由它带回树根指针，或者在递归时由它提供新插入结点的链接位置。
+
+同一叉搜索树的递归查找算法一样，此算法也属于末尾递归的调用，所以为了消除末尾递归，减少算法运行的时间和空间，也可编写出对应的非递归算法（注意：消除末尾递归不需要使用栈）。对于插入过程的非递归算法，需要首先查找插入位置，然后再进行插入。查找插入位置从树根结点开始，若树根指针为空，则新结点就是树根结点；否则，若 item 小于根结点，则沿着根的左指针在左子树上继续查找插入位置，若 item 大于等于根结点，则沿着根的右指针在右子树上继续查找插入位置，当查找到一个结点（设由 parent 指针所指向）的左指针或右指针为空时，则这个空的指针位置就是新元素结点的插入位置。
+
+在进行插入时，若原树为空，则将新结点指针赋给 BST，该新结点就成为树根结点；否则，将新结点赋给 parent 结点的左指针域或右指针域，作为该结点的左孩子或右孩子。插入过程的非递归算法具体描述如下。
+
+void Insert1(BTreeNode*&BST, const ElemType&item)
+{
+    //为插入新元素寻找插入位置，定义指针 t 指向当前待比较的结点，初始
+    //指向树根结点，定义指针 parent 指向 t 结点的双亲结点，初始为 NULL
+    BTreeNode* t=BST,*parent=NULL;
+    while(t!=NULL) {
+        parent=t;
+        if(item<t->data) t=t->left;
+        else t=t->right;
+    }
+    //建立值为 item, 左、右指针域为空的新结点
+    BTreeNode* p=new BTreeNode;
+    p->data=item;

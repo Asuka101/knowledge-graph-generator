@@ -1,0 +1,45 @@
+void bfsMatrix(adjmatrix GA, int i, int n, bool* visited)
+{
+    //从初始点$v_i$出发广度优先搜索由邻接矩阵GA表示的图
+    const int MaxSize=30;          //定义队列的最大长度
+    int q[MaxSize]={0};            //定义一个队列q，其元素类型应为整型
+    int front=0, rear=0;           //定义队首和队尾指针
+    cout<<i<<' ';
+    visited[i]=true;               //标记初始点$v_i$已访问过
+    q[++rear]=i;                   //将已访问过的初始点序号$i$入队
+    while(front!=rear) {
+        front=(front+1)%MaxSize;
+        int k=q[front];            //删除队首元素，第1次执行时k的值为$i$for(int j=0; j<n; j++) {   //依次搜索$v_k$的每一个可能的邻接点
+            if(GA[k][j]!=0 && GA[k][j]!=MaxValue && !visited[j]) {
+                cout<<j<<' ';       //访问一个未被访问过的邻接点$v_j$visited[j]=true;    //标记$v_j$已访问过
+                rear=(rear+1)%MaxSize;
+                q[rear]=j;          //顶点序号$j$入队
+            }
+        }
+    }
+}
+
+void bfsAdjoin(adjlist GL, int i, int n, bool* visited)
+{
+    //从初始点$v_i$出发广度优先搜索由邻接表GL表示的图
+    const int MaxSize=30;          //给出顺序队列的最大长度
+    int q[MaxSize]={0};            //定义一个队列q，其元素类型应为整型
+    int front=0, rear=0;           //定义队首和队尾指针
+    cout<<i<<' ';
+    visited[i]=true;               //标记初始点$v_i$已访问过
+    q[++rear]=i;                   //将已访问过的初始点序号$i$入队
+    while(front!=rear) {
+        front=(front+1)%MaxSize;
+        int k=q[front];            //删除队首元素，第1次执行时k的值为$i$edgenode*p=GL[k];          //取$v_k$邻接表的表头指针
+        while(p!=NULL) {
+            int j=p->adjvex;       //依次搜索$v_k$的每一个邻接点
+            if(!visited[j]) {      //若$v_j$没有被访问过则进行处理
+                cout<<j<<' ';
+                visited[j]=true;
+                rear=(rear+1)%MaxSize;
+                q[rear]=j;         //顶点序号$j$入队
+            }
+            p=p->next;             //使p指向$v_k$邻接表的下一个边结点
+        }
+    }
+}

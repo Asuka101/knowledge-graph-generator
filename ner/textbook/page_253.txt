@@ -1,0 +1,48 @@
+(4) 将当前结点指针赋给保存前驱结点指针的变量，以便当访问下一个结点时，此当前结点成为前驱结点。
+
+设$pre$是用来保存前驱结点指针的引用参数，初始为空；设$HBT$是用来保存当前结点指针的值参，初始指向待线索化的一棵二叉树的根结点，下面给出对二叉树进行中序线索化即建立中序线索的算法，它是在中序遍历算法的基础上改造而成的。
+
+void InThread(TTreeNode* HBT, TTreeNode*& pre)
+{
+    // 对二叉树 HBT 加中序线索
+    if (HBT != NULL) {
+        if (HBT->ltag == false)
+            InThread(HBT->left, pre);  // 左子树非空时给左子树加中序线索
+
+        if (pre != NULL && pre->rtag == true)
+            pre->right = HBT;          // 给前驱结点加后继线索
+
+        if (HBT->left == NULL) {
+            HBT->ltag = true;
+            HBT->left = pre;           // 给当前结点加前驱线索
+        }
+
+        if (HBT->right == NULL)
+            HBT->rtag = true;          // 给右指针域为空的结点加右线索标记
+
+        pre = HBT;                     // 把刚访问过的当前结点置为前驱结点
+
+        if (HBT->rtag == false)
+            InThread(HBT->right, pre); // 右子树非空时给右子树加中序线索
+    }
+}
+
+在对二叉树进行中序线索化的算法中，若把对左子树加线索的条件语句放到对右子树加线索的条件语句之上，则得到前序线索化的算法，所建立的线索为前序线索；若把对右子树加线索的条件语句放到对左子树加线索的条件语句之下，则得到后序线索化的算法，所建立的线索为后序线索。
+
+若在该函数中不使用$pre$参数，也可以在函数体的开始位置加上如下语句替代。
+
+static TTreeNode* pre = NULL;
+
+利用下面算法向带线索标志域的二叉搜索树插入元素，但不进行中序线索的链接。
+
+void InsertThreed(TTreeNode*& HBT, const ElemType& item)
+{
+    // 向带线索的二叉搜索树插入元素，但不链接线索
+    if (HBT == NULL) {
+        TTreeNode* p = new TTreeNode;
+        p->data = item;
+        p->left = p->right = NULL;
+        p->ltag = p->rtag = 0;
+        HBT = p;
+    } else if (item < HBT->data)      // 向左子树中插入元素
+}

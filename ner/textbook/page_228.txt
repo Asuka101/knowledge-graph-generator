@@ -1,0 +1,15 @@
+数 C1 和 C2 带回, C1 和 C2 的初值均为 0。
+
+void Count (BTreeNode*BT, int & C1, int & C2);
+
+9. 已知一棵具有$n$个结点的完全二叉树被顺序存储于一维数组的$A[1]$~$A[n]$元素中，根据下面函数声明编写一个算法，打印出编号为$i$的结点的双亲和所有孩子。.
+
+void Request (char A[], int n, int i);
+
+10. 根据下面函数声明编写求一棵普通树 GT 中结点总数的算法。
+
+int GTreeCount (GTreeNode*GT);
+
+11. 若一棵树是以二叉树的形式链接存储的，根据下面函数声明编写以广义表形式输出对应树的算法。
+
+void PrintGTree (BTreeNode*BT);

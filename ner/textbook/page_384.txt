@@ -1,0 +1,43 @@
+//从R1和R2归并到A1和A2中,使A1和A2中每个有序表的长度为$2*\text{len}$FmergePass(R1,R2,A1,A2,len);
+len*=2;
+}
+//关闭辅助文件R1和R2,从磁盘上删除R1和R2所对应的物理文件
+R1.close(); R2.close();
+remove(f4); remove(f5);
+}
+
+一个进行外排序的完整程序如下，该程序首先调用LoadFile函数，在E盘temp子目录下建立一个具有$n$个记录的磁盘文件file1.dat，接着调用Print函数顺序打印出该文件中的所有记录，然后对该文件进行二路归并排序（通过4个中间文件进行），最后再调用Print函数向屏幕输出排序后的结果。
+
+#include<iostream.h>
+#include<iomanip.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<fstream.h>
+struct ElemType {
+    int num;                          //文件中的记录类型
+    int stn;                          //排序码域
+    char bir[12];
+};
+
+const int b=sizeof(ElemType);         //用全局常量b保存记录长度
+
+const char*f1="e:\\temp\\file1.dat";  //串中双反斜线代表一个反斜线
+const char*f2="e:\\temp\\file2.dat";
+const char*f3="e:\\temp\\file3.dat";
+const char*f4="e:\\temp\\file4.dat";
+const char*f5="e:\\temp\\file5.dat";
+
+void Print(fstream &ff)
+{
+    //顺序打印出ff文件中每个记录,实际上只打印其排序码
+    ElemType x;
+    ff.seekg(0,ios::end);             //将文件指针移至文件末
+    int n=ff.tellg()/b;               //用n表示文件所含的记录数
+    ff.seekg(0);                      //将文件指针移至文件首
+    for(int i=0; i<n; i++) {
+        ff.read((char*)&x,b);         //从文件中读一记录到x中
+        cout<<setw(4)<<x.stn;         //每个数据占4个字符显示位置
+        if((i+1)%15==0) cout<<endl;   //每行显示15个数据后换行
+    }
+}

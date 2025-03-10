@@ -1,0 +1,40 @@
+int i,j,k,top,m=0;          //m用来统计拓扑序列中的顶点数
+edgenode*p;
+//定义存储图中每个顶点入度的一维整型数组 d
+int*d=new int[n];
+//初始化数组 d 中的每个元素值为 0
+for(i=0; i<n; i++) d[i]=0;
+//利用数组 d 中的对应元素统计出每个顶点的入度
+for(i=0; i<n; i++) {
+    p=G[i];
+    while(p!=NULL) {
+        j=p->adjvex; d[j]++; p=p->next;
+    }
+}
+//初始化用于链接入度为 0 的元素的栈的栈顶指针 top 为-1
+top=-1;
+//建立初始栈
+for(i=0; i<n; i++)
+    if(d[i]==0) { d[i]=top; top=i;}
+//每循环一次删除一个顶点及所有出边
+while(top!=-1) {
+    j=top;
+    top=d[top];
+    cout<<j<<' ';
+    m++;
+    p=G[j];
+    while(p!=NULL) {
+        k=p->adjvex;
+        d[k]--;
+        if(d[k]==0) {
+            d[k]=top; top=k;
+        }
+        p=p->next;
+    }
+}
+cout<<endl;
+//当输出的顶点数小于图中的顶点数时, 输出有回路信息
+if(m<n) cout<<"The network has a cycle!"<<endl;
+delete []d;                  //删除动态分配的数组 d
+
+拓扑排序实际上是对邻接表表示的图 G 进行遍历的过程，依次访问入度为 0 顶点的邻接表，若 AOV 图没有回路，则需要扫描邻接表中的所有边结点，加上在算法开始时，为建立入度数组 d 需要访问表头向量中的每个域和单链表中的每个结点，所以此算法的时间复杂度为$O(n+e)$。

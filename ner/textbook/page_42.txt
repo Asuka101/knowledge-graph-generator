@@ -1,0 +1,36 @@
+该程序主函数中的第 1 条语句建立输出文件流 f1，并使之与当前目录下的 wr1.dat 文件相联系，若该文件存在则打开并清空，否则在当前目录下建立它；若第 1 条语句执行时没有打开或建立 wr1.dat 文件，则第 2 条语句中的条件为真，显示出错误信息后终止程序执行；第 3 条语句把$0 \sim 19$之间的整数按字符方式顺序写入到文件流 f1 所对应的文件中，在写入每个整数之后同时写入一个空格作为分隔符；第 4 条语句关闭与 f1 相联系的文件 wr1.dat，即把相应的文件缓冲区归还给系统。
+
+```cpp
+//程序 1-7.cpp
+#include<iostream.h>
+#include<stdlib.h>
+#include<fstream.h>
+void main(void)
+{
+    ifstream f1("wr1.dat",ios::in|ios::nocreate);
+    if (!f1) {
+        cerr<<"Files 'wr1.dat' not found!";
+        exit(1);
+    }
+    int i;
+    while(!f1.eof())
+        if(f1>>i) cout<<i<<" "; //或改为：{f1>>i;cout<<i<<" ";}
+    cout<<endl;
+    f1.close();
+}
+```
+
+该程序主函数中的第 1 条语句建立输入文件流 f1，并使之与当前目录下的文件 wr1.dat 相联系；若该文件没有被打开，则执行第 2 条语句时将显示出错误信息并退出程序的执行；第 4 条语句是一个 while 循环，当文件指针没有指向文件的末尾时，则 f1.eof() 的值为假（即为 0 值），否则为真（即为非 0 值），若每次利用 f1>>i 表达式从文件中读出一个整数到变量 i 中，则该表达式的值为真，否则为假，该循环的作用是从 f1 流所对应的文件开头，顺序读出每一个整数到变量 i 中，并把它输出到屏幕上，直到文件指针被移到文件结尾为止（每读出一个数据后，文件指针就向后移动一个数据位置）；第 6 条语句关闭 f1 对应的 wr1.dat 文件。
+
+```cpp
+//程序 1-8.cpp
+#include<iostream.h>
+#include<stdlib.h>
+#include<fstream.h>
+struct worker{
+    int id;
+    char name[20];
+    float wage;
+};
+void main(void)
+```

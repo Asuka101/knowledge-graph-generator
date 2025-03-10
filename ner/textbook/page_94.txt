@@ -1,0 +1,47 @@
+if(HL!=NULL)                      //返回结点值
+    return HL->data;
+else {
+    cerr<<"pos is out range!"<<endl;
+    exit(1);
+}
+}
+
+6. 遍历一个单链表
+
+遍历一个单链表并打印出每个结点的值。
+
+void TraverseList(LNode* HL)
+{
+    while(HL!=NULL) {                    //从表头开始依次输出每个结点的值
+        cout<<HL->data<<" ";
+        HL=HL->next;
+    }
+    cout<<endl;
+}
+
+7. 从单链表中查找出等于给定值的第1个元素
+
+bool FindList(LNode* HL, ElemType& item)
+{
+    while(HL!=NULL)
+        if(HL->data==item) {              //查找成功由 item 带回完整值
+            item=HL->data;
+            return true;
+        }
+        else HL=HL->next;                 //HL指向后继结点
+    return false;
+}
+
+8. 更新单链表中等于给定值的第1个元素
+
+bool UpdateList(LNode* HL, const ElemType& item)
+{
+    while(HL!=NULL)                       //查找元素
+        if(HL->data==item) break;
+        else HL=HL->next;
+    if(HL==NULL) return false;            //没有被更新的元素，返回假
+    else {
+        HL->data=item;                    //更新元素
+        return true;
+    }
+}

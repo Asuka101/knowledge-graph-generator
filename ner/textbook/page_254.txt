@@ -1,0 +1,49 @@
+InsertThreed(HBT->left, item);
+else
+    InsertThreed(HBT->right, item);
+
+利用下面算法建立带线索标志域的二叉搜索树，但不进行中序线索链接。
+
+void CreateThreed(TTreeNode*&HBT, ElemType a[], int n)
+{
+    HBT=NULL;
+    for(int i=0; i<n; i++)
+        InsertThreed(HBT, a[i]);
+}
+
+带线索标志域的二叉搜索树建立后，随时可以调用 InThread 算法，建立其中序线索。若要向带线索的二叉搜索树中插入结点，并且要进行实际的线索链接，则应采用下面插入算法。
+
+void InsertThreed1(TTreeNode*&HBT, const ElemType&item)
+{
+    //向带线索的二叉搜索树插入元素，并进行线索链接
+    //为新结点寻找插入位置
+    TTreeNode*t=HBT,*parent=NULL;
+    while(t!=NULL) {
+        parent=t;
+        if(item<t->data)
+            if(t->ltag==false) t=t->left; else t=NULL;
+        else
+            if(t->rtag==false) t=t->right; else t=NULL;
+    }
+    //建立值为 item 的新结点
+    TTreeNode*p=new TTreeNode;
+    p->data=item;
+    p->ltag=p->rtag=true;  //叶子结点的左、右孩子指针均为线索
+    //将新结点插入到线索二叉搜索树 HBT 中
+    if(parent==NULL) {
+        p->left=p->right=NULL;  //作为树根结点插入
+        HBT=p;
+    }
+    else if (item<parent->data) {
+        p->left=parent->left;  //作为左孩子结点插入
+        parent->ltag=false;  //置双亲的左线索标志域为假
+        parent->left=p;  //新结点链接为双亲的左孩子
+        p->right=parent;  //双亲结点成为新结点的后继
+    }
+    else {
+        p->right=parent->right;  //作为右孩子结点插入
+        parent->rtag=false;  //置双亲的右线索标志域为假
+        parent->right=p;  //新结点链接为双亲的右孩子
+        p->left=parent;  //双亲结点成为新结点的前驱
+    }
+}

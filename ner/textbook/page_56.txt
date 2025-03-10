@@ -1,0 +1,48 @@
+```cpp
+//程序 1-15
+#include<iostream.h>
+#include<iomanip.h>
+void fun1(int a, int b);
+void fun2(int& a, int& b);
+void fun3(int* p1, int* p2);
+void main()
+{
+    int x=5,y=10;
+    cout<<"按值传送情况:"<<endl;
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+    fun1(x,y);
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+    cout<<endl;
+    cout<<"引用传送情况:"<<endl;
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+    fun2(x,y);
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+    cout<<endl;
+    cout<<"按值传送指针的情况:"<<endl;
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+    fun3(&x,&y);
+    cout<<"main: "<<setw(10)<<"x="<<setw(3)<<x
+         <<setw(10)<<"y="<<setw(3)<<y<<endl;
+}
+
+void fun1(int a, int b)
+{
+    a=a+b;
+    b=2*a+3*b;
+    cout<<"fun1: "<<setw(10)<<"a="<<setw(3)<<a
+         <<setw(10)<<"b="<<setw(3)<<b<<endl;
+}
+
+void fun2(int& a, int& b)
+{
+    a=a+b;
+    b=2*a+3*b;
+    cout<<"fun2: "<<setw(10)<<"a="<<setw(3)<<a
+         <<setw(10)<<"b="<<setw(3)<<b<<endl;
+}
+```

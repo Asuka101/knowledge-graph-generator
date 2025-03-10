@@ -1,0 +1,43 @@
+```c
+if(t=BTF(BT->left, x)) ______(3)______;
+__________(4)________;
+else return NULL;
+}
+}
+
+7. 指出下面函数的功能。
+
+void preserve(BTreeNode*BT, ElemType a[], int n)
+{
+    static int i=0;
+    if(BT!=NULL) {
+        preserve(BT->left, a, n);
+        a[i++]=BT->data;
+        preserve(BT->right, a, n);
+    }
+}
+
+【习题 5-3】算法设计题。
+1. 根据下面函数声明编写求一棵二叉树 BT 中结点总数的算法，其值由函数返回。
+int BTreeCount(BTreeNode*BT);
+
+2. 根据下面函数声明编写求一棵二叉树中叶子结点总数的算法，其值由函数返回。
+int BTreeLeafCount(BTreeNode*BT);
+
+3. 根据下面函数声明编写判断两棵二叉树是否相等的算法，若相等则返回 1，否则返回 0。算法中参数 T1 和 T2 分别指向这两棵二叉树的根结点。当两棵树的结构完全相同并且对应结点的值也相同时才被认为相等。
+int BTreeEqual(BTreeNode*T1, BTreeNode*T2);
+
+4. 根据下面函数声明编写交换一棵二叉树 BT 中所有左、右子树的算法。
+void BTreeSwap(BTreeNode*BT);
+
+5. 根据下面函数声明编写复制一棵二叉树 BT 的算法，并返回复制得到的二叉树的根结点指针。
+BTreeNode* BTreeCopy(BTreeNode*BT);
+
+6. 根据下面函数声明编写从一棵二叉树 BT 中求出结点值大于 X 的结点个数的算法，并返回所求结果。
+int BTreeCount(BTreeNode*BT, ElemType x);
+
+7. 根据下面函数声明编写对二叉树进行中序遍历的非递归算法，在算法中定义一个数组和栈顶指针作为栈使用。
+void InorderN(BTreeNode*BT);
+
+8. 根据下面函数声明编写求一棵二叉树 BT 中所有结点数和叶子结点数的算法，其值分别由引用参
+```

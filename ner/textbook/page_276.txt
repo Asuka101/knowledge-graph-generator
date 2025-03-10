@@ -1,0 +1,38 @@
+int i,j;
+WeightType w;
+edgenode*p;
+sin>>c1;
+if(k2==0) {
+    do{
+        //从输入流中读入一条边
+        sin>>c1>>i>>c2>>j>>c3;
+        p=new edgenode;
+        p->adjvex=j; p->weight=1;  //假定无权图的每条边的权为1
+        p->next=GL[i];
+        GL[i]=p;
+        //对于无向图,还需向序号为j的单链表的表头插入一个边结点
+        if(k1==0){
+            p=new edgenode;
+            p->adjvex=i; p->weight=1;
+            p->next=GL[j];
+            GL[j]=p;
+        }
+    }while(c1==',');
+}
+else {
+    do{
+        //从输入流中读入一条边
+        sin>>c1>>i>>c2>>j>>c3>>w;
+        p=new edgenode;
+        p->adjvex=j; p->weight=w;
+        p->next=GL[i];
+        GL[i]=p;
+        //对于无向图,还需向序号为j的单链表的表头插入一个边结点
+        if(k1==0){
+            p=new edgenode;
+            p->adjvex=i; p->weight=w;
+            p->next=GL[j];
+            GL[j]=p;
+        }
+    }while(c1==',');
+}
