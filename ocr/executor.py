@@ -1,18 +1,18 @@
 import base64
 import logging
 import os
-
 from ocr import recognize_image,cookies
+from concat import concat
 
 # 设置日志记录
 logging.basicConfig(filename='generate_md.log', level=logging.INFO, 
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
-images_path = "./images"
-images_name = "page"
-images_index = [330]
-outputs_path = "./textbook"
-concat_file = "./textbook.txt"
+images_path = "./images" # 图片路径
+images_name = "page" # 图片名称
+images_index = [330] # 图片索引
+outputs_path = "./textbook" # 输出路径
+concat_file = "./textbook.txt" # 合并文件名
 
 
 def convert(images_path, images_name, images_index, outputs_path, concat_file):
@@ -44,37 +44,23 @@ def convert(images_path, images_name, images_index, outputs_path, concat_file):
                 continue
 
     logging.info(f"Conversion done")
-    with open(concat_file, "w", encoding="utf-8") as outfile:
-        # 遍历 390 个文件
-        for i in range(1, 391):  # 从 1 到 390
-            # 生成文件名
-            filename = f"{images_name}_{i}.txt"
-            filepath = os.path.join(outputs_path, filename)
+    # 合并文件
+    concat(outputs_path, concat_file)
+    # with open(concat_file, "w", encoding="utf-8") as outfile:
+    #     # 遍历 390 个文件
+    #     for i in range(1, 391):  # 从 1 到 390
+    #         # 设置文件名格式
+    #         filename = f"{images_name}_{i}.txt"
+    #         filepath = os.path.join(outputs_path, filename)
 
-            # 检查文件是否存在
-            if not os.path.exists(filepath):
-                logging.error(f"File {filename} does not exist, skip")
-                continue
+    #         # 检查文件是否存在
+    #         if not os.path.exists(filepath):
+    #             logging.error(f"File {filename} does not exist, skip")
+    #             continue
 
-            # 读取文件内容并写入输出文件
-            with open(filepath, "r", encoding="utf-8") as infile:
-                outfile.write(infile.read())
-                outfile.write("\n")  # 可选：在文件之间添加空行
+    #         # 读取文件内容并写入输出文件
+    #         with open(filepath, "r", encoding="utf-8") as infile:
+    #             outfile.write(infile.read())
+    #             outfile.write("\n")  # 可选：在文件之间添加空行
 
 convert(images_path, images_name, images_index, outputs_path, concat_file)
-
-# def test(question,image_path):
-#     logging.info("正在调用gpt")
-#     # 将图片路径编码为base64字符串
-#     with open(image_path, "rb") as image_file:
-#         encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
-#         # print(encoded_string)
-#     # gpt_answer = generate_role_text(question, encoded_string)
-#     gpt_answer = recognize_image(encoded_string)
-#     print("gpt: %s", gpt_answer)
-#     logging.info("gpt: %s", gpt_answer)
-
-# test("请大致描述一下图片内容","test_2.png")
-
-
-
