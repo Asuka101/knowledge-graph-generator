@@ -1,6 +1,5 @@
 import base64
 import logging
-import os
 from ocr import recognize_image,cookies
 from concat import concat
 
