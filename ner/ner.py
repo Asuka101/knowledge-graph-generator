@@ -1,39 +1,68 @@
+# Description: 实体和关系抽取类
 import google.generativeai as genai
 import os
 
-# 设置 HTTP 代理
-os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7890'
-os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7890'
+class EntityRelationExtractor:
+    # 初始化
+    def __init__(self, api_key, http_proxy=None, https_proxy=None):
+        self.api_key = api_key # API 密钥
+        self.http_proxy = http_proxy # HTTP 代理
+        self.https_proxy = https_proxy # HTTPS 代理
+        self.prompt = None # 提示词
+        self.text = None # 文本
+        self.data = None # 提取结果
+        self.configure_api() 
 
-API_KEY = "AIzaSyBQF-QGdS4oH63Md9txR7sEwloxi7oCyN4" # Gemini API 密钥
-input_filepath = "./chapters/chapter_2.txt" #输入文本路径
-prompt_path = "./prompt.md" # 提示词路径
-output_filepath = "extracted_data.json" # 输出 JSON 文件路径
+    # 配置 API 和代理
+    def configure_api(self):
+        try:
+            genai.configure(api_key=self.api_key)
+            if self.http_proxy and self.https_proxy:
+                os.environ["HTTP_PROXY"] = self.http_proxy
+                os.environ["HTTPS_PROXY"] = self.https_proxy
+        except Exception as e:
+            print(f"配置API或代理失败: {e}")
+            raise
 
-# 配置 Gemini API 密钥
-genai.configure(api_key=API_KEY)
+    # 加载prompt和text
+    def load(self, prompt, text):
+        try:
+            self.prompt = prompt
+            self.text = text
+        except Exception as e:
+            print(f"加载提示词与抽取文本失败: {e}")
+            raise
 
-# 加载本地文本文件
-def load_text_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
-        text = f.read()
-    return text
+    # 实体和关系抽取
+    def extract_entities_relations(self):
+        try:
+            model = genai.GenerativeModel('gemini-2.0-flash')
+            prompt = f"{self.prompt}\n{self.text}"
+            response = model.generate_content(prompt)
+            self.data = response.text
+            return self.data
+        except Exception as e:
+            print(f"实体和关系抽取失败: {e}")
+            raise
 
-# 调用 Gemini API 进行实体识别和关系抽取
-def extract_entities_relations(text, prompt):
-    model = genai.GenerativeModel('gemini-2.0-flash')
-    prompt = f"{prompt}\n{text}"
-    response = model.generate_content(prompt)
-    return response.text
+    # 保存知识抽取结果
+    def save(self, save_path, modify_json=True):
+        if modify_json:
+            self.data = self.json_modify(self.data)
+        try:
+            with open(save_path, "w", encoding="utf-8") as f:
+                f.write(self.data)
+            print(f"知识抽取结果已保存到: {save_path}")
+        except Exception as e:
+            print(f"保存文件失败: {e}")
+            raise
 
-# 保存文件
-def save_file(data, save_path):
-    with open(save_path, "w", encoding="utf-8") as f:
-        f.write(data)
-
-text = load_text_file(input_filepath) # 加载抽取文本
-prompt = load_text_file(prompt_path) # 加载提示词
-extracted_data = extract_entities_relations(text, prompt) # 实体识别和关系抽取
-save_file(extracted_data, output_filepath) # 保存抽取结果
-
-print(f"实体识别和关系抽取结果已保存到：{output_filepath}")
+    # 保证格式正确
+    def json_modify(self, text):
+        lines = text.splitlines()
+        if len(lines) > 2:
+            if lines[0].startswith("```json") and lines[-1].endswith("```"):
+                return '\n'.join(lines[1:-1])
+            return text
+        else:
+            return text

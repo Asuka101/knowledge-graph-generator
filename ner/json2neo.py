@@ -1,28 +1,47 @@
+# Description: JSON 数据导入到 Neo4j 数据库
 from py2neo import Graph, Node, Relationship
 import json
 
-neo4j_url = "bolt://localhost:7687" # Neo4j 服务器地址
-username = "neo4j" # Neo4j 用户名
-password = "password" # Neo4j 密码
-json_file = "extracted_data.json" # JSON 文件路径
+class JSONToNeo4jImporter:
+    def __init__(self, neo4j_url, username, password):
+        self.neo4j_url = neo4j_url # Neo4j 数据库 URL
+        self.username = username # 用户名
+        self.password = password # 密码
 
-# 连接到 Neo4j 数据库
-graph = Graph(neo4j_url, auth=(username, password))
+        # 连接 Neo4j 数据库
+        try:
+            self.graph = Graph(self.neo4j_url, auth=(self.username, self.password))
+        except Exception as e:
+            print(f"连接 Neo4j 数据库失败: {e}")
+            raise
 
-# 读取 JSON 文件
-with open(json_file, "r", encoding="utf-8") as f:
-    data = json.load(f)
-
-# 遍历 JSON 数据并创建节点和关系
-for entity in data["entities"]:
-    node = Node(entity["type"], name=entity["name"], **entity["attributes"])
-    graph.create(node)
-
-for relation in data["relations"]:
-    source_node = graph.nodes.match(name=relation["source"]).first()
-    target_node = graph.nodes.match(name=relation["target"]).first()
-    if source_node and target_node:
-        rel = Relationship(source_node, relation["type"], target_node, **relation["attributes"])
-        graph.create(rel)
-
-print("JSON 数据已成功导入到 Neo4j！")
+    def import_data(self, json_filepath):
+        # 读取 JSON 文件
+        try:
+            with open(json_filepath, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            print(f"文件未找到: {json_filepath}")
+            raise
+        except json.JSONDecodeError:
+            print(f"JSON 解码失败: {json_filepath}")
+            raise
+        except Exception as e:
+            print(f"读取 JSON 文件失败: {e}")
+            raise
+        
+        # 导入数据到 Neo4j
+        try:
+            for entity in data["entities"]:
+                node = Node(entity["type"], name=entity["name"], **entity["attributes"])
+                self.graph.create(node)
+            for relation in data["relations"]:
+                source_node = self.graph.nodes.match(name=relation["source"]).first()
+                target_node = self.graph.nodes.match(name=relation["target"]).first()
+                if source_node and target_node:
+                    rel = Relationship(source_node, relation["type"], target_node, **relation["attributes"])
+                    self.graph.create(rel)
+            print("JSON 数据已成功导入到 Neo4j！")
+        except Exception as e:
+            print(f"导入数据到 Neo4j 失败: {e}")
+            raise

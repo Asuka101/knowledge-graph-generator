@@ -1,3 +1,4 @@
+# Description: 按章节切分教材文本
 import os
 
 #  需要合并的章节首页页码及尾页页码
