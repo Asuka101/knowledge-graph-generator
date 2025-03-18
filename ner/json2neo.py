@@ -22,13 +22,13 @@ class JSONToNeo4jImporter:
                 data = json.load(f)
         except FileNotFoundError:
             print(f"文件未找到: {json_filepath}")
-            raise
+            return False
         except json.JSONDecodeError:
             print(f"JSON 解码失败: {json_filepath}")
-            raise
+            return False
         except Exception as e:
             print(f"读取 JSON 文件失败: {e}")
-            raise
+            return False
         
         # 导入数据到 Neo4j
         try:
@@ -42,6 +42,7 @@ class JSONToNeo4jImporter:
                     rel = Relationship(source_node, relation["type"], target_node, **relation["attributes"])
                     self.graph.create(rel)
             print("JSON 数据已成功导入到 Neo4j！")
+            return True
         except Exception as e:
             print(f"导入数据到 Neo4j 失败: {e}")
-            raise
+            return False

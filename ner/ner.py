@@ -9,8 +9,8 @@ class EntityRelationExtractor:
         self.http_proxy = http_proxy # HTTP 代理
         self.https_proxy = https_proxy # HTTPS 代理
         self.prompt = None # 提示词
-        self.text = None # 文本
         self.data = None # 提取结果
+        self.model = genai.GenerativeModel('gemini-2.0-flash')
         self.configure_api() 
 
     # 配置 API 和代理
@@ -24,21 +24,19 @@ class EntityRelationExtractor:
             print(f"配置API或代理失败: {e}")
             raise
 
-    # 加载prompt和text
-    def load(self, prompt, text):
+    # 加载prompt
+    def load_prompt(self, prompt):
         try:
             self.prompt = prompt
-            self.text = text
+            self.data = self.model.generate_content(self.prompt)
         except Exception as e:
-            print(f"加载提示词与抽取文本失败: {e}")
+            print(f"加载提示词失败: {e}")
             raise
 
     # 实体和关系抽取
-    def extract_entities_relations(self):
+    def extract_entities_relations(self, text):
         try:
-            model = genai.GenerativeModel('gemini-2.0-flash')
-            prompt = f"{self.prompt}\n{self.text}"
-            response = model.generate_content(prompt)
+            response = self.model.generate_content(f"{self.prompt}\n{text}")
             self.data = response.text
             return self.data
         except Exception as e:
