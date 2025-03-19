@@ -1,10 +1,11 @@
-# Description: 按章节切分教材文本
+# Description: 按章节合并教材文本
 import os
 
 #  需要合并的章节首页页码及尾页页码
 chapter_pages = [1, 18, 65, 111, 148, 195, 229, 266, 290, 322]
-input_dir = "./pages"
-output_path = "./chapters"
+input_dir = "./textbook/pages"
+input_name = "page"
+output_path = "./textbook/chapters"
 output_name = "chapter"
 output_type = ".txt"
 
@@ -14,7 +15,7 @@ def concat(input_dir, output_file, pages_index):
         # 遍历 390 个文件
         for i in pages_index:  # 从 1 到 390
             # 生成文件名
-            filename = f"page_{i}.txt"
+            filename = f"{input_name}_{i}.txt"
             filepath = os.path.join(input_dir, filename)
 
             # 检查文件是否存在

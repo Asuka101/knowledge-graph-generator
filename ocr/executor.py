@@ -11,7 +11,7 @@ images_path = "./images" # 图片路径
 images_name = "page" # 图片名称
 images_index = [330] # 图片索引
 outputs_path = "./textbook" # 输出路径
-concat_file = "./textbook.txt" # 合并文件名
+concat_file_path = "./textbook.txt" # 合并文件名
 
 
 def convert(images_path, images_name, images_index, outputs_path, concat_file):
@@ -44,22 +44,6 @@ def convert(images_path, images_name, images_index, outputs_path, concat_file):
 
     logging.info(f"Conversion done")
     # 合并文件
-    concat(outputs_path, concat_file)
-    # with open(concat_file, "w", encoding="utf-8") as outfile:
-    #     # 遍历 390 个文件
-    #     for i in range(1, 391):  # 从 1 到 390
-    #         # 设置文件名格式
-    #         filename = f"{images_name}_{i}.txt"
-    #         filepath = os.path.join(outputs_path, filename)
-
-    #         # 检查文件是否存在
-    #         if not os.path.exists(filepath):
-    #             logging.error(f"File {filename} does not exist, skip")
-    #             continue
-
-    #         # 读取文件内容并写入输出文件
-    #         with open(filepath, "r", encoding="utf-8") as infile:
-    #             outfile.write(infile.read())
-    #             outfile.write("\n")  # 可选：在文件之间添加空行
+    concat(outputs_path, concat_file_path)
 
 convert(images_path, images_name, images_index, outputs_path, concat_file)

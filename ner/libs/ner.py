@@ -4,13 +4,13 @@ import os
 
 class EntityRelationExtractor:
     # 初始化
-    def __init__(self, api_key, http_proxy=None, https_proxy=None):
+    def __init__(self, api_key, model, http_proxy=None, https_proxy=None):
         self.api_key = api_key # API 密钥
         self.http_proxy = http_proxy # HTTP 代理
         self.https_proxy = https_proxy # HTTPS 代理
         self.prompt = None # 提示词
         self.data = None # 提取结果
-        self.model = genai.GenerativeModel('gemini-2.0-flash')
+        self.model = genai.GenerativeModel(model)
         self.configure_api() 
 
     # 配置 API 和代理
