@@ -1,7 +1,7 @@
 # Description: 从文本中抽取知识并保存
 from libs.ner import EntityRelationExtractor
 
-chapter_path = "./textbook/chapters/chapter" # 文本路径
+chapter_path = "./cleaned_chapters/chapter" # 文本路径
 prompt_path = "./prompt.md" # 提示词路径
 data_path = "./data/data" # 保存路径
 chapter_name = "chapter" # 章节名称
