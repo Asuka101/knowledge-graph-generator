@@ -33,11 +33,11 @@ class JSONToNeo4jImporter:
         # 导入数据到 Neo4j
         try:
             for entity in data["entities"]:
-                node = Node(entity["type"], name=entity["name"], **entity["attributes"])
+                node = Node(entity["type"], id=entity["ID"], name=entity["name"], **entity["attributes"])
                 self.graph.create(node)
             for relation in data["relations"]:
-                source_node = self.graph.nodes.match(name=relation["source"]).first()
-                target_node = self.graph.nodes.match(name=relation["target"]).first()
+                source_node = self.graph.nodes.match(id=relation["source"]).first()
+                target_node = self.graph.nodes.match(id=relation["target"]).first()
                 if source_node and target_node:
                     rel = Relationship(source_node, relation["type"], target_node, **relation["attributes"])
                     self.graph.create(rel)

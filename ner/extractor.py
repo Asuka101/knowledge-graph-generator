@@ -1,16 +1,16 @@
 # Description: 从文本中抽取知识并保存
 from libs.ner import EntityRelationExtractor
 
-chapter_path = "./cleaned_chapters/chapter" # 文本路径
-prompt_path = "./prompt.md" # 提示词路径
-data_path = "./data/data" # 保存路径
+chapter_path = "./textbook/cleaned_chapters" # 文本路径
+prompt_path = "./EnhancementEngine.md" # 提示词路径
+data_path = "./data" # 保存路径
 chapter_name = "chapter" # 章节名称
 data_name = "data" # 数据名称
 chapter_type = "txt" # 文本类型
 data_type = "json" # 数据类型
-extarctor = EntityRelationExtractor(api_key="AIzaSyBQF-QGdS4oH63Md9txR7sEwloxi7oCyN4", model="gemini-2.0-flash",
+extarctor = EntityRelationExtractor(api_key="AIzaSyBQF-QGdS4oH63Md9txR7sEwloxi7oCyN4", model="gemini-2.5-pro-exp-03-25",
                                     http_proxy="http://localhost:7890", https_proxy="http://localhost:7890") # 初始化知识抽取器
-chapter_indices = range(9) # 章节列表
+chapter_indices = range(1, 9) # 章节列表
 
 # 加载提示词
 with open(prompt_path, "r", encoding="utf-8") as f:

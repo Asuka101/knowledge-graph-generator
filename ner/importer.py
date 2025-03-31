@@ -3,7 +3,7 @@ from libs.json2neo import JSONToNeo4jImporter
 
 data_path = "./data" # 导入数据路径
 data_name = "data" # 数据名称
-data_range = range(9) # 导入数据下标
+data_range = [8] # 导入数据下标
 
 importer = JSONToNeo4jImporter(neo4j_url="bolt://localhost:7687", username="neo4j", password="password") # 初始化 JSON 数据导入器
 
