@@ -28,7 +28,7 @@ class EntityRelationExtractor:
     def load_prompt(self, prompt):
         try:
             self.prompt = prompt
-            self.data = self.model.generate_content(self.prompt)
+            print(f"提示词加载成功!")
         except Exception as e:
             print(f"加载提示词失败: {e}")
             raise

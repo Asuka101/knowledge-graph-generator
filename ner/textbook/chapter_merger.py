@@ -3,9 +3,9 @@ import os
 
 #  需要合并的章节首页页码及尾页页码
 chapter_pages = [1, 18, 65, 111, 148, 195, 229, 266, 290, 322]
-input_dir = "./textbook/pages"
+input_dir = "./pages"
 input_name = "page"
-output_path = "./textbook/chapters"
+output_path = "./chapters"
 output_name = "chapter"
 output_type = ".txt"
 
