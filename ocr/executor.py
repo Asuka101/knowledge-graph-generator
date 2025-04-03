@@ -1,7 +1,6 @@
 import base64
 import logging
 from ocr import recognize_image,cookies
-from concat import concat
 
 # 设置日志记录
 logging.basicConfig(filename='generate_md.log', level=logging.INFO, 
@@ -14,7 +13,7 @@ outputs_path = "./textbook" # 输出路径
 concat_file_path = "./textbook.txt" # 合并文件名
 
 
-def convert(images_path, images_name, images_index, outputs_path, concat_file):
+def convert(images_path, images_name, images_index, outputs_path):
     logging.info("正在调用llm")
     # 将图片路径编码为base64字符串
     for i in images_index:
@@ -43,7 +42,5 @@ def convert(images_path, images_name, images_index, outputs_path, concat_file):
                 continue
 
     logging.info(f"Conversion done")
-    # 合并文件
-    concat(outputs_path, concat_file_path)
 
-convert(images_path, images_name, images_index, outputs_path, concat_file)
+convert(images_path, images_name, images_index, outputs_path)
