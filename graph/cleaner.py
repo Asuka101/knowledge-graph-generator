@@ -1,4 +1,4 @@
-# description: 数据清理脚本
+# description: 数据清理
 from libs.preprocessor import Preprocessor
 
 chapter_range = range(1, 9)

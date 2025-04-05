@@ -1,9 +1,9 @@
+# description: 文本预处理类
 import re
 import string
 import jieba
 
 class Preprocessor:
-    """文本预处理类"""
     def __init__():
         pass
 
