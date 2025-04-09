@@ -15,7 +15,7 @@ data_type = ".json" # 数据类型
 
 extarctor = EntityRelationExtractor(api_key="AIzaSyBQF-QGdS4oH63Md9txR7sEwloxi7oCyN4", model="gemini-2.5-pro-exp-03-25",
                                     http_proxy="http://localhost:7890", https_proxy="http://localhost:7890") # 初始化知识抽取器
-chapter_indices = range(2, 9) # 章节列表
+chapter_indices = range(1, 9) # 章节列表
 
 # 加载提示词
 with open(f"{prompt_path}{prompt_type}", "r", encoding="utf-8") as f:

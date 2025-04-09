@@ -2,7 +2,7 @@
 from libs.json2neo import JSONToNeo4jImporter
 
 data_path = "./data/data" # 导入数据路径
-data_range = [2] # 导入数据下标
+data_range = range(1, 9) # 导入数据下标
 remote_ip = "38.165.22.181" # 远程路径
 remote_password = "5tf8th.d6qW2nT?v" # 远程密码
 

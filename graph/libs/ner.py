@@ -11,33 +11,52 @@ class EntityRelationExtractor:
         self.prompt = None # 提示词
         self.data = None # 提取结果
         self.model = genai.GenerativeModel(model)
-        self.configure_api() 
-
-    # 配置 API 和代理
-    def configure_api(self):
-        try:
-            genai.configure(api_key=self.api_key)
-            if self.http_proxy and self.https_proxy:
-                os.environ["HTTP_PROXY"] = self.http_proxy
-                os.environ["HTTPS_PROXY"] = self.https_proxy
-        except Exception as e:
-            print(f"配置API或代理失败: {e}")
-            raise
+        genai.configure(api_key=api_key)
+        if self.http_proxy and self.https_proxy:
+            os.environ["HTTP_PROXY"] = self.http_proxy
+            os.environ["HTTPS_PROXY"] = self.https_proxy
+        self.chat = self.model.start_chat()
+        # 设置模型参数
+        self.generation_config = {
+            "temperature": 0.8,
+            "top_p": 0.95,
+            "top_k": 40,
+        }
 
     # 加载prompt
     def load_prompt(self, prompt):
         try:
             self.prompt = prompt
-            print(f"提示词加载成功!")
+            response = self.chat.send_message(prompt)
+            print(f"提示词加载成功!\n模型回复：{response.text}")
         except Exception as e:
             print(f"加载提示词失败: {e}")
             raise
 
+    def set_config(self, temperature=None, top_p=None, top_k=None):
+        """设置模型参数"""
+        if temperature is not None:
+            if temperature < 0 or temperature > 1:
+                raise ValueError("模型温度必须在0到1之间")
+            self.generation_config["temperature"] = temperature
+        if top_p is not None:
+            if top_p < 0 or top_p > 1:
+                raise ValueError("top_p必须在0到1之间")
+            self.generation_config["top_p"] = top_p
+        if top_k is not None:
+            if top_k < 0:
+                raise ValueError("top_k必须大于等于0")
+            if top_k > 100:
+                raise ValueError("top_k必须小于等于100")
+            self.generation_config["top_k"] = top_k
+
     # 实体和关系抽取
     def extract_entities_relations(self, text):
         try:
-            response = self.model.generate_content(f"{self.prompt}\n{text}")
+            print(f"正在抽取{text.splitlines()[0]}中的实体和关系...")
+            response = self.chat.send_message(f"{text}", generation_config=self.generation_config)
             self.data = response.text
+            print(f"实体和关系抽取成功!")
             return self.data
         except Exception as e:
             print(f"实体和关系抽取失败: {e}")
