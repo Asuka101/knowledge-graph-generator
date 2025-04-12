@@ -8,7 +8,7 @@ logging.basicConfig(filename='generate_md.log', level=logging.INFO,
 
 images_path = "./images" # 图片路径
 images_name = "page" # 图片名称
-images_index = [330] # 图片索引
+images_index = [1] # 图片索引
 outputs_path = "./textbook" # 输出路径
 concat_file_path = "./textbook.txt" # 合并文件名
 

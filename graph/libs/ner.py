@@ -1,85 +1,88 @@
-# Description: 实体和关系抽取类
-import google.generativeai as genai
-import os
+# Description: 实体和关系抽取类 (支持调用任意大语言模型的API)
+from openai import OpenAI
+import threading
 
-class EntityRelationExtractor:
-    # 初始化
-    def __init__(self, api_key, model, http_proxy=None, https_proxy=None):
-        self.api_key = api_key # API 密钥
-        self.http_proxy = http_proxy # HTTP 代理
-        self.https_proxy = https_proxy # HTTPS 代理
-        self.prompt = None # 提示词
-        self.data = None # 提取结果
-        self.model = genai.GenerativeModel(model)
-        genai.configure(api_key=api_key)
-        if self.http_proxy and self.https_proxy:
-            os.environ["HTTP_PROXY"] = self.http_proxy
-            os.environ["HTTPS_PROXY"] = self.https_proxy
-        self.chat = self.model.start_chat()
-        # 设置模型参数
+class KnowledgeExtractor:
+    def __init__(self, api_key, model, base_url):
+        if not api_key:
+            raise ValueError("API 密钥不能为空")
+        if not model:
+            raise ValueError("模型名称不能为空")
+        if not base_url:
+            raise ValueError("base_url不能为空")
+        self.api_key = api_key       # API 密钥
+        self.model = model             # 模型名称 
+        self.base_url = base_url         # API 地址
+        self.prompt = None             # 提示词
+        self.lock = threading.Lock()  # 线程锁
+
+        # 设置模型生成参数
         self.generation_config = {
             "temperature": 0.8,
             "top_p": 0.95,
-            "top_k": 40,
         }
 
-    # 加载prompt
+    # 发送消息
+    def send_message(self, content, client):
+        try:
+            if self.prompt is None:
+                raise ValueError("提示词尚未加载请重试")
+            response = client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "system", "content": self.prompt},
+                          {"role": "user", "content": content}],
+                temperature=self.generation_config["temperature"],
+                top_p=self.generation_config["top_p"],
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"向大语言模型发送消息失败: {e}")
+            raise
+
+    # 加载提示词
     def load_prompt(self, prompt):
         try:
-            self.prompt = prompt
-            response = self.chat.send_message(prompt)
-            print(f"提示词加载成功!\n模型回复：{response.text}")
+            with self.lock:
+                self.prompt = prompt
+            print(f"提示词加载成功!\n")
         except Exception as e:
             print(f"加载提示词失败: {e}")
             raise
 
-    def set_config(self, temperature=None, top_p=None, top_k=None):
-        """设置模型参数"""
+    # 设置生成参数
+    def set_config(self, temperature=None, top_p=None):
         if temperature is not None:
-            if temperature < 0 or temperature > 1:
+            if not (0 <= temperature <= 1):
                 raise ValueError("模型温度必须在0到1之间")
-            self.generation_config["temperature"] = temperature
+            with self.lock:
+                self.generation_config["temperature"] = temperature
         if top_p is not None:
-            if top_p < 0 or top_p > 1:
+            if not (0 <= top_p <= 1):
                 raise ValueError("top_p必须在0到1之间")
-            self.generation_config["top_p"] = top_p
-        if top_k is not None:
-            if top_k < 0:
-                raise ValueError("top_k必须大于等于0")
-            if top_k > 100:
-                raise ValueError("top_k必须小于等于100")
-            self.generation_config["top_k"] = top_k
+            with self.lock:
+                self.generation_config["top_p"] = top_p
 
-    # 实体和关系抽取
-    def extract_entities_relations(self, text):
+    # 知识抽取
+    def extract(self, text, save_path, modify_json=True):
         try:
-            print(f"正在抽取{text.splitlines()[0]}中的实体和关系...")
-            response = self.chat.send_message(f"{text}", generation_config=self.generation_config)
-            self.data = response.text
-            print(f"实体和关系抽取成功!")
-            return self.data
-        except Exception as e:
-            print(f"实体和关系抽取失败: {e}")
-            raise
-
-    # 保存知识抽取结果
-    def save(self, save_path, modify_json=True):
-        if modify_json:
-            self.data = self.json_modify(self.data)
-        try:
+            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+            head = text.splitlines()[0] if text.splitlines() else text
+            print(f"[{head}]：正在抽取实体和关系...")
+            response_text = self.send_message(content=text, client=client)
+            # 保存结果
             with open(save_path, "w", encoding="utf-8") as f:
-                f.write(self.data)
-            print(f"知识抽取结果已保存到: {save_path}")
+                if modify_json:
+                    f.write(self.json_modify(response_text))
+                else:
+                    f.write(response_text)
+            print(f"[{head}]：知识抽取成功!结果已保存到: {save_path}")
         except Exception as e:
-            print(f"保存文件失败: {e}")
+            print(f"知识抽取失败: {e}")
             raise
 
-    # 保证格式正确
+    # 保证结果格式正确
     def json_modify(self, text):
         lines = text.splitlines()
-        if len(lines) > 2:
-            if lines[0].startswith("```json") and lines[-1].endswith("```"):
-                return '\n'.join(lines[1:-1])
-            return text
-        else:
-            return text
+        if len(lines) > 2 and lines[0].startswith("```json") and lines[-1].endswith("```"):
+            return "\n".join(lines[1:-1])
+        return text
