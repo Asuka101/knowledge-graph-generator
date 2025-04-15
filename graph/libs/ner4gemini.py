@@ -1,7 +1,7 @@
-# Description: 实体和关系抽取类(Gemini)
+# Description: 知识抽取类(Gemini），已停止维护
 import google.generativeai as genai
 
-class EntityRelationExtractor:
+class KnowledgeProcessor:
     # 初始化
     def __init__(self, api_key, model):
         self.api_key = api_key # API 密钥
@@ -45,7 +45,7 @@ class EntityRelationExtractor:
             self.generation_config["top_k"] = top_k
 
     # 实体和关系抽取
-    def extract_entities_relations(self, text):
+    def extract(self, text):
         try:
             print(f"正在抽取{text.splitlines()[0]}中的实体和关系...")
             response = self.chat.send_message(f"{text}", generation_config=self.generation_config)

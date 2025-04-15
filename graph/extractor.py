@@ -1,52 +1,79 @@
-# Description: 从文本中抽取知识并保存
-from libs.ner import KnowledgeExtractor
+# Description: 知识抽取器
+import os
 import threading
+from dotenv import load_dotenv
+from libs.llm import KnowledgeProcessor
 
-# 文本路径和名称
-chapter_path = "./textbook/cleaned_chapters/chapter" # 文本路径
-chapter_type = ".txt" # 文本类型
+class Extractor:
+    def __init__(self):
+        load_dotenv()  # 加载环境变量
+        self.base_dir = os.path.dirname(os.path.abspath(__file__))
 
-# 提示词路径和名称
-prompt_path = "./prompt/prompt4extractor" # 提示词路径
-prompt_type = ".md" # 提示词类型
+        # 待处理文本（已清理文本）配置及完整路径
+        self.source_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("CLEANED_PATH")))
+        self.source_filename = os.getenv("CLEANED_NAME")
+        self.source_extension = os.getenv("CLEANED_TYPE")
 
-# 数据保存路径和名称
-data_path = "./data/chapter" # 保存路径
-data_type = ".json" # 数据类型
+        # 抽取后数据（知识数据）配置及完整路径
+        self.target_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("DATA_PATH")))
+        self.target_filename = os.getenv("CLEANED_NAME")
 
-# API 密钥
-gemini_key = "AIzaSyBQF-QGdS4oH63Md9txR7sEwloxi7oCyN4" # Gemini API 密钥
+        # 提示词配置及完整路径
+        self.prompt_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("PROMPT_PATH")))
+        self.prompt_filename = os.getenv("PROMPT4EXTRACTOR_NAME")
+        self.prompt_extension = os.getenv("PROMPT_TYPE")
 
-# 模型名称
-gemini_model = "gemini-2.5-pro-exp-03-25" # Gemini 模型名称
-gemini_flash_model = "gemini-2.0-flash"
+        # API 配置
+        self.api_key = os.getenv("API_KEY")
+        self.model = os.getenv("MODEL")
+        self.base_url = os.getenv("BASE_URL")
 
-# API 地址
-gemini_url = "https://generativelanguage.googleapis.com/v1beta/openai/" # Gemini API 地址
+        # 根据 source_path 中对应文件名解析章节索引
+        if os.path.exists(self.source_path):
+            self.source_indices = sorted(
+                [int(f.split('_')[-1].split('.')[0]) for f in os.listdir(self.source_path)
+                 if f.startswith(self.source_filename) and f.endswith(self.source_extension)]
+            )
+        else:
+            self.source_indices = []
 
-extarctor = KnowledgeExtractor(api_key=gemini_key, model=gemini_flash_model, base_url=gemini_url) # 初始化知识抽取器
-chapter_indices = range(1, 9) # 章节列表
+        # 初始化知识抽取器
+        self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
+        self.load_prompt()
 
-# 加载提示词
-with open(f"{prompt_path}{prompt_type}", "r", encoding="utf-8") as f:
-    prompt = f.read()
-extarctor.load_prompt(prompt)
+    def load_prompt(self):
+        # 加载提示词文件
+        if not os.path.exists(self.prompt_path):
+            raise FileNotFoundError(f"提示词路径 {self.prompt_path} 不存在")
+        prompt_file = os.path.join(self.prompt_path, f"{self.prompt_filename}{self.prompt_extension}")
+        with open(prompt_file, "r", encoding="utf-8") as f:
+            prompt = f.read()
+        self.processor.load_prompt(prompt)
 
-# 章节处理线程
-def process_chapter(i):
-    text_path = f"{chapter_path}_{i}{chapter_type}"
-    # 读取文本
-    with open(text_path, "r", encoding="utf-8") as f:
-        text = f.read()
-    extarctor.extract(text, save_path=f"{data_path}_{i}{data_type}")  # 知识抽取
+    def process_chapter(self, idx):
+        # 构造待处理文件及抽取后保存文件路径
+        source_file = os.path.join(self.source_path, f"{self.source_filename}_{idx}{self.source_extension}")
+        try:
+            with open(source_file, "r", encoding="utf-8") as f:
+                text = f.read()
+            target_file = os.path.join(self.target_path, f"{self.target_filename}_{idx}.json")
+            self.processor.extract(text, save_path=target_file)
+            print(f"章节 {idx} 知识抽取完成，保存到 {target_file}")
+        except FileNotFoundError:
+            print(f"文件 {source_file} 未找到，跳过。")
+        except Exception as e:
+            print(f"处理章节 {idx} 时出错：{e}")
 
-# 创建线程并启动
-threads = []
-for i in chapter_indices:
-    t = threading.Thread(target=process_chapter, args=(i,))
-    threads.append(t)
-    t.start()
+    def extract(self):
+        threads = []
+        for idx in self.source_indices:
+            t = threading.Thread(target=self.process_chapter, args=(idx,))
+            threads.append(t)
+            t.start()
+        for t in threads:
+            t.join()
 
-# 等待所有线程完成
-for t in threads:
-    t.join()
+if __name__ == "__main__":
+    extractor = Extractor()
+    extractor.extract()
+    print("知识抽取完成！")

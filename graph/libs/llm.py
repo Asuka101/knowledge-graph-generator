@@ -1,8 +1,8 @@
-# Description: 实体和关系抽取类 (支持调用任意大语言模型的API)
+# Description: 知识抽取类 (支持调用任意大语言模型的API)
 from openai import OpenAI
 import threading
 
-class KnowledgeExtractor:
+class KnowledgeProcessor:
     def __init__(self, api_key, model, base_url):
         if not api_key:
             raise ValueError("API 密钥不能为空")
@@ -67,7 +67,7 @@ class KnowledgeExtractor:
         try:
             client = OpenAI(api_key=self.api_key, base_url=self.base_url)
             head = text.splitlines()[0] if text.splitlines() else text
-            print(f"[{head}]：正在抽取实体和关系...")
+            print(f"[{head}]：正在抽取实体、关系和属性...")
             response_text = self.send_message(content=text, client=client)
             # 保存结果
             with open(save_path, "w", encoding="utf-8") as f:
@@ -78,6 +78,22 @@ class KnowledgeExtractor:
             print(f"[{head}]：知识抽取成功!结果已保存到: {save_path}")
         except Exception as e:
             print(f"知识抽取失败: {e}")
+            raise
+
+    def integrate(self, text, save_path, modify_json=True):
+        try:
+            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+            print("正在进行知识融合...")
+            response_text = self.send_message(content=text, client=client)
+            # 保存结果
+            with open(save_path, "w", encoding="utf-8") as f:
+                if modify_json:
+                    f.write(self.json_modify(response_text))
+                else:
+                    f.write(response_text)
+            print(f"知识融合成功!结果已保存到: {save_path}")
+        except Exception as e:
+            print(f"知识融合失败: {e}")
             raise
 
     # 保证结果格式正确

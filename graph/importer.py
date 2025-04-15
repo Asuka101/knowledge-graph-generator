@@ -1,14 +1,34 @@
-# Description: 从 JSON 文件导入数据到 Neo4j 数据库
+# Description: 数据导入器
+import os
+from dotenv import load_dotenv
 from libs.json2neo import JSONToNeo4jImporter
 
-data_path = "./data/chapter" # 导入数据路径
-data_range = range(1, 9) # 导入数据下标
-remote_ip = "38.165.22.181" # 远程路径
-remote_password = "5tf8th.d6qW2nT?v" # 远程密码
+class Importer:
+    def __init__(self):
+        load_dotenv()  # 加载环境变量
+        self.base_dir = os.path.dirname(os.path.abspath(__file__))
 
-importer = JSONToNeo4jImporter(neo4j_url=f"bolt://localhost:7687", username="neo4j", password="password") # 初始化 JSON 数据导入器
+        # 汇总数据文件配置及完整路径（待导入的 JSON 文件）
+        self.source_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("DATA_PATH")))
+        self.source_filename = os.getenv("DATA_NAME")
 
-# 逐章导入 JSON 数据到 Neo4j
-for data_index in data_range:
-    json_filepath = f"{data_path}_{data_index}.json" # 合成 JSON 文件路径
-    importer.import_data(json_filepath) # 导入 JSON 数据到 Neo4j
+        # Neo4j 配置（示例中部分参数固定，建议从环境变量读取）
+        self.neo4j_url = os.getenv("NEO4J_URL")
+        self.neo4j_username = os.getenv("NEO4J_USERNAME")
+        self.neo4j_password = os.getenv("NEO4J_PASSWORD")
+        self.importer = JSONToNeo4jImporter(
+            neo4j_url=self.neo4j_url,
+            username=self.neo4j_username,
+            password=self.neo4j_password
+        )
+
+    def import_data(self):
+        # 汇总数据导入
+        json_file = os.path.join(self.source_path, f"{self.source_filename}.json")
+        self.importer.import_data(json_file)
+        print(f"汇总数据已导入：{json_file}")
+
+if __name__ == "__main__":
+    importer = Importer()
+    importer.import_data() 
+    print("数据导入完成！")

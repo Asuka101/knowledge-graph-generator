@@ -40,8 +40,8 @@ class Preprocessor:
 
     @staticmethod
     def remove_special_characters(text):
-        """移除特殊字符，保留中文、英文、数字和空格"""
-        return re.sub(r"[^\w\s\u4e00-\u9fa5]", "", text)
+        """移除特殊字符，保留中文、英文、数字"""
+        return re.sub(r"[^\u4e00-\u9fa5a-zA-Z0-9]", "", text)
 
     @staticmethod
     def remove_specific_characters(text):
