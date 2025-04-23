@@ -27,6 +27,7 @@ class PDF2TextbookConverter:
 
 
     def pdf2images(self):
+        print("开始PDF转图片...")
         pdf_file = os.path.join(self.textbook_path, f"{self.textbook_name}{self.textbook_extension}")
         os.makedirs(self.image_path, exist_ok=True)
         with fitz.open(pdf_file) as doc:
@@ -39,6 +40,7 @@ class PDF2TextbookConverter:
         print("所有页面已成功转换为图片")
 
     def images2text(self, image_indices=None):
+        print("开始图片转文本...")
         os.makedirs(self.page_path, exist_ok=True)
         if image_indices is None:
             # 自动检测图片数量

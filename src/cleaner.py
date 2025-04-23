@@ -33,7 +33,8 @@ class Cleaner:
         with open(stopwords_file, "r", encoding="utf-8") as file:
             return file.read().splitlines()
 
-    def clean(self, use_stopwords=False):    
+    def clean(self, use_stopwords=False):
+        print("开始清理文本...")
         # 处理源目录下所有文件
         files = [f for f in os.listdir(self.source_path) if f.endswith(self.source_extension)]
         files.sort()
@@ -55,6 +56,7 @@ class Cleaner:
                 print(f"文件 {source_file} 未找到，跳过。")
             except Exception as e:
                 print(f"处理文件 {source_file} 时出错: {e}")
+        print("文本清理完成!")
 
 if __name__ == "__main__":
     cleaner = Cleaner()

@@ -80,6 +80,7 @@ class KnowledgeProcessor:
             print(f"知识抽取失败: {e}")
             raise
 
+    # 知识融合
     def integrate(self, text, save_path, modify_json=True):
         try:
             client = OpenAI(api_key=self.api_key, base_url=self.base_url)

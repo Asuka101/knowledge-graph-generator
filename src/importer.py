@@ -23,10 +23,11 @@ class Importer:
         )
 
     def import_data(self):
+        print("开始导入数据到 Neo4j...")
         # 汇总数据导入
         json_file = os.path.join(self.source_path, f"{self.source_filename}.json")
         self.importer.import_data(json_file)
-        print(f"汇总数据已导入：{json_file}")
+        print(f"数据导入完成！")
 
 if __name__ == "__main__":
     importer = Importer()

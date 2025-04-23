@@ -69,6 +69,7 @@ class Extractor:
         self.processor.extract(text, save_path=target_file)
 
     def extract(self):
+        print("开始知识抽取...")
         threads = []
         for idx in self.source_indices:
             t = threading.Thread(target=self.process_chapter, args=(idx,))
@@ -76,6 +77,7 @@ class Extractor:
             t.start()
         for t in threads:
             t.join()
+        print("知识抽取完成!")
 
 if __name__ == "__main__":
     extractor = Extractor()

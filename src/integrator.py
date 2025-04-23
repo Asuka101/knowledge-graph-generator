@@ -57,6 +57,7 @@ class Integrator:
         print(f"数据合并完成，结果已保存到 {output_file}")
 
     def integrate(self):
+        print("开始知识融合...")
         # 初始化知识处理器
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
         self.load_prompt()
@@ -68,8 +69,9 @@ class Integrator:
         with open(source, "r", encoding="utf-8") as f:
             text = f.read()
         self.processor.integrate(text, save_path=target)
+        print(f"知识融合完成！")
 
 if __name__ == "__main__":
     integrator = Integrator()
     integrator.merge()
-    integrator.integrate()
+    # integrator.integrate()
