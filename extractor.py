@@ -46,7 +46,6 @@ class Extractor:
 
         # 初始化知识抽取器
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
-        self.load_prompt()
 
     def load_prompt(self):
         # 加载提示词文件
@@ -70,6 +69,7 @@ class Extractor:
 
     def extract(self):
         print("开始知识抽取...")
+        self.load_prompt()
         threads = []
         for idx in self.source_indices:
             t = threading.Thread(target=self.process_chapter, args=(idx,))

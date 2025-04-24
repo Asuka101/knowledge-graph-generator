@@ -39,7 +39,7 @@ class JSONToNeo4jImporter:
                 source_node = self.graph.nodes.match(id=relation["source"]).first()
                 target_node = self.graph.nodes.match(id=relation["target"]).first()
                 if source_node and target_node:
-                    rel = Relationship(source_node, relation["type"], target_node, id=relation["ID"])
+                    rel = Relationship(source_node, relation["type"], target_node)
                     self.graph.create(rel)
             print(f"{json_filepath.split('/')[-1]}已成功导入到 Neo4j！")
             return True
