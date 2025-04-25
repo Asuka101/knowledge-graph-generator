@@ -1,0 +1,1414 @@
+{
+    "relations": [
+        {
+            "type": "理论依赖",
+            "ID": "REL0001",
+            "source": "01DS001",
+            "target": "01CON010"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0002",
+            "source": "01DS002",
+            "target": "01CON010"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0003",
+            "source": "01DS003",
+            "target": "01CON010"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0004",
+            "source": "01DS004",
+            "target": "01CON010"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0005",
+            "source": "01DS003",
+            "target": "01DS004"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0006",
+            "source": "01DS002",
+            "target": "01DS003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0007",
+            "source": "01CON012",
+            "target": "01CON011"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0008",
+            "source": "01CON013",
+            "target": "01CON011"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0009",
+            "source": "01CON014",
+            "target": "01CON011"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0010",
+            "source": "01CON015",
+            "target": "01CON011"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0011",
+            "source": "01DS005",
+            "target": "01CON018"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0012",
+            "source": "01DS006",
+            "target": "01CON018"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0013",
+            "source": "01DS007",
+            "target": "01CON018"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0014",
+            "source": "01DS008",
+            "target": "01CON018"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0015",
+            "source": "01DS009",
+            "target": "01DS007"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0016",
+            "source": "01CON017",
+            "target": "01CON016"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0017",
+            "source": "01CON018",
+            "target": "01CON016"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0018",
+            "source": "01CON019",
+            "target": "01CON018"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0019",
+            "source": "01CON020",
+            "target": "01CON001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0020",
+            "source": "01CON020",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0021",
+            "source": "01CON021",
+            "target": "01CON016"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0022",
+            "source": "01CON004",
+            "target": "01CON003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0023",
+            "source": "01CON005",
+            "target": "01CON004"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0024",
+            "source": "01CON006",
+            "target": "01CON005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0025",
+            "source": "01CON007",
+            "target": "01CON006"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0026",
+            "source": "01CON008",
+            "target": "01CON007"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0027",
+            "source": "01CON009",
+            "target": "01CON003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0028",
+            "source": "01CON027",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0029",
+            "source": "01CON028",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0030",
+            "source": "01CON029",
+            "target": "01CON027"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0031",
+            "source": "01CON029",
+            "target": "01CON028"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0032",
+            "source": "01CON030",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0033",
+            "source": "01CON031",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0034",
+            "source": "01CON032",
+            "target": "01CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0035",
+            "source": "01CON033",
+            "target": "01CON002"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0036",
+            "source": "01ALG001",
+            "target": "01DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0037",
+            "source": "01ALG002",
+            "target": "01DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0038",
+            "source": "01ALG003",
+            "target": "01CON034"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0039",
+            "source": "01ALG004",
+            "target": "01DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0040",
+            "source": "01ALG005",
+            "target": "01DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0041",
+            "source": "01ALG006",
+            "target": "01DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0042",
+            "source": "01ALG007",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0043",
+            "source": "01ALG008",
+            "target": "01DS001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0044",
+            "source": "01CON036",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0045",
+            "source": "01CON037",
+            "target": "01CON036"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0046",
+            "source": "01CON038",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0047",
+            "source": "01CON039",
+            "target": "01CON036"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0048",
+            "source": "01CON040",
+            "target": "01CON036"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0049",
+            "source": "01CON041",
+            "target": "01CON036"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0050",
+            "source": "01CON042",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0051",
+            "source": "01CON043",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0052",
+            "source": "01CON044",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0053",
+            "source": "01CON045",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0054",
+            "source": "01CON046",
+            "target": "01CON035"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0055",
+            "source": "01CON034",
+            "target": "01CON001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0056",
+            "source": "01ALG001",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0057",
+            "source": "01ALG002",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0058",
+            "source": "01ALG003",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0059",
+            "source": "01ALG004",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0060",
+            "source": "01ALG005",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0061",
+            "source": "01ALG006",
+            "target": "01CON030"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0062",
+            "source": "01ALG007",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0063",
+            "source": "01ALG008",
+            "target": "01CON031"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0064",
+            "source": "02DS001",
+            "target": "01CON020"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0065",
+            "source": "02DS002",
+            "target": "02DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0066",
+            "source": "02DS002",
+            "target": "01DS005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0067",
+            "source": "02DS002",
+            "target": "02CON009"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0068",
+            "source": "02DS004",
+            "target": "02DS001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0069",
+            "source": "02DS004",
+            "target": "02CON010"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0070",
+            "source": "02DS004",
+            "target": "02CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0071",
+            "source": "02CON002",
+            "target": "02CON003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0072",
+            "source": "02CON002",
+            "target": "02CON004"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0073",
+            "source": "01DS009",
+            "target": "02DS004"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0074",
+            "source": "02DS006",
+            "target": "02DS004"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0075",
+            "source": "02DS007",
+            "target": "02DS004"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0076",
+            "source": "02DS004",
+            "target": "02CON005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0077",
+            "source": "02DS004",
+            "target": "02CON006"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0078",
+            "source": "02DS004",
+            "target": "02CON007"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0079",
+            "source": "02DS004",
+            "target": "02CON008"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0080",
+            "source": "02DS008",
+            "target": "01DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0081",
+            "source": "02ALG001",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0082",
+            "source": "02ALG002",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0083",
+            "source": "02ALG003",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0084",
+            "source": "02ALG004",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0085",
+            "source": "02ALG005",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0086",
+            "source": "02ALG006",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0087",
+            "source": "02ALG007",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0088",
+            "source": "02ALG008",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0089",
+            "source": "02ALG009",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0090",
+            "source": "02ALG010",
+            "target": "02DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0091",
+            "source": "02ALG011",
+            "target": "02DS001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0092",
+            "source": "02ALG012",
+            "target": "02ALG011"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0093",
+            "source": "02ALG012",
+            "target": "02DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0094",
+            "source": "02ALG013",
+            "target": "02CON011"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0095",
+            "source": "02ALG013",
+            "target": "02DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0096",
+            "source": "02ALG014",
+            "target": "02CON011"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0097",
+            "source": "02ALG014",
+            "target": "02DS001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0098",
+            "source": "02CON011",
+            "target": "02CON012"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0099",
+            "source": "02CON011",
+            "target": "02CON013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0100",
+            "source": "03DS002",
+            "target": "01DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0101",
+            "source": "03DS003",
+            "target": "01DS009"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0102",
+            "source": "03DS004",
+            "target": "03CON001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0103",
+            "source": "03CON002",
+            "target": "03CON001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0104",
+            "source": "03DS004",
+            "target": "03DS005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0105",
+            "source": "03DS005",
+            "target": "03CON003"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0106",
+            "source": "03DS006",
+            "target": "03DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0107",
+            "source": "03DS006",
+            "target": "01DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0108",
+            "source": "03DS007",
+            "target": "03DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0109",
+            "source": "03DS007",
+            "target": "01DS009"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0110",
+            "source": "03DS007",
+            "target": "01DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0111",
+            "source": "03DS008",
+            "target": "03DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0112",
+            "source": "03DS008",
+            "target": "01DS009"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0113",
+            "source": "03DS008",
+            "target": "01DS005"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0114",
+            "source": "03DS009",
+            "target": "03CON005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0115",
+            "source": "03DS010",
+            "target": "01DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0116",
+            "source": "03ALG001",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0117",
+            "source": "03ALG002",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0118",
+            "source": "03ALG003",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0119",
+            "source": "03ALG004",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0120",
+            "source": "03ALG005",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0121",
+            "source": "03ALG006",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0122",
+            "source": "03ALG007",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0123",
+            "source": "03ALG008",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0124",
+            "source": "03ALG009",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0125",
+            "source": "03ALG010",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0126",
+            "source": "03ALG011",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0127",
+            "source": "03ALG012",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0128",
+            "source": "03ALG013",
+            "target": "01DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0129",
+            "source": "03ALG014",
+            "target": "03DS004"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0130",
+            "source": "03ALG015",
+            "target": "03DS004"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0131",
+            "source": "03ALG016",
+            "target": "03DS004"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0132",
+            "source": "03ALG017",
+            "target": "03DS004"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0133",
+            "source": "03ALG018",
+            "target": "03DS004"
+        },
+        {
+            "type": "优化",
+            "ID": "REL0134",
+            "source": "03ALG018",
+            "target": "03ALG017"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0135",
+            "source": "03ALG019",
+            "target": "03DS004"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0136",
+            "source": "03ALG020",
+            "target": "03DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0137",
+            "source": "03ALG021",
+            "target": "03DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0138",
+            "source": "03ALG022",
+            "target": "03DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0139",
+            "source": "03ALG023",
+            "target": "03DS009"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0140",
+            "source": "01DS001",
+            "target": "01CON020"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0141",
+            "source": "03DS004",
+            "target": "01CON020"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0142",
+            "source": "03DS002",
+            "target": "01DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0143",
+            "source": "03DS003",
+            "target": "01DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0144",
+            "source": "03DS006",
+            "target": "03DS004"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0145",
+            "source": "03DS007",
+            "target": "03DS004"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0146",
+            "source": "03DS008",
+            "target": "03DS004"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0147",
+            "source": "03DS010",
+            "target": "03DS009"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0148",
+            "source": "04DS001",
+            "target": "02DS001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0149",
+            "source": "04DS002",
+            "target": "02DS001"
+        },
+        {
+            "type": "变体",
+            "ID": "REL0150",
+            "source": "04DS004",
+            "target": "04DS001"
+        },
+        {
+            "type": "变体",
+            "ID": "REL0151",
+            "source": "04DS005",
+            "target": "04DS001"
+        },
+        {
+            "type": "变体",
+            "ID": "REL0152",
+            "source": "04DS007",
+            "target": "04DS006"
+        },
+        {
+            "type": "变体",
+            "ID": "REL0153",
+            "source": "04DS009",
+            "target": "04DS002"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0154",
+            "source": "04DS004",
+            "target": "01DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0155",
+            "source": "04DS005",
+            "target": "01DS009"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0156",
+            "source": "04DS006",
+            "target": "01DS005"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0157",
+            "source": "04DS008",
+            "target": "01DS009"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0158",
+            "source": "04DS009",
+            "target": "04DS010"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0159",
+            "source": "04ALG001",
+            "target": "04DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0160",
+            "source": "04ALG002",
+            "target": "04DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0161",
+            "source": "04ALG003",
+            "target": "04DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0162",
+            "source": "04ALG004",
+            "target": "04DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0163",
+            "source": "04ALG005",
+            "target": "04DS001"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0164",
+            "source": "04ALG006",
+            "target": "04DS002"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0165",
+            "source": "04ALG007",
+            "target": "04DS002"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0166",
+            "source": "04ALG008",
+            "target": "04DS002"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0167",
+            "source": "04ALG009",
+            "target": "04DS002"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0168",
+            "source": "04ALG010",
+            "target": "04DS002"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0169",
+            "source": "04ALG011",
+            "target": "04DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0170",
+            "source": "04ALG012",
+            "target": "04DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0171",
+            "source": "04ALG013",
+            "target": "04CON022"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0172",
+            "source": "04ALG014",
+            "target": "04ALG013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0173",
+            "source": "04ALG015",
+            "target": "04ALG013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0174",
+            "source": "01ALG008",
+            "target": "04ALG013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0175",
+            "source": "04ALG017",
+            "target": "04ALG013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0176",
+            "source": "04ALG018",
+            "target": "04ALG013"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0177",
+            "source": "04ALG017",
+            "target": "01DS005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0178",
+            "source": "04ALG011",
+            "target": "04CON015"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0179",
+            "source": "04ALG012",
+            "target": "04CON014"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0180",
+            "source": "04ALG012",
+            "target": "04CON015"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0181",
+            "source": "04ALG013",
+            "target": "04CON020"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0182",
+            "source": "04CON022",
+            "target": "04CON020"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0183",
+            "source": "04DS001",
+            "target": "04CON003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0184",
+            "source": "04DS002",
+            "target": "04CON006"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0185",
+            "source": "04DS001",
+            "target": "01CON020"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0186",
+            "source": "04DS002",
+            "target": "01CON020"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0187",
+            "source": "04ALG012",
+            "target": "04CON019"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0188",
+            "source": "05DS005",
+            "target": "05DS001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0189",
+            "source": "05DS006",
+            "target": "05DS005"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0190",
+            "source": "05DS007",
+            "target": "05DS005"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0191",
+            "source": "05DS007",
+            "target": "05DS008"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0192",
+            "source": "05DS006",
+            "target": "05DS007"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0193",
+            "source": "05DS002",
+            "target": "05DS001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0194",
+            "source": "05DS003",
+            "target": "05DS001"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0195",
+            "source": "05DS005",
+            "target": "05DS002"
+        },
+        {
+            "type": "继承",
+            "ID": "REL0196",
+            "source": "05DS011",
+            "target": "05DS001"
+        },
+        {
+            "type": "变体",
+            "ID": "REL0197",
+            "source": "05DS010",
+            "target": "05DS009"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0198",
+            "source": "05ALG009",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0199",
+            "source": "05ALG010",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0200",
+            "source": "05ALG011",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0201",
+            "source": "05ALG012",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0202",
+            "source": "05ALG004",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0203",
+            "source": "05ALG001",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0204",
+            "source": "05ALG002",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0205",
+            "source": "05ALG003",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0206",
+            "source": "05ALG005",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0207",
+            "source": "05ALG006",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0208",
+            "source": "05ALG007",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0209",
+            "source": "05ALG008",
+            "target": "05DS005"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0210",
+            "source": "05ALG020",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0211",
+            "source": "05ALG021",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0212",
+            "source": "05ALG012",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0213",
+            "source": "05ALG015",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0214",
+            "source": "05ALG013",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0215",
+            "source": "05ALG014",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0216",
+            "source": "05ALG016",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0217",
+            "source": "05ALG017",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0218",
+            "source": "05ALG018",
+            "target": "05DS011"
+        },
+        {
+            "type": "操作绑定",
+            "ID": "REL0219",
+            "source": "05ALG019",
+            "target": "05DS011"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0220",
+            "source": "05ALG012",
+            "target": "04DS002"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0221",
+            "source": "05ALG002",
+            "target": "04DS001"
+        },
+        {
+            "type": "使用",
+            "ID": "REL0222",
+            "source": "05ALG014",
+            "target": "04DS001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0223",
+            "source": "05DS005",
+            "target": "05CON001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0224",
+            "source": "05DS005",
+            "target": "05CON013"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0225",
+            "source": "05DS005",
+            "target": "05CON014"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0226",
+            "source": "05DS001",
+            "target": "05CON001"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0227",
+            "source": "05DS001",
+            "target": "05CON002"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0228",
+            "source": "05DS001",
+            "target": "05CON003"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0229",
+            "source": "05DS001",
+            "target": "05CON004"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0230",
+            "source": "05DS001",
+            "target": "05CON005"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0231",
+            "source": "05DS001",
+            "target": "05CON006"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0232",
+            "source": "05DS001",
+            "target": "05CON007"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0233",
+            "source": "05DS001",
+            "target": "05CON008"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0234",
+            "source": "05DS001",
+            "target": "05CON009"
+        },
+        {
+            "type": "理论依赖",
+            "ID": "REL0235",
+            "source": "05DS001",
+            "target": "05CON010"
+        }
+    ]
+}

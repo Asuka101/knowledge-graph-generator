@@ -14,7 +14,7 @@ class Integrator:
 
         # 提示词配置及完整路径
         self.prompt_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("PROMPT_PATH")))
-        self.prompt_filename = os.getenv("PROMPT4INTEGRATO_NAME")
+        self.prompt_filename = os.getenv("PROMPT4INTEGRATOR_NAME")
         self.prompt_extension = os.getenv("PROMPT_TYPE")
 
         # API 配置
@@ -62,8 +62,8 @@ class Integrator:
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
         self.load_prompt()
         # 知识融合
-        source = os.path(self.path, f"{self.data_name}.json")
-        target = os.path(self.path, f"{self.data_name}.json")
+        source = os.path.join(self.path, f"{self.data_name}.json")
+        target = os.path.join(self.path, f"{self.data_name}.json")
         if not os.path.exists(source):
             print(f"文件 {source} 未找到。")
         with open(source, "r", encoding="utf-8") as f:
@@ -74,4 +74,4 @@ class Integrator:
 if __name__ == "__main__":
     integrator = Integrator()
     integrator.merge()
-    # integrator.integrate()
+    integrator.integrate()
