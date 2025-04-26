@@ -1,4 +1,4 @@
-# Description: 知识抽取类(Gemini），已停止维护
+# Description: 知识抽取类(Gemini），已停用
 import google.generativeai as genai
 
 class KnowledgeProcessor:

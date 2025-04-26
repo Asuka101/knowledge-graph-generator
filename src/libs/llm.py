@@ -1,4 +1,4 @@
-# Description: 知识抽取类 (支持调用任意大语言模型的API)
+# Description: 知识处理类 (支持任意大语言模型)
 from openai import OpenAI
 import threading
 
@@ -18,7 +18,7 @@ class KnowledgeProcessor:
 
         # 设置模型生成参数
         self.generation_config = {
-            "temperature": 0.8,
+            "temperature": 1,
             "top_p": 0.95,
         }
 
@@ -75,7 +75,7 @@ class KnowledgeProcessor:
                     f.write(self.json_modify(response_text))
                 else:
                     f.write(response_text)
-            print(f"[{head}]：知识抽取成功!结果已保存到: {save_path}")
+            print(f"[{head}]：知识抽取成功!")
         except Exception as e:
             print(f"知识抽取失败: {e}")
             raise
@@ -92,7 +92,7 @@ class KnowledgeProcessor:
                     f.write(self.json_modify(response_text))
                 else:
                     f.write(response_text)
-            print(f"知识融合成功!结果已保存到: {save_path}")
+            print(f"知识融合成功!")
         except Exception as e:
             print(f"知识融合失败: {e}")
             raise

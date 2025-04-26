@@ -24,7 +24,7 @@ class JSONToNeo4jImporter:
             print(f"文件未找到: {json_filepath}")
             return False
         except json.JSONDecodeError:
-            print(f"JSON 解码失败: {json_filepath}")
+            print(f"JSON 解码失败！")
             return False
         except Exception as e:
             print(f"读取 JSON 文件失败: {e}")
@@ -41,7 +41,7 @@ class JSONToNeo4jImporter:
                 if source_node and target_node:
                     rel = Relationship(source_node, relation["type"], target_node)
                     self.graph.create(rel)
-            print(f"{json_filepath.split('/')[-1]}已成功导入到 Neo4j！")
+            print(f"数据已成功导入到 Neo4j！")
             return True
         except Exception as e:
             print(f"导入数据到 Neo4j 失败: {e}")

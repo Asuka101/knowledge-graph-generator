@@ -1,8 +1,8 @@
 # Description: 知识抽取器
 import os
-import threading
 from dotenv import load_dotenv
 from libs.llm import KnowledgeProcessor
+import concurrent.futures  # 导入线程池模块
 
 class Extractor:
     def __init__(self):
@@ -70,13 +70,9 @@ class Extractor:
     def extract(self):
         print("开始知识抽取...")
         self.load_prompt()
-        threads = []
-        for idx in self.source_indices:
-            t = threading.Thread(target=self.process_chapter, args=(idx,))
-            threads.append(t)
-            t.start()
-        for t in threads:
-            t.join()
+        # 使用线程池
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            executor.map(self.process_chapter, self.source_indices)
         print("知识抽取完成!")
 
 if __name__ == "__main__":
