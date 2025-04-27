@@ -1,10 +1,10 @@
 # description: 主程序
 from src.converter import PDF2TextbookConverter
-from src.cleaner import Cleaner
-from src.merger import ChapterMerger
-from src.extractor import Extractor
-from src.integrator import Integrator
-from src.importer import Importer
+# from src.cleaner import Cleaner
+# from src.merger import ChapterMerger
+# from src.extractor import Extractor
+# from src.integrator import Integrator
+# from src.importer import Importer
 from dotenv import load_dotenv
 import os
 
@@ -32,20 +32,20 @@ def main():
     try:
         # 模块初始化
         converter = PDF2TextbookConverter()
-        merger = ChapterMerger(chapter_pages=[18, 65, 111, 148, 195, 229, 266, 290, 322])
-        cleaner = Cleaner()
-        extractor = Extractor()
-        integrator = Integrator()
-        importer = Importer()
+        # merger = ChapterMerger(chapter_pages=[18, 65, 111, 148, 195, 229, 266, 290, 322])
+        # cleaner = Cleaner()
+        # extractor = Extractor()
+        # integrator = Integrator()
+        # importer = Importer()
 
         # 工作流
         converter.convert()
-        merger.process_chapters()
-        cleaner.clean()
-        extractor.extract()
-        integrator.integrate()
-        importer.import_data()
-        print("知识图谱构建完成！")
+        # merger.process_chapters()
+        # cleaner.clean()
+        # extractor.extract()
+        # integrator.integrate()
+        # importer.import_data()
+        # print("知识图谱构建完成！")
 
     except Exception as e:
         print(f"知识图谱构建程序错误退出！")

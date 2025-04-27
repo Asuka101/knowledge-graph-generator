@@ -36,7 +36,7 @@ class PDF2TextbookConverter:
                 pix = page.get_pixmap(dpi=300)
                 img_filename = os.path.join(self.image_path, f"{self.image_name}_{page_num + 1}{self.image_extension}")
                 pix.save(img_filename)
-                print(f"保存image: {img_filename}")
+                print(f"保存图片: {self.image_name}_{page_num + 1}{self.image_extension}")
         print("所有页面已成功转换为图片")
 
     def process_image(self, i):
@@ -48,12 +48,12 @@ class PDF2TextbookConverter:
                 with open(image_file, "rb") as img_f:
                     encoded_string = base64.b64encode(img_f.read()).decode('utf-8')
                 with open(page_file, 'w', encoding='utf-8') as out_f:
-                    gpt_answer = recognize_image(encoded_string, i % cookies.len())
+                    gpt_answer = recognize_image(encoded_string, i % len(cookies))
                     out_f.write(f"{gpt_answer['result']}\n")
-                    print(f"image {i} 转换成功！")
+                    print(f"图片 {i} 转换成功！")
                     complete = 1
             except Exception as e:
-                print(f"处理 image {i} 发生错误: {e}")
+                print(f"处理图片 {i} 发生错误: {e}")
                 complete = 0
                 continue
 
@@ -72,11 +72,11 @@ class PDF2TextbookConverter:
                         continue
             image_indices.sort()
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:  # 可以调整 max_workers
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:  # 可以调整 max_workers
             executor.map(self.process_image, image_indices)
 
         print("图片转文本完成!")
 
     def convert(self):
-        self.pdf2images()
+        # self.pdf2images()
         self.images2text()
