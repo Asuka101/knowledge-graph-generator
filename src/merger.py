@@ -37,8 +37,6 @@ class ChapterMerger:
                     outfile.write(infile.read())
                     outfile.write("\n")  # 可选：在文件之间添加空行
 
-        print(f"文件已合并到: {output_file}")
-
     def process_chapters(self):
         print("开始合并章节...")
         for i in range(1, self.chapters_edge):

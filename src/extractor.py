@@ -36,21 +36,16 @@ class Extractor:
             os.environ["HTTPS_PROXY"] = self.https_proxy
 
         # 根据 source_path 中对应文件名解析章节索引
-        if os.path.exists(self.source_path):
-            self.source_indices = sorted(
-                [int(f.split('_')[-1].split('.')[0]) for f in os.listdir(self.source_path)
-                 if f.startswith(self.source_filename) and f.endswith(self.source_extension)]
-            )
-        else:
-            self.source_indices = []
+        self.source_indices = sorted(
+            [int(f.split('_')[-1].split('.')[0]) for f in os.listdir(self.source_path)
+            if f.startswith(self.source_filename) and f.endswith(self.source_extension)]
+        )
 
         # 初始化知识抽取器
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
 
     def load_prompt(self):
         # 加载提示词文件
-        if not os.path.exists(self.prompt_path):
-            raise FileNotFoundError(f"提示词路径 {self.prompt_path} 不存在")
         prompt_file = os.path.join(self.prompt_path, f"{self.prompt_filename}{self.prompt_extension}")
         with open(prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
@@ -59,9 +54,6 @@ class Extractor:
     def process_chapter(self, idx):
         # 构造待处理文件及抽取后保存文件路径
         source = os.path.join(self.source_path, f"{self.source_filename}_{idx}{self.source_extension}")
-        if not os.path.exists(source):
-            print(f"待处理文件 {source} 不存在")
-            return
         with open(source, "r", encoding="utf-8") as f:
             text = f.read()
         target_file = os.path.join(self.target_path, f"{self.target_filename}_{idx}.json")

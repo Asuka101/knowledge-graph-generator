@@ -1671,3 +1671,173 @@ return;                     //执行结束返回
 ClearQueue(q1);
 ClearQueue(q2);
 }                           //主函数结束位置
+
+习 题 4
+
+【习题 4-1】运算题。
+
+1. 有 6 个元素 A、B、C、D、E、F 依次进栈，允许任何时候出栈，能否得到下列的每个出栈序列，若能，给出栈的操作过程，若不能，简述其理由。
+(1) CDBEFA
+(2) ABEDFC
+(3) DCEABF
+(4) BAEFCD
+
+2. 有 4 个元素 a,b,c,d 依次进栈，任何时候都可以出栈，请写出所有可能的出栈序列和所有不存在的序列。
+
+3. 用一维数组 a[7]顺序存储一个循环队列，队首和队尾指针分别用 front 和 rear 表示，当前队列中已有 5 个元素：23,45,67,80,34，其中，23 为队首元素，front 的值为 3，请画出对应的存储状态，当连续做 4 次出队运算后，再让 15,36,48 元素依次进队，请再次画出对应的存储状态。
+
+4. 用于顺序存储一个队列的数组的长度为 N，队首和队尾指针分别为 front 和 rear，写出求此队列长度（即所含元素个数）的公式。
+
+【习题 4-2】算法分析，写出每个算法的功能。
+
+1. int AE(int a[], int n)
+{
+    if(n==0) return 0;
+    else return a[n-1]+AE(a,n-1);
+}
+
+2. int AF(int k, int s)                       //第1次使用 AF(0,0)调用此算法
+{
+    if(s>=1000) return k-1;
+    else {
+        k++;
+        s+=k*k;
+        return AF(k,s);
+    }
+}
+```
+
+}
+\n
+3. void Transform(long num) //num 为正整数
+{
+    Stack a;
+    InitStack(a);
+    while(num!=0) {
+        int k=num % 16;
+        Push(a,k);
+        num/=16;
+    }
+    while(!EmptyStack(a)) {
+        int x=Pop(a);
+        if(x<10) cout<<x;
+        else {
+            switch (x) {
+                case 10: cout<'A'; break;
+                case 11: cout<'B'; break;
+                case 12: cout<'C'; break;
+                case 13: cout<'D'; break;
+                case 14: cout<'E'; break;
+                case 15: cout<'F';
+            }
+        }
+    }
+    cout<<endl;
+}
+\n
+4. void Fun1(Stack& s1, int n)
+{
+    srand(time(0)); //srand()函数在 stdlib.h 头文件中定义
+    int i=0,j;
+    while(i<n) {
+        int x=rand()%100; //rand 函数在 stdlib.h 头文件中定义
+        int y=int(sqrt(x)); //平方根函数 sqrt 在 math.h 头文件中定义
+        for(j=2; j<=y; j++)
+            if(x%j==0) break;
+        if(j>y && x>10) {i++;Push(s1,x);}
+    }
+}
+\n
+5. void Fun2(Queue& q1, Queue& q2, int n)
+{
+    int i,x;
+    cout<<"从键盘输入"<n<"个正整数:"<<endl;
+
+for(i=0; i<n; i++) {
+    cin>>x;
+    if(x%2) EnQueue(q1,x);
+    else EnQueue(q2,x);
+}
+
+*【习题 4-3】改写算法。
+
+根据顺序栈的运算和表达式转换与求值的算法，做如下变化。
+1. 给出下面顺序栈模板类定义中每个成员函数的类外定义。
+
+template<class ElemType>
+class Stack {
+ElemType *stack;                      //存栈元素
+int top;                              //存栈顶元素的下标位置
+int MaxSize;                          //存 stack 数组长度, 即所能存储栈的最大长度
+public:
+    Stack();                          //构造函数
+    Stack(Stack& s);                  //复制构造函数
+    Stack& operator=(Stack& s);       //赋值重载函数
+    void Push(ElemType item);         //元素进栈函数
+    ElemType Pop();                   //元素出栈函数
+    ElemType Peek();                  //读取栈顶元素函数
+    bool EmptyStack();                //判栈空函数
+    ~Stack();                         //析构函数
+};
+
+2. 给出后缀表达式求值的函数定义，其中使用的操作数栈由引用参数提供，该函数原型如下。
+double Compute(Stack<double>& S, char* str);
+
+3. 给出把中缀表达式转换为后缀表达式的函数定义，其中使用的运算符栈由引用参数提供，该函数原型如下。
+void Change(Stack<char>& R, char* s1, char* s2);
+
+4. 建立一个工程文件，其中包括 3 个文件。第 1 个为含有主函数的主程序文件，第 2 个为含有表达式转换与求值函数的次程序文件，第 3 个为含有模板栈类定义与实现的次程序文件。
+【习题 4-4】算法设计。
+1. 采用递归方法求$1 \sim n$之间的所有整数平方的和。
+2. 采用递归方法把任一十进制正整数转换为$S$进制$(2 \leqslant S \leqslant 9)$数输出。
+3. 采用辗转相除和递归的方法求出两个正整数的最大公约数。
+4. 采用递归方法求两个正整数的最小公倍数。
+5. 裴波那契（Fibonacci）数列的定义为：它的第 1 项和第 2 项分别为 0 和 1，以后各项为其前两项之和。若裴波那契数列中的第$n$项用$\operatorname{Fib}(n)$表示，则计算公式为：
+
+$\operatorname{Fib}(n)=\left\{\begin{array}{cc} n-1 & (n=1 \text { 或 } 2) \\ \operatorname{Fib}(n-1)+\operatorname{Fib}(n-2) & (n>2) \end{array}\right.$试编写出计算$\operatorname{Fib}(n)$的递归算法和非递归算法, 分析每个算法的时间和空间复杂度。
+
+6. 根据代数中的二项式定理, 二项式$(x+y)^{n}$的展开式的系数序列可以表示成三角形, 如图 4-12 所示,其中除每一行最左和最右两个系数等于 1 以外, 其余各系数均等于上一行左右两系数之和。这个系数三角形称作杨辉三角形。$(x+y)^{0}$(x+y)^{1}$(x+y)^{2}$(x+y)^{3}$(x+y)^{4}$(x+y)^{5}$(x+y)^{6}$(x+y)^{7}$(x+y)^{8}$图 4-12 杨辉三角形
+
+设$C(n, k)$表示杨辉三角形中第$n$行$(n \geqslant 0)$的第$k$个系数$(0 \leqslant k \leqslant n)$, 按照二项式定理,$C(n, k)$可递归定义为:$C(n, k)=\left\{\begin{array}{cc} 1 & (k=0 \text { 或 } k=n) \\ C(n-1, k-1)+C(n-1, k) & (0<k<n) \end{array}\right.$(1) 写出计算$C(n, k)$的递归算法。
+
+(2) 利用二维数组写出计算$C(n, k)$的非递归算法。
+
+(3) 分析递归算法和非递归算法的时间复杂度和空间复杂度。
+
+7. 在一个链队列中只设置队尾指针, 不设置队首指针, 并且让队尾结点的指针域指向队首结点 (称此为循环链队), 试分别写出在循环链队上进行插入和删除操作的算法。
+
+8. 在一个数组空间 stack[StackMaxSize]中可以同时存放两个顺序栈, 栈底分别处在数组的两端, 当第 1 个栈的栈顶指针 top1 等于 -1 时则栈 1 为空, 当第 2 个栈的栈顶指针 top2 等于 MaxSize 时则栈 2 为空。两个栈均向中间增长, 当向栈 1 插入元素时, 使 top1 增 1 得到新的栈顶位置, 当向栈 2 插入元素时,则使 top2 减 1 才能够得到新的栈顶位置。当 top1 等于 top2-1 或者 top2 等于 top1+1 时, 存储空间用完,无法再向任一栈插入元素, 此时可考虑给出错误信息并停止运行。用于双栈操作的顺序存储类型可定义为:
+
+struct BothStack {
+    ElemType stack[MaxSize];
+    int top1, top2;
+};
+
+双栈操作的抽象数据类型可定义为:
+
+DAT BSTACK is
+Data:
+采用顺序结构存储的双栈,其存储类型为 BothStack
+
+Operations:
+//初始化栈。当k=1或2时对应置栈1或2为空,k=3时置两个栈均空
+void InitStack(BothStack& BS, int k);
+//清除栈。当k=1或2时对应栈1或2被清除,k=3时两个栈均被清除
+void ClearStack(BothStack& BS, int k);
+//判断栈是否为空。当k=1或2时判断对应的栈1或栈2是否为空,
+//k=3时判断两个栈是否同时为空
+bool StackEmpty(BothStack& BS, int k);
+//取栈顶元素。当k=1或2时对应返回栈1或栈2的栈顶元素
+ElemType Peek(BothStack& BS, int k);
+//进栈。当k=1或2时对应向栈1或栈2的顶端压入元素item
+void Push(BothStack& BS, int k, const ElemType& item);
+//退栈。当k=1或2时,对应使栈1或栈2退栈并返回栈顶元素
+ElemType Pop(BothStack& BS, int k);
+
+End BSTACK
+
+试写出上述抽象数据类型中每一种操作的算法。
+9. 利用堆栈编写出求解迷宫问题的非递归算法。
+10. 编写出解决汉诺塔问题的非递归算法。
+11. 判断任意$n$个字符串能否首尾相接成为一个字符串。若一个字符串的尾字符等于另外一个字符串的首字符，则认为这两个字符串能够首尾相接形成一个字符串。
+

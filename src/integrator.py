@@ -29,8 +29,6 @@ class Integrator:
 
     def load_prompt(self):
         # 加载提示词文件
-        if not os.path.exists(self.prompt_path):
-            raise FileNotFoundError(f"提示词路径 {self.prompt_path} 不存在")
         prompt_file = os.path.join(self.prompt_path, f"{self.prompt_name}{self.prompt_extension}")
         with open(prompt_file, "r", encoding="utf-8") as f:
             prompt = f.read()
@@ -172,17 +170,14 @@ class Integrator:
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
         self.load_prompt()
         source = os.path.join(self.path, f"{self.filtered_data_name}.json")
-        filtered = os.path.join(self.path, f"{self.filtered_data_name}.json")
         target = os.path.join(self.path, f"{self.data_name}.json")
         
-        # 读取待融合的文件
-        if not os.path.exists(source):
-            print(f"文件 {source} 未找到。")
+        # 读取用于知识融合的数据
         with open(source, "r", encoding="utf-8") as f:
             text = f.read()
         
-        self.processor.integrate(text, save_path=filtered, modify_json=True)
-        with open(filtered, "r", encoding="utf-8") as f:
+        self.processor.integrate(text, save_path=source, modify_json=True)
+        with open(source, "r", encoding="utf-8") as f:
             filtered_data = f.read()
             filtered_data = json.loads(filtered_data)
         with open(target, "r", encoding="utf-8") as f:

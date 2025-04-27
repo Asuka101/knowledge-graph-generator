@@ -24,20 +24,17 @@ class KnowledgeProcessor:
 
     # 发送消息
     def send_message(self, content, client):
-        try:
-            if self.prompt is None:
-                raise ValueError("提示词尚未加载请重试")
-            response = client.chat.completions.create(
-                model=self.model,
-                messages=[{"role": "system", "content": self.prompt},
-                          {"role": "user", "content": content}],
-                temperature=self.generation_config["temperature"],
-                top_p=self.generation_config["top_p"],
-            )
-            return response.choices[0].message.content
-        except Exception as e:
-            print(f"向大语言模型发送消息失败: {e}")
-            raise
+
+        if self.prompt is None:
+            raise ValueError("提示词尚未加载请重试")
+        response = client.chat.completions.create(
+            model=self.model,
+            messages=[{"role": "system", "content": self.prompt},
+                        {"role": "user", "content": content}],
+            temperature=self.generation_config["temperature"],
+            top_p=self.generation_config["top_p"],
+        )
+        return response.choices[0].message.content
 
     # 加载提示词
     def load_prompt(self, prompt):
@@ -64,10 +61,10 @@ class KnowledgeProcessor:
 
     # 知识抽取
     def extract(self, text, save_path, modify_json=True):
+        client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+        head = text.splitlines()[0] if text.splitlines() else text
+        print(f"[{head}]：正在抽取实体、关系和属性...")
         try:
-            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
-            head = text.splitlines()[0] if text.splitlines() else text
-            print(f"[{head}]：正在抽取实体、关系和属性...")
             response_text = self.send_message(content=text, client=client)
             # 保存结果
             with open(save_path, "w", encoding="utf-8") as f:
@@ -77,14 +74,14 @@ class KnowledgeProcessor:
                     f.write(response_text)
             print(f"[{head}]：知识抽取成功!")
         except Exception as e:
-            print(f"知识抽取失败: {e}")
+            print(f"[{head}]:知识抽取失败: {e}")
             raise
 
     # 知识融合
     def integrate(self, text, save_path, modify_json=True):
+        client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+        print("正在进行知识融合...")
         try:
-            client = OpenAI(api_key=self.api_key, base_url=self.base_url)
-            print("正在进行知识融合...")
             response_text = self.send_message(content=text, client=client)
             # 保存结果
             with open(save_path, "w", encoding="utf-8") as f:

@@ -49,11 +49,12 @@ class Cleaner:
                 if use_stopwords:
                     text = Preprocessor.delete_stopwords(text, self.read_stopwords())
                 text = Preprocessor.remove_whitespace(text)
+                head = text.splitlines()[0] if text.splitlines() else text
                 with open(target_file, "w", encoding="utf-8") as file:
                     file.write(text)
-                print(f"文本已清理并保存到 {target_file}")
+                print(f"[{head}]：文本已清理!")
             except FileNotFoundError:
-                print(f"文件 {source_file} 未找到，跳过。")
+                print(f"文件 {file_name} 未找到，跳过。")
             except Exception as e:
-                print(f"处理文件 {source_file} 时出错: {e}")
+                print(f"处理文件 {file_name} 时出错: {e}")
         print("文本清理完成!")

@@ -30,7 +30,6 @@ class PDF2TextbookConverter:
     def pdf2images(self):
         print("开始PDF转图片...")
         pdf_file = os.path.join(self.textbook_path, f"{self.textbook_name}{self.textbook_extension}")
-        os.makedirs(self.image_path, exist_ok=True)
         with fitz.open(pdf_file) as doc:
             for page_num in range(len(doc)):
                 page = doc.load_page(page_num)

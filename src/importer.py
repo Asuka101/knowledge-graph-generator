@@ -43,7 +43,7 @@ class Importer:
         # 构造待导入文件路径
         source = os.path.join(self.source_path, f"{self.chapter_name}_{idx}.json")
         if not os.path.exists(source):
-            print(f"待导入文件 {source} 不存在")
+            print(f"待导入章节 {idx} 数据不存在")
             return
         self.importer.import_data(source)
         print(f"章节 {idx} 数据导入完成！")
