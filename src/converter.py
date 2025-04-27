@@ -3,7 +3,7 @@ import os
 import fitz  # PyMuPDF
 import base64
 from dotenv import load_dotenv
-from libs.ocr import recognize_image, cookies
+from src.libs.ocr import recognize_image, cookies
 import concurrent.futures
 
 class PDF2TextbookConverter:
@@ -78,7 +78,6 @@ class PDF2TextbookConverter:
 
         print("图片转文本完成!")
 
-if __name__ == "__main__":
-    converter = PDF2TextbookConverter()
-    converter.pdf2images()
-    converter.images2text()
+    def convert(self):
+        self.pdf2images()
+        self.images2text()

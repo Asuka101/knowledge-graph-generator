@@ -48,5 +48,5 @@ class ChapterMerger:
         print("所有章节已成功合并!")
 
 if __name__ == "__main__":
-    merger = ChapterMerger()
-    merger.process_chapters(chapter_pages=[18, 65, 111, 148, 195, 229, 266, 290, 322])
+    merger = ChapterMerger(chapter_pages=[18, 65, 111, 148, 195, 229, 266, 290, 322])
+    merger.process_chapters()

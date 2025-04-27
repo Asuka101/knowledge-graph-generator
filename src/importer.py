@@ -1,7 +1,7 @@
 # Description: 数据导入器
 import os
 from dotenv import load_dotenv
-from libs.json2neo import JSONToNeo4jImporter
+from src.libs.json2neo import JSONToNeo4jImporter
 
 class Importer:
     def __init__(self):
@@ -47,7 +47,3 @@ class Importer:
             return
         self.importer.import_data(source)
         print(f"章节 {idx} 数据导入完成！")
-
-if __name__ == "__main__":
-    importer = Importer()
-    importer.import_data()

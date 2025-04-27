@@ -1,7 +1,7 @@
 # description: 数据清理器
 import os
 from dotenv import load_dotenv
-from libs.preprocessor import Preprocessor
+from src.libs.preprocessor import Preprocessor
 
 class Cleaner:
     def __init__(self):
@@ -57,7 +57,3 @@ class Cleaner:
             except Exception as e:
                 print(f"处理文件 {source_file} 时出错: {e}")
         print("文本清理完成!")
-
-if __name__ == "__main__":
-    cleaner = Cleaner()
-    cleaner.clean()  # 调用 clean 方法进行批量清理

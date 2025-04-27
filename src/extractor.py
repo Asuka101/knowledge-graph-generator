@@ -1,7 +1,7 @@
 # Description: 知识抽取器
 import os
 from dotenv import load_dotenv
-from libs.llm import KnowledgeProcessor
+from src.libs.llm import KnowledgeProcessor
 import concurrent.futures  # 导入线程池模块
 
 class Extractor:
@@ -74,7 +74,3 @@ class Extractor:
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             executor.map(self.process_chapter, self.source_indices)
         print("知识抽取完成!")
-
-if __name__ == "__main__":
-    extractor = Extractor()
-    extractor.extract()

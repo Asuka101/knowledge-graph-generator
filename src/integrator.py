@@ -1,9 +1,9 @@
 # description: 知识融合器
 import os
 import json
-from collections import defaultdict
+from collections import defaultdict, deque
 from dotenv import load_dotenv
-from libs.llm import KnowledgeProcessor
+from src.libs.llm import KnowledgeProcessor
 
 class Integrator:
     def __init__(self):
@@ -77,6 +77,7 @@ class Integrator:
             json.dump(filtered_data, output, ensure_ascii=False, indent=4)
         print(f"数据合并完成!")
 
+    # 去重实体和关系
     def deduplicate_entities(self, data):
         # 创建一个字典来跟踪已经看到的实体（按名称和类型分组）
         seen_entities = defaultdict(list)
@@ -124,8 +125,49 @@ class Integrator:
         
         return deduplicated_data
 
+    # 过滤掉不连通的图
+    def filter_connected_graph(self, data):
+        # 构建无向图
+        graph = defaultdict(set)
+        entity_ids = set(entity["ID"] for entity in data["entities"])
+        for rel in data["relations"]:
+            graph[rel["source"]].add(rel["target"])
+            graph[rel["target"]].add(rel["source"])
+
+        # 找最大连通分量
+        visited = set()
+        components = []
+        for eid in entity_ids:
+            if eid not in visited:
+                queue = deque([eid])
+                comp = set()
+                while queue:
+                    node = queue.popleft()
+                    if node not in visited:
+                        visited.add(node)
+                        comp.add(node)
+                        queue.extend(graph[node] - visited)
+                components.append(comp)
+        if not components:
+            print("无连通分量")
+            return
+
+        main_component = max(components, key=len)
+
+        # 过滤实体和关系
+        filtered_entities = [e for e in data["entities"] if e["ID"] in main_component]
+        filtered_relations = [
+            r for r in data["relations"]
+            if r["source"] in main_component and r["target"] in main_component
+        ]
+
+        # 保存结果
+        filtered_data = {"entities": filtered_entities, "relations": filtered_relations}
+        return filtered_data
+
     def integrate(self):
         print("开始知识融合...")
+        self.merge()
         # 初始化知识处理器
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
         self.load_prompt()
@@ -146,6 +188,8 @@ class Integrator:
         with open(target, "r", encoding="utf-8") as f:
             data = f.read()
             data = json.loads(data)
+
+        filtered_data = self.filter_connected_graph(filtered_data)
         
         # 按ID将attributes赋值给filtered_data里的实体
         id2attributes = {entity["ID"]: entity.get("attributes") for entity in data["entities"]}
@@ -158,8 +202,3 @@ class Integrator:
             json.dump(filtered_data, f, ensure_ascii=False, indent=4)
 
         print(f"知识融合完成！")
-
-if __name__ == "__main__":
-    integrator = Integrator()
-    integrator.merge()
-    integrator.integrate()
