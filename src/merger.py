@@ -7,6 +7,16 @@ load_dotenv()  # 加载环境变量
 class ChapterMerger:
     def __init__(self, chapter_pages):
         #  需要合并的章节首页页码及尾页页码
+        if chapter_pages is None or len(chapter_pages) < 2:
+            raise ValueError("章节页码列表不能为空且至少包含两个元素!")
+        if not all(isinstance(i, int) for i in chapter_pages):
+            raise ValueError("章节页码列表必须为整数!")
+        if len(set(chapter_pages)) != len(chapter_pages):
+            raise ValueError("章节页码列表不能有重复元素!")
+        if len(chapter_pages) % 2 != 1:
+            raise ValueError("章节页码列表必须为奇数个元素!")
+        if not all(chapter_pages[i] < chapter_pages[i + 1] for i in range(len(chapter_pages) - 1)):
+            raise ValueError("章节页码列表必须为升序排列!")
         self.chapter_pages = chapter_pages
         # 原始数据配置及完整路径
         self.input_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.getenv("PAGE_PATH")))

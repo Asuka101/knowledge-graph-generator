@@ -2,6 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
+load_dotenv
 # 获取cookie列表
 with open(os.getenv("OCR_COOKIES"), 'r', encoding='utf-8') as f:
     cookies = [line.strip() for line in f if line.strip()]

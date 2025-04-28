@@ -6,20 +6,19 @@ from src.libs.preprocessor import Preprocessor
 class Cleaner:
     def __init__(self):
         load_dotenv()  # 加载环境变量
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
 
         # 原始数据配置及完整路径
-        self.source_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("CHAPTER_PATH")))
+        self.source_path = os.getenv("CHAPTER_PATH")
         self.source_filename = os.getenv("CHAPTER_NAME")
         self.source_extension = os.getenv("CHAPTER_TYPE")
 
         # 清理后数据配置及完整路径
-        self.target_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("CLEANED_PATH")))
+        self.target_path = os.getenv("CLEANED_PATH")
         self.target_filename = os.getenv("CLEANED_NAME")
         self.target_extension = os.getenv("CLEANED_TYPE")
 
         # 停用词配置及完整路径
-        self.stopwords_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("STOPWORDS_PATH")))
+        self.stopwords_path = os.getenv("STOPWORDS_PATH")
         self.stopwords_filename = os.getenv("STOPWORDS_NAME")
         self.stopwords_extension = os.getenv("STOPWORDS_TYPE")
 

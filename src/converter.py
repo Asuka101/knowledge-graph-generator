@@ -9,20 +9,19 @@ import concurrent.futures
 class PDF2TextbookConverter:
     def __init__(self):
         load_dotenv()
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
 
         # PDF 相关配置
-        self.textbook_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("TEXTBOOK_PATH")))
+        self.textbook_path = os.getenv("TEXTBOOK_PATH")
         self.textbook_name = os.getenv("TEXTBOOK_NAME")
         self.textbook_extension = os.getenv("TEXTBOOK_TYPE")
 
         # 图片相关配置
-        self.image_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("IMAGE_PATH")))
+        self.image_path = os.getenv("IMAGE_PATH")
         self.image_name = os.getenv("IMAGE_NAME")
         self.image_extension = os.getenv("IMAGE_TYPE")
 
         # 文本输出相关
-        self.page_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("PAGE_PATH")))
+        self.page_path = os.getenv("PAGE_PATH")
         self.page_name = os.getenv("page_NAME")
         self.page_extension = os.getenv("page_TYPE")
 
@@ -72,11 +71,11 @@ class PDF2TextbookConverter:
                         continue
             image_indices.sort()
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:  # 可以调整 max_workers
+        with concurrent.futures.ThreadPoolExecutor(max_workers=len(cookies)) as executor:
             executor.map(self.process_image, image_indices)
 
         print("图片转文本完成!")
 
     def convert(self):
-        # self.pdf2images()
+        self.pdf2images()
         self.images2text()

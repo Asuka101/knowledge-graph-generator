@@ -1,0 +1,4 @@
+fitz
+py2neo
+openai
+jieba

@@ -9,4 +9,4 @@ sys.path.append(project_root)
 from src.main import main
 
 if __name__ == "__main__":
-    main()
+    main(chapter_pages=[18, 65, 111, 148, 195, 229, 266, 290, 322])

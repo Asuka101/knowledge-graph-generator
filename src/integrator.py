@@ -8,15 +8,14 @@ from src.libs.llm import KnowledgeProcessor
 class Integrator:
     def __init__(self):
         load_dotenv()
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.path = os.path.abspath(os.path.join(self.base_dir, os.getenv("DATA_PATH")))
+        self.path = os.getenv("DATA_PATH")
         self.chapter_name = os.getenv("CLEANED_NAME")
         self.data_name = os.getenv("DATA_NAME")
         self.filtered_data_name = os.getenv("FILTERED_DATA_NAME")
         self.data_type = os.getenv("DATA_TYPE")
 
         # 提示词配置及完整路径
-        self.prompt_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("PROMPT_PATH")))
+        self.prompt_path = os.getenv("PROMPT_PATH")
         self.prompt_name = os.getenv("PROMPT4INTEGRATOR_NAME")
         self.prompt_entities = os.getenv("PROMPT4INTEGRATOR_ENTITIES_NAME")
         self.prompt_relations = os.getenv("PROMPT4INTEGRATOR_RElATIONS_NAME")

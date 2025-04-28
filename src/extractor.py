@@ -7,19 +7,18 @@ import concurrent.futures  # 导入线程池模块
 class Extractor:
     def __init__(self):
         load_dotenv()  # 加载环境变量
-        self.base_dir = os.path.dirname(os.path.abspath(__file__))
 
-        # 待处理文本（已清理文本）配置及完整路径
-        self.source_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("CLEANED_PATH")))
+        # 待处理文本（已清理文本）配置及路径
+        self.source_path = os.getenv("CLEANED_PATH")
         self.source_filename = os.getenv("CLEANED_NAME")
         self.source_extension = os.getenv("CLEANED_TYPE")
 
-        # 抽取后数据（知识数据）配置及完整路径
-        self.target_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("DATA_PATH")))
+        # 抽取后数据（知识数据）配置及路径
+        self.target_path = os.getenv("DATA_PATH")
         self.target_filename = os.getenv("CLEANED_NAME")
 
-        # 提示词配置及完整路径
-        self.prompt_path = os.path.abspath(os.path.join(self.base_dir, os.getenv("PROMPT_PATH")))
+        # 提示词配置及路径
+        self.prompt_path = os.getenv("PROMPT_PATH")
         self.prompt_filename = os.getenv("PROMPT4EXTRACTOR_NAME")
         self.prompt_extension = os.getenv("PROMPT_TYPE")
 
