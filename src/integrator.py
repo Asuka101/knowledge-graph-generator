@@ -26,6 +26,9 @@ class Integrator:
         self.model = os.getenv("MODEL")
         self.base_url = os.getenv("BASE_URL")
 
+        # 初始化知识处理器和转换器
+        self.processor = None
+
     def load_prompt(self):
         # 加载提示词文件
         prompt_file = os.path.join(self.prompt_path, f"{self.prompt_name}{self.prompt_extension}")

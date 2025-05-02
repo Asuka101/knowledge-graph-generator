@@ -4,7 +4,7 @@ from src.cleaner import Cleaner
 from src.merger import ChapterMerger
 from src.extractor import Extractor
 from src.integrator import Integrator
-from src.importer import Importer
+from src.store import StoreManager
 from dotenv import load_dotenv
 import os
 
@@ -37,7 +37,7 @@ def main(chapter_pages):
         cleaner = Cleaner()
         extractor = Extractor()
         integrator = Integrator()
-        importer = Importer()
+        store = StoreManager()
 
         # 工作流
         converter.convert()
@@ -45,8 +45,9 @@ def main(chapter_pages):
         cleaner.clean()
         extractor.extract()
         integrator.integrate()
-        importer.import_data()
+        store.import_data()
+        store.convert()
         print("知识图谱构建完成！")
 
     except Exception as e:
-        print(f"知识图谱构建程序错误退出！")
+        print(f"知识图谱构建程序错误退出：{e}")

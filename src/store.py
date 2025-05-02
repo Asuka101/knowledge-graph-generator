@@ -1,9 +1,10 @@
-# Description: 数据导入器
+# Description: 数据存储器
 import os
 from dotenv import load_dotenv
+from src.libs.json2csv import JSONToCSVConverter
 from src.libs.json2neo import JSONToNeo4jImporter
 
-class Importer:
+class StoreManager:
     def __init__(self):
         load_dotenv()  # 加载环境变量
 
@@ -11,6 +12,9 @@ class Importer:
         self.source_path = os.getenv("DATA_PATH")
         self.source_filename = os.getenv("DATA_NAME")
         self.chapter_name = os.getenv("CLEANED_NAME")
+
+        # CSV 转换器配置
+        self.converter = JSONToCSVConverter()
 
         # Neo4j 配置（示例中部分参数固定，建议从环境变量读取）
         self.neo4j_url = os.getenv("NEO4J_URL")
@@ -21,6 +25,16 @@ class Importer:
             username=self.neo4j_username,
             password=self.neo4j_password
         )
+
+    def convert(self):
+        print("开始转换 JSON 数据为 CSV 格式...")
+        json_path = os.path.join(self.source_path, f"{self.source_filename}.json")
+        csv_path = os.path.join(self.source_path, f"{self.source_filename}.csv")
+        # 加载 JSON 数据
+        self.converter.load_json(json_path)
+        # 转换为 CSV 格式
+        self.converter.convert(csv_path)
+        print("转换完成！")
 
     def import_data(self):
         print("开始导入数据到 Neo4j...")
