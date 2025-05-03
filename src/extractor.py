@@ -11,7 +11,7 @@ class Extractor:
         self.source_extension = os.getenv("CLEANED_TYPE")
 
         # 抽取后数据（知识数据）配置及路径
-        self.target_path = os.getenv("DATA_PATH")
+        self.target_path = os.getenv("CHAPTER_DATA_PATH")
         self.target_filename = os.getenv("CLEANED_NAME")
 
         # 提示词配置及路径

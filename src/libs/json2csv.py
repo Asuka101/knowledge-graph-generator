@@ -6,7 +6,6 @@ class JSONToCSVConverter:
         self.json = None
         self.entites = None
         self.relations = None
-        self.data = None
 
     def load_json(self, json_path):
         try:
@@ -33,16 +32,9 @@ class JSONToCSVConverter:
                 row = {
                     "实体类型": entity["type"],
                     "ID": entity["ID"],
-                    "名称": entity["name"],
-                    "难度": entity["attributes"].get("难度", None),
-                    "内容": entity["attributes"].get("内容", None),
-                    "存储开销": entity["attributes"].get("存储开销", None),
-                    "核心特性": entity["attributes"].get("核心特性", None),
-                    "时间复杂度": entity["attributes"].get("时间复杂度", None),
-                    "空间复杂度": entity["attributes"].get("空间复杂度", None),
-                    "设计思想": entity["attributes"].get("设计思想", None),
-                    "适用场景": entity["attributes"].get("适用场景", None),
+                    "名称": entity["name"]
                 }
+                row.update(entity.get("attributes", {}))
                 entities_data.append(row)
             self.entities = pd.DataFrame(entities_data, columns=entities_fields)
         except KeyError as e:
@@ -71,31 +63,20 @@ class JSONToCSVConverter:
             print(f"转换关系数据时发生错误: {e}")
             raise
 
-    def merge(self):
-        try:
-            # 添加记录类型标识
-            self.entities["记录类型"] = "实体"
-            self.relations["记录类型"] = "关系"
 
-            # 合并所有列（缺失值填充为NaN）
-            self.data = pd.concat([self.entities, self.relations], ignore_index=True, sort=False)
-
-            # 调整RecordType为首列
-            cols = ["记录类型"] + [col for col in self.data.columns if col != "记录类型"]
-            self.data = self.data[cols]
-        except Exception as e:
-            print(f"合并CSV数据时发生错误: {e}")
-            raise
-
-
-    def convert(self, csv_path):
+    def convert(self, entities_path, relations_path):
         # 导出实体和关系到csv（临时文件或指定路径）
         self.convert_entities()
         self.convert_relations()
-        # 合并并保存
-        self.merge()
+        # 构建ID到名称的映射字典
+        if "ID" in self.entities.columns and "名称" in self.entities.columns:
+            id_name_map = self.entities.set_index("ID")["名称"].to_dict()
+            # 用map直接映射并拼接
+            for col in ["源实体", "目标实体"]:
+                self.relations[col] = self.relations[col].map(id_name_map)
         try:
-            self.data.to_csv(csv_path, index=False, encoding="utf-8")
+            self.entities.to_csv(entities_path, index=False, encoding="utf-8")
+            self.relations.to_csv(relations_path, index=False, encoding="utf-8")
         except Exception as e:
             print(f"保存 CSV 文件时发生错误: {e}")
             raise

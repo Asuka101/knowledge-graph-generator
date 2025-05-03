@@ -6,11 +6,11 @@ from src.libs.llm import KnowledgeProcessor
 
 class Integrator:
     def __init__(self):
-        self.path = os.getenv("DATA_PATH")
+        self.data_path = os.getenv("DATA_PATH")
+        self.chapter_data_path = os.getenv("CHAPTER_DATA_PATH")
         self.chapter_name = os.getenv("CLEANED_NAME")
         self.data_name = os.getenv("DATA_NAME")
         self.filtered_data_name = os.getenv("FILTERED_DATA_NAME")
-        self.data_type = os.getenv("DATA_TYPE")
 
         # 提示词配置及完整路径
         self.prompt_path = os.getenv("PROMPT_PATH")
@@ -39,13 +39,13 @@ class Integrator:
         # 合并知识抽取结果
         data = {"entities": [], "relations": []}
         filtered_data = {"entities": [], "relations": []}
-        data_file = os.path.join(self.path, f"{self.data_name}.json")
-        filtered_data_file = os.path.join(self.path, f"{self.filtered_data_name}.json")
+        data_file = os.path.join(self.data_path, f"{self.data_name}.json")
+        filtered_data_file = os.path.join(self.data_path, f"{self.filtered_data_name}.json")
 
         # 遍历并合并目录中的所有 JSON 文件
-        for filename in os.listdir(self.path):
+        for filename in os.listdir(self.chapter_data_path):
             if filename.endswith(".json") and filename.split("_")[0] == self.chapter_name:
-                file_path = os.path.join(self.path, filename)
+                file_path = os.path.join(self.chapter_data_path, filename)
                 with open(file_path, "r", encoding="utf-8") as file:
                     chapter = json.load(file)
                     if "entities" in data:
@@ -97,7 +97,7 @@ class Integrator:
                 new_entities.append(entity)
                 id_mapping[entity["ID"]] = entity["ID"]  # 映射到自身
         
-        # 第二步：更新关系中的实体ID
+        # 第二步：更新关系中的ID
         new_relations = []
         for relation in data["relations"]:
             # 创建关系的副本
@@ -169,8 +169,8 @@ class Integrator:
         # 初始化知识处理器
         self.processor = KnowledgeProcessor(api_key=self.api_key, model=self.model, base_url=self.base_url)
         self.load_prompt()
-        source = os.path.join(self.path, f"{self.filtered_data_name}.json")
-        target = os.path.join(self.path, f"{self.data_name}.json")
+        source = os.path.join(self.data_path, f"{self.filtered_data_name}.json")
+        target = os.path.join(self.data_path, f"{self.data_name}.json")
         
         # 读取用于知识融合的数据
         with open(source, "r", encoding="utf-8") as f:

@@ -33,7 +33,7 @@ class JSONToNeo4jImporter:
         # 导入数据到 Neo4j
         try:
             for entity in data["entities"]:
-                node = Node(entity["type"], ID=entity["ID"], 名称=entity["name"], **entity["attributes"],
+                node = Node(entity["type"], ID=entity["ID"], name=entity["name"], **entity["attributes"],
                             教学视频="未知", 教学材料="未知", 思政点="未知")
                 self.graph.create(node)
             for relation in data["relations"]:
