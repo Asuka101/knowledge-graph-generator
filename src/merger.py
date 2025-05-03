@@ -1,8 +1,5 @@
 # Description: 按章节合并教材文本
 import os
-from dotenv import load_dotenv
-
-load_dotenv()  # 加载环境变量
 
 class ChapterMerger:
     def __init__(self, chapter_pages):

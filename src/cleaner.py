@@ -1,12 +1,9 @@
 # description: 数据清理器
 import os
-from dotenv import load_dotenv
 from src.libs.preprocessor import Preprocessor
 
 class Cleaner:
     def __init__(self):
-        load_dotenv()  # 加载环境变量
-
         # 原始数据配置及完整路径
         self.source_path = os.getenv("CHAPTER_PATH")
         self.source_filename = os.getenv("CHAPTER_NAME")
@@ -53,7 +50,9 @@ class Cleaner:
                     file.write(text)
                 print(f"[{head}]：文本已清理!")
             except FileNotFoundError:
-                print(f"文件 {file_name} 未找到，跳过。")
+                print(f"文件 {file_name} 未找到!")
+                raise
             except Exception as e:
                 print(f"处理文件 {file_name} 时出错: {e}")
+                raise
         print("文本清理完成!")

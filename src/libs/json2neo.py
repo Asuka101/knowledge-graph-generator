@@ -8,6 +8,7 @@ class JSONToNeo4jImporter:
         self.username = username # 用户名
         self.password = password # 密码
 
+    def import_data(self, json_filepath):
         # 连接 Neo4j 数据库
         try:
             self.graph = Graph(self.neo4j_url, auth=(self.username, self.password))
@@ -15,34 +16,34 @@ class JSONToNeo4jImporter:
             print(f"连接 Neo4j 数据库失败: {e}")
             raise
 
-    def import_data(self, json_filepath):
         # 读取 JSON 文件
         try:
             with open(json_filepath, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
             print(f"文件未找到: {json_filepath}")
-            return False
+            raise
         except json.JSONDecodeError:
             print(f"JSON 解码失败！")
-            return False
+            raise
         except Exception as e:
             print(f"读取 JSON 文件失败: {e}")
-            return False
+            raise
         
         # 导入数据到 Neo4j
         try:
             for entity in data["entities"]:
-                node = Node(entity["type"], id=entity["ID"], name=entity["name"], **entity["attributes"])
+                node = Node(entity["type"], ID=entity["ID"], 名称=entity["name"], **entity["attributes"],
+                            教学视频="未知", 教学材料="未知", 思政点="未知")
                 self.graph.create(node)
             for relation in data["relations"]:
-                source_node = self.graph.nodes.match(id=relation["source"]).first()
-                target_node = self.graph.nodes.match(id=relation["target"]).first()
+                source_node = self.graph.nodes.match(ID=relation["source"]).first()
+                target_node = self.graph.nodes.match(ID=relation["target"]).first()
                 if source_node and target_node:
                     rel = Relationship(source_node, relation["type"], target_node)
                     self.graph.create(rel)
             print(f"数据已成功导入到 Neo4j！")
-            return True
+   
         except Exception as e:
             print(f"导入数据到 Neo4j 失败: {e}")
-            return False
+            raise

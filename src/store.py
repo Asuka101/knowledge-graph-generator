@@ -1,13 +1,10 @@
 # Description: 数据存储器
 import os
-from dotenv import load_dotenv
 from src.libs.json2csv import JSONToCSVConverter
 from src.libs.json2neo import JSONToNeo4jImporter
 
 class StoreManager:
     def __init__(self):
-        load_dotenv()  # 加载环境变量
-
         # 汇总数据文件配置及完整路径（待导入的 JSON 文件）
         self.source_path = os.getenv("DATA_PATH")
         self.source_filename = os.getenv("DATA_NAME")

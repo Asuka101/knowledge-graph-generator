@@ -5,13 +5,10 @@ from src.merger import ChapterMerger
 from src.extractor import Extractor
 from src.integrator import Integrator
 from src.store import StoreManager
-from dotenv import load_dotenv
 import os
 
 def main(chapter_pages):
     print("知识图谱构建程序启动成功！")
-    
-    load_dotenv()
 
     # 初始化教材目录
     textbook_path = os.getenv("TEXTBOOK_PATH")
@@ -30,24 +27,20 @@ def main(chapter_pages):
     if not os.path.exists(cleaned_path):
         os.makedirs(cleaned_path)
     
-    try:
-        # 模块初始化
-        converter = PDF2TextbookConverter()
-        merger = ChapterMerger(chapter_pages=chapter_pages)
-        cleaner = Cleaner()
-        extractor = Extractor()
-        integrator = Integrator()
-        store = StoreManager()
+    # 模块初始化
+    converter = PDF2TextbookConverter()
+    merger = ChapterMerger(chapter_pages=chapter_pages)
+    cleaner = Cleaner()
+    extractor = Extractor()
+    integrator = Integrator()
+    store = StoreManager()
 
-        # 工作流
-        converter.convert()
-        merger.process_chapters()
-        cleaner.clean()
-        extractor.extract()
-        integrator.integrate()
-        store.import_data()
-        store.convert()
-        print("知识图谱构建完成！")
-
-    except Exception as e:
-        print(f"知识图谱构建程序错误退出：{e}")
+    # 工作流
+    converter.convert()
+    merger.process_chapters()
+    cleaner.clean()
+    extractor.extract()
+    integrator.integrate()
+    store.import_data()
+    store.convert()
+    print("程序已退出！")

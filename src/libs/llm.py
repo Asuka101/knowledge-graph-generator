@@ -24,7 +24,6 @@ class KnowledgeProcessor:
 
     # 发送消息
     def send_message(self, content, client):
-
         if self.prompt is None:
             raise ValueError("提示词尚未加载请重试")
         response = client.chat.completions.create(

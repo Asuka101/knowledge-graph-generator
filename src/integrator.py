@@ -2,12 +2,10 @@
 import os
 import json
 from collections import defaultdict, deque
-from dotenv import load_dotenv
 from src.libs.llm import KnowledgeProcessor
 
 class Integrator:
     def __init__(self):
-        load_dotenv()
         self.path = os.getenv("DATA_PATH")
         self.chapter_name = os.getenv("CLEANED_NAME")
         self.data_name = os.getenv("DATA_NAME")

@@ -2,14 +2,11 @@
 import os
 import fitz  # PyMuPDF
 import base64
-from dotenv import load_dotenv
 from src.libs.ocr import recognize_image, cookies
 import concurrent.futures
 
 class PDF2TextbookConverter:
     def __init__(self):
-        load_dotenv()
-
         # PDF 相关配置
         self.textbook_path = os.getenv("TEXTBOOK_PATH")
         self.textbook_name = os.getenv("TEXTBOOK_NAME")

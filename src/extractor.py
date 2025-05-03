@@ -1,13 +1,10 @@
 # Description: 知识抽取器
 import os
-from dotenv import load_dotenv
 from src.libs.llm import KnowledgeProcessor
 import concurrent.futures  # 导入线程池模块
 
 class Extractor:
     def __init__(self):
-        load_dotenv()  # 加载环境变量
-
         # 待处理文本（已清理文本）配置及路径
         self.source_path = os.getenv("CLEANED_PATH")
         self.source_filename = os.getenv("CLEANED_NAME")
