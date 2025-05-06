@@ -42,7 +42,7 @@ class KnowledgeProcessor:
                 self.prompt = prompt
             print(f"提示词加载成功!")
         except Exception as e:
-            print(f"加载提示词失败: {e}")
+            print(f"加载提示词异常: {e}")
             raise
 
     # 设置生成参数
@@ -73,7 +73,7 @@ class KnowledgeProcessor:
                     f.write(response_text)
             print(f"[{head}]：知识抽取成功!")
         except Exception as e:
-            print(f"[{head}]:知识抽取失败: {e}")
+            print(f"[{head}]：知识抽取异常: {e}")
             raise
 
     # 知识融合
@@ -90,7 +90,7 @@ class KnowledgeProcessor:
                     f.write(response_text)
             print(f"知识融合成功!")
         except Exception as e:
-            print(f"知识融合失败: {e}")
+            print(f"知识融合异常: {e}")
             raise
 
     # 保证结果格式正确
